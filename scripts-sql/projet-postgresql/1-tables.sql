@@ -88,7 +88,7 @@ CREATE TABLE Equipe(
 	Categorie            VARCHAR (2) NOT NULL CHECK (Categorie SIMILAR TO '(H|F|M)(A|N)'  ),
 	Id_Parcours          INT  NOT NULL ,
 	Id_Capitaine         INT  NOT NULL UNIQUE CHECK(Id_Capitaine NOT IN (SELECT Id_Equipier FROM Equipe)),
-	Id_Equipier  		 INT UNIQUE CHECK(Id_Equipier NOT IN (SELECT Id_Capitaine FROM Equipe)),
+	Id_Equipier  		 INT NOT NULL UNIQUE CHECK(Id_Equipier NOT IN (SELECT Id_Capitaine FROM Equipe)),
 	CONSTRAINT Equipe_PK PRIMARY KEY (Id),
 	CONSTRAINT Equipe_Parcours_FK FOREIGN KEY (Id_Parcours) REFERENCES Parcours(Id),
 	CONSTRAINT Equipe_Participant1_FK FOREIGN KEY (Id_Capitaine) REFERENCES Participant(id),
