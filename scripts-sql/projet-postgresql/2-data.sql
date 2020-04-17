@@ -33,11 +33,11 @@ INSERT INTO Club (Nom) VALUES
 ------------------------------------------------------------
 
 INSERT INTO Personne (Nom,Prenom,DateNaissance,Tel,Mail,Adresse) VALUES 
-  ('test1','testa',DATE '05-07-1999','0432587891','a@b.fr','aa'),
-  ('test2','teste',DATE '09-25-2009','0423588791','c@d.fr','bb'),
-  ('test3','testi',DATE '04-19-2000','0342578819','d@f.fr','cc'),
-  ('test4','testo',DATE '01-30-1960','0342578819','e@f.fr','dd'),
-  ('test5','tesu',DATE '05-18-1999','0324587819','f@f.fr','ee');
+  ('test1','testa',DATE '1999-07-20','0432587891','a@b.fr','aa'),
+  ('test2','teste',DATE '2009-09-25','0423588791','c@d.fr','bb'),
+  ('test3','testi',DATE '2000-04-19','0342578819','d@f.fr','cc'),
+  ('test4','testo',DATE '1960-01-30','0342578819','e@f.fr','dd'),
+  ('test5','tesu',DATE '1999-05-18','0324587819','f@f.fr','ee');
 
 
 ------------------------------------------------------------
