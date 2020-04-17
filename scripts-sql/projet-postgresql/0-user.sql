@@ -4,7 +4,6 @@
 
 DROP SCHEMA IF EXISTS projet CASCADE;
 
-
 -- Crée l'utilisateur projet
 -- (après l'avoir supprimé au préalable s'il existait déjà)
 
@@ -19,5 +18,5 @@ END
 $code$;
 
 CREATE USER projet WITH PASSWORD 'projet';
-GRANT CREATE ON DATABASE postgres TO projet;
+CREATE SCHEMA  AUTHORIZATION projet;
 

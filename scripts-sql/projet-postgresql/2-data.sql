@@ -2,101 +2,132 @@ SET search_path TO projet;
 
 
 -- Supprimer toutes les données
-DELETE FROM service;
-DELETE FROM concerner;
-DELETE FROM memo;
-DELETE FROM telephone;
-DELETE FROM personne;
-DELETE FROM categorie;
-DELETE FROM role;
-DELETE FROM compte;
+DELETE FROM club;
+DELETE FROM Personne;
+DELETE FROM Utilisateur;
+DELETE FROM Participant;
+DELETE FROM Benevole;
+DELETE FROM Administrateurs;
+DELETE FROM Equipe;
+DELETE FROM Parcours;
+DELETE FROM Balise;
+DELETE FROM Permis_de_Conduire;
+DELETE FROM Poste;
+DELETE FROM est_composee;
+DELETE FROM a_poste;
+DELETE FROM est_assignee;
 
 
--- Compte
-
-INSERT INTO compte (idcompte, pseudo, motdepasse, email ) VALUES 
-  (1, 'geek', 'geek', 'geek@3il.fr' ),
-  (2, 'chef', 'chef', 'chef@3il.fr' ),
-  (3, 'job', 'job', 'job@3il.fr' );
-
-ALTER TABLE compte ALTER COLUMN idcompte RESTART WITH 4;
-
-
--- Role
-
-INSERT INTO role (idcompte, role) VALUES 
-  ( 1, 'ADMINISTRATEUR' ),
-  ( 1, 'UTILISATEUR' ),
-  ( 2, 'UTILISATEUR' ),
-  ( 3, 'UTILISATEUR' );
+------------------------------------------------------------
+-- Table: Club
+------------------------------------------------------------
+INSERT INTO Club (Nom) VALUES 
+  ('club nautique'),
+  ('club equitation'),
+  ('club aviation'),
+  ('club noyade');
 
 
--- Categorie
+------------------------------------------------------------
+-- Table: Personne
+------------------------------------------------------------
+
+INSERT INTO Personne (Nom,Prenom,DateNaissance,Tel,Mail,Adresse) VALUES 
+  ('test1','testa',DATE '05-07-1999','0432587891','a@b.fr','aa'),
+  ('test2','teste',DATE '09-25-2009','0423588791','c@d.fr','bb'),
+  ('test3','testi',DATE '04-19-2000','0342578819','d@f.fr','cc'),
+  ('test4','testo',DATE '01-30-1960','0342578819','e@f.fr','dd'),
+  ('test5','tesu',DATE '05-18-1999','0324587819','f@f.fr','ee');
+
+
+------------------------------------------------------------
+-- Table: Utilisateur
+------------------------------------------------------------
+INSERT INTO Utilisateur (login,password,id) VALUES 
+  ('machin','lol',1),
+  ('truc','test',2),
+  ('muche','tset',3),
+  ('et','tet',4),
+  ('personne','dt',5);
   
-INSERT INTO categorie (idcategorie, libelle ) VALUES 
-  (1, 'Employés' ),
-  (2, 'Partenaires' ),
-  (3, 'Clients' ),
-  (4, 'Fournisseurs' ),
-  (5, 'Dirigeants' );
+------------------------------------------------------------
+-- Table: Participant
+------------------------------------------------------------
+INSERT INTO Participant (id,Autorisation_medicale,Autorisation_parentale,id_Equipe,Id_Club) VALUES 
+  (1,FALSE,FALSE,1,3),
+  (2,TRUE,FALSE,1,2);
+  
+------------------------------------------------------------
+-- Table: Benevole
+------------------------------------------------------------
 
-ALTER TABLE categorie ALTER COLUMN idcategorie RESTART WITH 6;
+INSERT INTO Benevole (id) VALUES 
+	(3),
+	(5);
 
+------------------------------------------------------------
+-- Table: Administrateurs
+------------------------------------------------------------
 
--- Personne
+INSERT INTO Administrateurs (id) VALUES 
+ (4);
 
-INSERT INTO personne (idpersonne, idcategorie, nom, prenom) VALUES 
-  ( 1, 1, 'GRASSET', 'Jérôme' ),
-  ( 2, 1, 'BOUBY', 'Claude' ),
-  ( 3, 1, 'AMBLARD', 'Emmanuel' );
+------------------------------------------------------------
+-- Table: Parcours
+------------------------------------------------------------
 
-ALTER TABLE personne ALTER COLUMN idpersonne RESTART WITH 4;
+INSERT INTO Parcours(Date_depart) VALUES 
+	(TIMESTAMP '2020-06-30 04:05:06');
 
+------------------------------------------------------------
+-- Table: Equipe
+------------------------------------------------------------
 
--- Telephone
+INSERT INTO Equipe (Payement,Nbr_repas,Categorie,Id_Parcours,Id_Capitaine,Id_Equipier) VALUES
+(TRUE,1,'HA',1,2,1);
 
-INSERT INTO telephone (idtelephone, idpersonne, libelle, numero ) VALUES 
-  ( 11, 1, 'Portable', '06 11 11 11 11' ),
-  ( 12, 1, 'Fax', '05 55 99 11 11' ),
-  ( 13, 1, 'Bureau', '05 55 11 11 11' ),
-  ( 21, 2, 'Portable', '06 22 22 22 22' ),
-  ( 22, 2, 'Fax', '05 55 99 22 22' ),
-  ( 23, 2, 'Bureau', '05 55 22 22 22' ),
-  ( 31, 3, 'Portable', '06 33 33 33 33' ),
-  ( 32, 3, 'Fax', '05 55 99 33 33' ),
-  ( 33, 3, 'Bureau', '05 55 33 33 33' );
+------------------------------------------------------------
+-- Table: Balise
+------------------------------------------------------------
 
-ALTER TABLE telephone ALTER COLUMN idtelephone RESTART WITH 100;
+INSERT INTO Balise VALUES
+(1,10.0,15.0),
+(2,15.0,10.0);
 
+------------------------------------------------------------
+-- Table: Permis de Conduire
+------------------------------------------------------------
 
--- Memo
+--INSERT INTO Permis_de_Conduire VALUES;
 
-INSERT INTO memo (idmemo, titre, description, flagurgent, statut, effectif, budget, echeance, idcategorie ) VALUES 
-  ( 1, 'Mémo n°1', 'Texte du mémo n°1', TRUE,  2,   2,   1234.56,   {d  '2020-02-25' }, 1 ),
-  ( 2, 'Mémo n°2', 'Texte du mémo n°2', FALSE, 1,   4,   5000.00,   {d  '2020-05-18' }, 2 ),
-  ( 3, 'Mémo n°3', NULL, TRUE, 0, NULL, NULL, NULL, NULL );
+------------------------------------------------------------
+-- Table: Poste
+------------------------------------------------------------
 
-ALTER TABLE memo ALTER COLUMN idmemo RESTART WITH 4;
+INSERT INTO Poste VALUES
+('Signaleur','ME',37,TIMESTAMP '2020-06-30 08:30:00',TIMESTAMP '2020-06-30 13:30:00');
 
+------------------------------------------------------------
+-- Table: est composee
+------------------------------------------------------------
 
--- Concerner
+INSERT INTO est_composee VALUES 
+(1,1),
+(2,1);
 
-INSERT INTO concerner (idmemo, idPersonne) VALUES 
-  ( 1, 1 ),
-  ( 1, 2 ),
-  ( 1, 3 ),
-  ( 2, 1 ),
-  ( 2, 2 );
+------------------------------------------------------------
+-- Table: a poste
+------------------------------------------------------------
 
+INSERT INTO a_poste VALUES 
+('Signaleur',3),
+('Signaleur',5);
 
--- Service
+------------------------------------------------------------
+-- Table: est assignée
+------------------------------------------------------------
 
-INSERT INTO service ( idservice, nom, anneecreation, flagsiege ) VALUES 
-  ( 1, 'Direction', 2007, TRUE ),
-  ( 2, 'Comptabilité', NULL, TRUE ),
-  ( 3, 'Agence Limoges', 2008, FALSE ),
-  ( 4, 'Agence Brive', 2014, FALSE );
-
-
-ALTER TABLE service ALTER COLUMN idservice RESTART WITH 5;
+INSERT INTO est_assignee VALUES
+(3,1),
+(5,2);
 

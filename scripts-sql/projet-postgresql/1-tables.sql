@@ -21,7 +21,7 @@ CREATE TABLE Personne(
 	id              SERIAL NOT NULL ,
 	Nom             VARCHAR (50) NOT NULL ,
 	Prenom          VARCHAR (50) NOT NULL ,
-	DateNaissance   DATE  NOT NULL CHECK (DateNaissance > DATE '30-06-1919' ),
+	DateNaissance   DATE  NOT NULL CHECK (DateNaissance > DATE '06-30-1919' ),
 	Tel             VARCHAR (10) NOT NULL CHECK (Tel SIMILAR TO '(0|1|2|3|4|5|6|7|8|9){10}') ,
 	Mail            VARCHAR (50) NOT NULL CHECK ( Mail LIKE '%@%.%') , 
 	Adresse         VARCHAR (50) NOT NULL ,
@@ -52,7 +52,6 @@ CREATE TABLE Participant(
 	id_Equipe                INT  NOT NULL,
 	Id_Club                  INT,
 	CONSTRAINT Participant_PK PRIMARY KEY (id) ,
-	CONSTRAINT Participant_AK UNIQUE (id_Equipe),
 	CONSTRAINT Participant_Personne_FK FOREIGN KEY (id) REFERENCES Personne(id),
 	CONSTRAINT Participant_Club_FK FOREIGN KEY (Id_Club) REFERENCES Club(Id)
 )WITHOUT OIDS;
@@ -79,6 +78,16 @@ CREATE TABLE Administrateurs(
 
 
 ------------------------------------------------------------
+-- Table: Parcours
+------------------------------------------------------------
+CREATE TABLE Parcours(
+	Id            SERIAL NOT NULL ,
+	Date_depart   TIMESTAMP  NOT NULL  ,
+	CONSTRAINT Parcours_PK PRIMARY KEY (Id)
+)WITHOUT OIDS;
+
+
+------------------------------------------------------------
 -- Table: Equipe
 ------------------------------------------------------------
 CREATE TABLE Equipe(
@@ -87,22 +96,16 @@ CREATE TABLE Equipe(
 	Nbr_repas            INT  NOT NULL CHECK (nbr_repas > 0),
 	Categorie            VARCHAR (2) NOT NULL CHECK (Categorie SIMILAR TO '(H|F|M)(A|N)'  ),
 	Id_Parcours          INT  NOT NULL ,
-	Id_Capitaine         INT  NOT NULL UNIQUE CHECK(Id_Capitaine NOT IN (SELECT Id_Equipier FROM Equipe)),
-	Id_Equipier  		 INT NOT NULL UNIQUE CHECK(Id_Equipier NOT IN (SELECT Id_Capitaine FROM Equipe)),
+	Id_Capitaine         INT  NOT NULL UNIQUE,
+	Id_Equipier  		 INT NOT NULL UNIQUE,
 	CONSTRAINT Equipe_PK PRIMARY KEY (Id),
 	CONSTRAINT Equipe_Parcours_FK FOREIGN KEY (Id_Parcours) REFERENCES Parcours(Id),
 	CONSTRAINT Equipe_Participant1_FK FOREIGN KEY (Id_Capitaine) REFERENCES Participant(id),
 	CONSTRAINT Equipe_Participant2_FK FOREIGN KEY (Id_Equipier) REFERENCES Participant(id),
-)WITHOUT OIDS;
-
-
-------------------------------------------------------------
--- Table: Parcours
-------------------------------------------------------------
-CREATE TABLE Parcours(
-	Id            SERIAL NOT NULL ,
-	Date_depart   TIMESTAMP  NOT NULL  ,
-	CONSTRAINT Parcours_PK PRIMARY KEY (Id)
+	CONSTRAINT ck_doublon_participant CHECK
+  (
+    (Id_Capitaine != Id_Equipier)AND(Id_Equipier != Id_Capitaine)
+  )
 )WITHOUT OIDS;
 
 
@@ -139,7 +142,8 @@ CREATE TABLE Poste(
 	Types_benevoles      VARCHAR (2) NOT NULL CHECK (Types_benevoles SIMILAR TO '(M|N)(E|N)'),
 	nombre_benevole      INT  NOT NULL ,
 	debut_intervention   TIMESTAMP  NOT NULL ,
-	fin_intervention     TIMESTAMP  NOT NULL CHECK(debut_intervention<fin_intervention),
+	fin_intervention     TIMESTAMP  NOT NULL,
+	CONSTRAINT check_tmp_intervention_positif CHECK(debut_intervention<fin_intervention),
 	CONSTRAINT Poste_PK PRIMARY KEY (nom_poste)
 )WITHOUT OIDS;
 
@@ -148,11 +152,11 @@ CREATE TABLE Poste(
 -- Table: est composee
 ------------------------------------------------------------
 CREATE TABLE est_composee(
-	Id            INT  NOT NULL ,
+	Id_Balises            INT  NOT NULL ,
 	Id_Parcours   INT  NOT NULL  ,
-	CONSTRAINT est_composee_PK PRIMARY KEY (Id,Id_Parcours),
-	CONSTRAINT est_composee_Balise_FK FOREIGN KEY (Id) REFERENCES public.Balise(Id),
-	CONSTRAINT est_composee_Parcours0_FK FOREIGN KEY (Id_Parcours) REFERENCES public.Parcours(Id)
+	CONSTRAINT est_composee_PK PRIMARY KEY (Id_Balises,Id_Parcours),
+	CONSTRAINT est_composee_Balise_FK FOREIGN KEY (Id_Balises) REFERENCES Balise(Id),
+	CONSTRAINT est_composee_Parcours0_FK FOREIGN KEY (Id_Parcours) REFERENCES Parcours(Id)
 )WITHOUT OIDS;
 
 
@@ -163,8 +167,8 @@ CREATE TABLE a_poste(
 	nom_poste   VARCHAR (50) NOT NULL ,
 	id          INT  NOT NULL  ,
 	CONSTRAINT a_poste_PK PRIMARY KEY (nom_poste,id),
-	CONSTRAINT a_poste_Poste_FK FOREIGN KEY (nom_poste) REFERENCES public.Poste(nom_poste),
-	CONSTRAINT a_poste_Benevole0_FK FOREIGN KEY (id) REFERENCES public.Benevole(id)
+	CONSTRAINT a_poste_Poste_FK FOREIGN KEY (nom_poste) REFERENCES Poste(nom_poste),
+	CONSTRAINT a_poste_Benevole0_FK FOREIGN KEY (id) REFERENCES Benevole(id)
 )WITHOUT OIDS;
 
 
@@ -175,7 +179,7 @@ CREATE TABLE est_assignee(
 	id          INT  NOT NULL ,
 	Id_Balise   INT  NOT NULL  ,
 	CONSTRAINT est_assignee_PK PRIMARY KEY (id,Id_Balise),
-	CONSTRAINT est_assignee_Benevole_FK FOREIGN KEY (id) REFERENCES public.Benevole(id),
-	CONSTRAINT est_assignee_Balise0_FK FOREIGN KEY (Id_Balise) REFERENCES public.Balise(Id)
+	CONSTRAINT est_assignee_Benevole_FK FOREIGN KEY (id) REFERENCES Benevole(id),
+	CONSTRAINT est_assignee_Balise0_FK FOREIGN KEY (Id_Balise) REFERENCES Balise(Id)
 )WITHOUT OIDS;
 
