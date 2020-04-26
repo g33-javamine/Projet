@@ -21,7 +21,7 @@ CREATE TABLE Personne(
 	id              SERIAL NOT NULL ,
 	Nom             VARCHAR (50) NOT NULL ,
 	Prenom          VARCHAR (50) NOT NULL ,
-	DateNaissance   DATE  NOT NULL CHECK (DateNaissance > DATE '06-30-1919' ),
+	DateNaissance   DATE  NOT NULL CHECK (DateNaissance > DATE '30-06-1919' ),
 	Tel             VARCHAR (10) NOT NULL CHECK (Tel SIMILAR TO '(0|1|2|3|4|5|6|7|8|9){10}') ,
 	Mail            VARCHAR (50) NOT NULL CHECK ( Mail LIKE '%@%.%') , 
 	Adresse         VARCHAR (50) NOT NULL ,
@@ -92,7 +92,7 @@ CREATE TABLE Parcours(
 ------------------------------------------------------------
 CREATE TABLE Equipe(
 	Id                   SERIAL NOT NULL ,
-	Payement             BOOL  NOT NULL ,
+	Paiement             BOOL  NOT NULL ,
 	Nbr_repas            INT  NOT NULL CHECK (nbr_repas > 0),
 	Categorie            VARCHAR (2) NOT NULL CHECK (Categorie SIMILAR TO '(H|F|M)(A|N)'  ),
 	Id_Parcours          INT  NOT NULL ,

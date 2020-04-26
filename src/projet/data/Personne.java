@@ -1,5 +1,6 @@
 package projet.data;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 import javafx.beans.Observable;
@@ -18,22 +19,27 @@ public class Personne {
 	private final Property<Integer>		id			= new SimpleObjectProperty<>();
 	private final StringProperty		nom	 		= new SimpleStringProperty();
 	private final StringProperty		prenom		= new SimpleStringProperty();
-	private final Property<Categorie>	categorie	= new SimpleObjectProperty<>();
-	private final ObservableList<Telephone>	telephones	= FXCollections.observableArrayList(
-			t ->  new Observable[] { t.libelleProperty(), t.numeroProperty() } 
-		);
+	private final Property<LocalDate>	dateNaissance	= new SimpleObjectProperty<>();
+	private final StringProperty		tel		= new SimpleStringProperty();
+	private final StringProperty		mail	 		= new SimpleStringProperty();
+	private final StringProperty		adresse		= new SimpleStringProperty();
 	
+
 	
 	// Constructeurs
 	
 	public Personne() {
 	}
 	
-	public Personne( int id, String nom, String prenom, Categorie categorie ) {
+	public Personne( int id, String nom, String prenom, LocalDate dateNaissance, String tel, String mail, String adresse ) {
 		setId(id);
 		setNom(nom);
 		setPrenom(prenom);
-		setCategorie(categorie);
+		setDateNaissance(dateNaissance);
+		setTel(tel)	;	
+		setMail(mail);	 		
+		setAdresse(adresse);		
+		
 	}
 	
 	
@@ -42,55 +48,107 @@ public class Personne {
 	public final Property<Integer> idProperty() {
 		return this.id;
 	}
+	
 
 	public final Integer getId() {
 		return this.idProperty().getValue();
 	}
+	
 
 	public final void setId(final Integer id) {
 		this.idProperty().setValue(id);
 	}
 	
+
 	public final StringProperty nomProperty() {
 		return this.nom;
 	}
 	
-	public final java.lang.String getNom() {
-		return this.nomProperty().getValue();
+
+	public final String getNom() {
+		return this.nomProperty().get();
 	}
 	
-	public final void setNom(final java.lang.String nom) {
-		this.nomProperty().setValue(nom);
+
+	public final void setNom(final String nom) {
+		this.nomProperty().set(nom);
 	}
 	
+
 	public final StringProperty prenomProperty() {
 		return this.prenom;
 	}
 	
-	public final java.lang.String getPrenom() {
-		return this.prenomProperty().getValue();
+
+	public final String getPrenom() {
+		return this.prenomProperty().get();
 	}
 	
-	public final void setPrenom(final java.lang.String prenom) {
-		this.prenomProperty().setValue(prenom);
-	}
 
-	public final Property<Categorie> categorieProperty() {
-		return this.categorie;
+	public final void setPrenom(final String prenom) {
+		this.prenomProperty().set(prenom);
 	}
+	
 
-	public final projet.data.Categorie getCategorie() {
-		return this.categorieProperty().getValue();
+	public final Property<LocalDate> dateNaissanceProperty() {
+		return this.dateNaissance;
 	}
+	
 
-	public final void setCategorie(final projet.data.Categorie categorie) {
-		this.categorieProperty().setValue(categorie);
+	public final LocalDate getDateNaissance() {
+		return this.dateNaissanceProperty().getValue();
 	}
+	
 
-	public ObservableList<Telephone> getTelephones() {
-		return telephones;
+	public final void setDateNaissance(final LocalDate dateNaissance) {
+		this.dateNaissanceProperty().setValue(dateNaissance);
 	}
+	
 
+	public final StringProperty telProperty() {
+		return this.tel;
+	}
+	
+
+	public final String getTel() {
+		return this.telProperty().get();
+	}
+	
+
+	public final void setTel(final String tel) {
+		this.telProperty().set(tel);
+	}
+	
+
+	public final StringProperty mailProperty() {
+		return this.mail;
+	}
+	
+
+	public final String getMail() {
+		return this.mailProperty().get();
+	}
+	
+
+	public final void setMail(final String mail) {
+		this.mailProperty().set(mail);
+	}
+	
+
+	public final StringProperty adresseProperty() {
+		return this.adresse;
+	}
+	
+
+	public final String getAdresse() {
+		return this.adresseProperty().get();
+	}
+	
+
+	public final void setAdresse(final String adresse) {
+		this.adresseProperty().set(adresse);
+	}
+	
 	
 	// toString()
 	
@@ -118,5 +176,7 @@ public class Personne {
 		Personne other = (Personne) obj;
 		return Objects.equals(id.getValue(), other.id.getValue() );
 	}
+
+	
 	
 }

@@ -9,7 +9,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import jfox.javafx.view.IManagerGui;
 import projet.commun.Roles;
-import projet.data.Compte;
+import projet.data.Utilisateur;
 import projet.report.EnumReport;
 import projet.report.ManagerReport;
 import projet.view.systeme.ModelConnexion;
@@ -158,7 +158,7 @@ public class MenuBarAppli extends MenuBar {
 	
 	// Méthodes auxiliaires
 	
-	private void configurerMenu( Compte compteActif  ) {
+	private void configurerMenu( Utilisateur compteActif  ) {
 
 		itemDeconnecter.setDisable(true);
 		

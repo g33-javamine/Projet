@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import jfox.dao.jdbc.UtilJdbc;
-import projet.data.Compte;
+import projet.data.Utilisateur;
 
 
 public class DaoRole {
@@ -25,7 +25,7 @@ public class DaoRole {
 	
 	// Actions
 
-	public void insererPourCompte( Compte compte )  {
+	public void insererPourCompte( Utilisateur compte )  {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -71,7 +71,7 @@ public class DaoRole {
 	}
 
 
-	public List<String> listerPourCompte( Compte compte ) {
+	public List<String> listerPourCompte( Utilisateur compte ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;

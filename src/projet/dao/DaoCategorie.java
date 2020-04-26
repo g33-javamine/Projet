@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import jfox.dao.jdbc.UtilJdbc;
-import projet.data.Categorie;
+import projet.data.Club;
 
 
 public class DaoCategorie {
@@ -26,7 +26,7 @@ public class DaoCategorie {
 	
 	// Actions
 
-	public int inserer( Categorie categorie ) {
+	public int inserer( Club categorie ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -54,7 +54,7 @@ public class DaoCategorie {
 	}
 
 
-	public void modifier( Categorie categorie ) {
+	public void modifier( Club categorie ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -97,7 +97,7 @@ public class DaoCategorie {
 	}
 
 	
-	public Categorie retrouver( int idCategorie ) {
+	public Club retrouver( int idCategorie ) {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt	= null;
@@ -124,7 +124,7 @@ public class DaoCategorie {
 	}
 
 
-	public List<Categorie> listerTout() {
+	public List<Club> listerTout() {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt 	= null;
@@ -137,7 +137,7 @@ public class DaoCategorie {
 			stmt = cn.prepareStatement( sql );
 			rs = stmt.executeQuery();
 
-			List<Categorie> categories = new LinkedList<>();
+			List<Club> categories = new LinkedList<>();
 			while (rs.next()) {
 				categories.add( construireCategorie( rs ) );
 			}
@@ -153,8 +153,8 @@ public class DaoCategorie {
 	
 	// Méthodes auxiliaires
 	
-	private Categorie construireCategorie( ResultSet rs ) throws SQLException {
-		Categorie categorie = new Categorie();
+	private Club construireCategorie( ResultSet rs ) throws SQLException {
+		Club categorie = new Club();
 		categorie.setId( rs.getObject( "idcategorie", Integer.class ) );
 		categorie.setLibelle( rs.getObject( "libelle", String.class ) );
 		return categorie;

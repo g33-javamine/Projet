@@ -18,7 +18,7 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import jfox.javafx.util.ConverterStringInteger;
 import jfox.javafx.view.IManagerGui;
 import projet.commun.Roles;
-import projet.data.Compte;
+import projet.data.Utilisateur;
 import projet.view.EnumView;
 
 
@@ -41,7 +41,7 @@ public class ControllerCompteForm {
 	
 	// Autres champs
 
-	private Compte 				courant;
+	private Utilisateur 				courant;
 	private final ObservableList<ItemRole> itemRoles = FXCollections.observableArrayList();
 	
 	@Inject

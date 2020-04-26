@@ -9,7 +9,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import jfox.javafx.util.UtilFX;
 import jfox.javafx.view.IManagerGui;
-import projet.data.Service;
+import projet.data.Benevole;
 import projet.view.EnumView;
 
 
@@ -19,7 +19,7 @@ public class ControllerServiceListe {
 	// Composants de la vue
 
 	@FXML
-	private ListView<Service>		listView;
+	private ListView<Benevole>		listView;
 	@FXML
 	private Button				buttonModifier;
 	@FXML
@@ -70,7 +70,7 @@ public class ControllerServiceListe {
 
 	@FXML
 	private void doModifier() {
-		Service item = listView.getSelectionModel().getSelectedItem();
+		Benevole item = listView.getSelectionModel().getSelectedItem();
 		if ( item == null ) {
 			managerGui.showDialogError( "Aucun élément n'est sélectionné dans la liste.");
 		} else {
@@ -81,7 +81,7 @@ public class ControllerServiceListe {
 
 	@FXML
 	private void doSupprimer() {
-		Service item = listView.getSelectionModel().getSelectedItem();
+		Benevole item = listView.getSelectionModel().getSelectedItem();
 		if ( item == null ) {
 			managerGui.showDialogError( "Aucun élément n'est sélectionné dans la liste.");
 		} else {

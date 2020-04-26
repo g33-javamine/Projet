@@ -10,7 +10,7 @@ import projet.commun.IMapper;
 import projet.dao.DaoCategorie;
 import projet.dao.DaoMemo;
 import projet.dao.DaoPersonne;
-import projet.data.Categorie;
+import projet.data.Club;
 
 
 public class ModelCategorie  {
@@ -18,9 +18,9 @@ public class ModelCategorie  {
 	
 	// Données observables 
 	
-	private final ObservableList<Categorie> liste = FXCollections.observableArrayList(); 
+	private final ObservableList<Club> liste = FXCollections.observableArrayList(); 
 	
-	private final Categorie	courant = new Categorie();
+	private final Club	courant = new Club();
 
 	
 	// Autres champs
@@ -36,11 +36,11 @@ public class ModelCategorie  {
 	
 	// Getters 
 	
-	public ObservableList<Categorie> getListe() {
+	public ObservableList<Club> getListe() {
 		return liste;
 	}
 	
-	public Categorie getCourant() {
+	public Club getCourant() {
 		return courant;
 	}
 	
@@ -55,10 +55,10 @@ public class ModelCategorie  {
 	// Actions
 	
 	public void preparerAjouter() {
-		mapper.update( courant, new Categorie() );
+		mapper.update( courant, new Club() );
 	}
 	
-	public void preparerModifier( Categorie item ) {
+	public void preparerModifier( Club item ) {
 		mapper.update( courant, daoCategorie.retrouver( item.getId() ) );
 	}
 	
@@ -92,7 +92,7 @@ public class ModelCategorie  {
 	}
 	
 	
-	public void supprimer( Categorie item ) {
+	public void supprimer( Club item ) {
 		
 		// Vérifie l'abence de personnes rattachées à la catégorie
 		if ( daoPersonne.compterPourCategorie( item.getId() ) != 0 ) {

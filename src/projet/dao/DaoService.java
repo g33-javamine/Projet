@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import jfox.dao.jdbc.UtilJdbc;
-import projet.data.Service;
+import projet.data.Benevole;
 
 
 public class DaoService {
@@ -26,7 +26,7 @@ public class DaoService {
 	
 	// Actions
 
-	public int inserer( Service service ) {
+	public int inserer( Benevole service ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -56,7 +56,7 @@ public class DaoService {
 	}
 
 
-	public void modifier( Service service ) {
+	public void modifier( Benevole service ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -101,7 +101,7 @@ public class DaoService {
 	}
 
 	
-	public Service retrouver( int idService ) {
+	public Benevole retrouver( int idService ) {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt	= null;
@@ -128,7 +128,7 @@ public class DaoService {
 	}
 
 
-	public List<Service> listerTout() {
+	public List<Benevole> listerTout() {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt 	= null;
@@ -141,7 +141,7 @@ public class DaoService {
 			stmt = cn.prepareStatement( sql );
 			rs = stmt.executeQuery();
 
-			List<Service> services = new LinkedList<>();
+			List<Benevole> services = new LinkedList<>();
 			while (rs.next()) {
 				services.add( construireService( rs ) );
 			}
@@ -157,8 +157,8 @@ public class DaoService {
 	
 	// Méthodes auxiliaires
 	
-	private Service construireService( ResultSet rs ) throws SQLException {
-		Service service = new Service();
+	private Benevole construireService( ResultSet rs ) throws SQLException {
+		Benevole service = new Benevole();
 		service.setId( rs.getObject( "idservice", Integer.class ) );
 		service.setNom( rs.getObject( "nom", String.class ) );
 		service.setAnneeCreation( rs.getObject( "anneeCreation", Integer.class ) );

@@ -6,26 +6,22 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-public class Telephone {
+public class Administrateurs {
 	
 
 	// Données observables
 	
 	private final Property<Integer>	id		= new SimpleObjectProperty<>();
-	private final StringProperty	libelle	= new SimpleStringProperty();
-	private final StringProperty	numero	= new SimpleStringProperty();
+	private final ObservableList<Personne> idPersonne = FXCollections.observableArrayList();
+
 	
 	
 	// Constructeurs
 	
-	public Telephone() {
-	}
-	
-	public Telephone( int id, String libelle, String numero ) {
-		setId(id);
-		setLibelle(libelle);
-		setNumero(numero);
+	public Administrateurs() {
 	}
 	
 	
@@ -44,38 +40,11 @@ public class Telephone {
 	}
 
 	
-	public final StringProperty libelleProperty() {
-		return this.libelle;
+	public ObservableList<Personne> getPersonne() {
+		return idPersonne;
 	}
-
-	public final java.lang.String getLibelle() {
-		return this.libelleProperty().getValue();
-	}
-
-	public final void setLibelle(final java.lang.String libelle) {
-		this.libelleProperty().setValue(libelle);
-	}
-	
-
-	public final StringProperty numeroProperty() {
-		return this.numero;
-	}
-
-	public final java.lang.String getNumero() {
-		return this.numeroProperty().getValue();
-	}
-
-	public final void setNumero(final java.lang.String numero) {
-		this.numeroProperty().setValue(numero);
-	}
-
 	
 	// toString()
-	
-	@Override
-	public String toString() {
-		return getLibelle();
-	}
 	
 	
 	// hashCode() & equals()
@@ -93,7 +62,7 @@ public class Telephone {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Telephone other = (Telephone) obj;
+		Administrateurs other = (Administrateurs) obj;
 		return Objects.equals(id.getValue(), other.id.getValue() );
 	}
 

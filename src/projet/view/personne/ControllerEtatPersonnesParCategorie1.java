@@ -13,7 +13,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import jfox.javafx.util.UtilFX;
 import jfox.javafx.view.IManagerGui;
-import projet.data.Categorie;
+import projet.data.Club;
 import projet.report.EnumReport;
 import projet.report.ManagerReport;
 
@@ -24,7 +24,7 @@ public class ControllerEtatPersonnesParCategorie1 {
 	// Composants de la vue
 
 	@FXML
-	private ListView<Categorie>	listView;
+	private ListView<Club>	listView;
 	@FXML
 	private Button				buttonEtat;
 

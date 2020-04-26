@@ -8,9 +8,9 @@ import jfox.commun.exception.ExceptionValidation;
 import jfox.javafx.util.UtilFX;
 import projet.commun.IMapper;
 import projet.dao.DaoPersonne;
-import projet.data.Categorie;
+import projet.data.Club;
 import projet.data.Personne;
-import projet.data.Telephone;
+import projet.data.Administrateurs;
 
 
 public class ModelPersonne {
@@ -43,7 +43,7 @@ public class ModelPersonne {
 		return courant;
 	}
 	
-	public ObservableList<Categorie> getCategories() {
+	public ObservableList<Club> getCategories() {
 		return modelCategorie.getListe();
 	}
 
@@ -115,11 +115,11 @@ public class ModelPersonne {
 	
 
 	public void ajouterTelephone() {
-		courant.getTelephones().add( new Telephone() );
+		courant.getTelephones().add( new Administrateurs() );
 	}
 	
 
-	public void supprimerTelephone( Telephone telephone )  {
+	public void supprimerTelephone( Administrateurs telephone )  {
 		courant.getTelephones().remove( telephone );
 	}
 	

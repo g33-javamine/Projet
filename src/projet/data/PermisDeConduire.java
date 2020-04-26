@@ -11,17 +11,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class Participant {
+public class PermisDeConduire {
 	
 	
 	// Champs
 	
 	private final Property<Integer>		id			= new SimpleObjectProperty<>();
-	private final Property<Boolean>		autoMedicale	= new SimpleObjectProperty<>( false );
-	private final Property<Boolean>		autoParentale	= new SimpleObjectProperty<>( false );
-	private final ObservableList<Equipe> idEquipe = FXCollections.observableArrayList();
-	private final ObservableList<Club> idClub = FXCollections.observableArrayList();
-
+	//private final Property<Boolean>		dateDeliv	= new SimpleObjectProperty<>( false );
+	private final StringProperty	prefectureDeliv	= new SimpleStringProperty();
+	private final StringProperty    numero = new SimpleStringProperty();
 	
 	// Getters & setters
 	
@@ -42,46 +40,43 @@ public class Participant {
 	}
 	
 
-
-	public final Property<Boolean> autoMedicaleProperty() {
-		return this.autoMedicale;
+	public final StringProperty prefectureDelivProperty() {
+		return this.prefectureDeliv;
 	}
 	
 
 
-	public final Boolean getAutoMedicale() {
-		return this.autoMedicaleProperty().getValue();
+
+	public final String getPrefectureDeliv() {
+		return this.prefectureDelivProperty().get();
 	}
 	
 
 
-	public final void setAutoMedicale(final Boolean autoMedicale) {
-		this.autoMedicaleProperty().setValue(autoMedicale);
+
+	public final void setPrefectureDeliv(final String prefectureDeliv) {
+		this.prefectureDelivProperty().set(prefectureDeliv);
 	}
 	
 
 
-	public final Property<Boolean> autoParentaleProperty() {
-		return this.autoParentale;
+
+	public final StringProperty numeroProperty() {
+		return this.numero;
 	}
 	
 
 
-	public final Boolean getAutoParentale() {
-		return this.autoParentaleProperty().getValue();
+
+	public final String getNumero() {
+		return this.numeroProperty().get();
 	}
 	
 
 
-	public final void setAutoParentale(final Boolean autoParentale) {
-		this.autoParentaleProperty().setValue(autoParentale);
-	}
-	
-	public ObservableList<Equipe> getEquipe() {
-		return idEquipe;
-	}
-	public ObservableList<Club> getClub() {
-		return idClub;
+
+	public final void setNumero(final String numero) {
+		this.numeroProperty().set(numero);
 	}
 	
 	// hashCode() & equals()
@@ -99,9 +94,14 @@ public class Participant {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Participant other = (Participant) obj;
+		PermisDeConduire other = (PermisDeConduire) obj;
 		return Objects.equals( id.getValue(), other.id.getValue() );
 	}
+
+
+
+	
+	
 
 
 	

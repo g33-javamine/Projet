@@ -11,7 +11,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import jfox.javafx.util.UtilFX;
 import jfox.javafx.view.IManagerGui;
-import projet.data.Compte;
+import projet.data.Utilisateur;
 import projet.view.EnumView;
 
 
@@ -21,7 +21,7 @@ public class ControllerCompteListe  {
 	// Composants de la vue
 
 	@FXML
-	private ListView<Compte>	listView;
+	private ListView<Utilisateur>	listView;
 	@FXML
 	private Button				buttonModifier;
 	@FXML
@@ -50,9 +50,9 @@ public class ControllerCompteListe  {
 
 		// Affichage
 		listView.setCellFactory( (list) -> {
-		    return new ListCell<Compte>() {
+		    return new ListCell<Utilisateur>() {
 		        @Override
-		        protected void updateItem(Compte item, boolean empty) {
+		        protected void updateItem(Utilisateur item, boolean empty) {
 		            super.updateItem(item, empty);
 		            if (item == null) {
 		                setText(null);
@@ -65,7 +65,7 @@ public class ControllerCompteListe  {
 
 		// Comportement si modificaiton de la séleciton
 		listView.getSelectionModel().getSelectedItems().addListener( 
-				(ListChangeListener<Compte>) (c) -> {
+				(ListChangeListener<Utilisateur>) (c) -> {
 					 configurerBoutons();					
 		});
 		configurerBoutons();

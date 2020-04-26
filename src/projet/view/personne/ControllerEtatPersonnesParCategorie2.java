@@ -16,7 +16,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import jfox.javafx.util.UtilFX;
 import jfox.javafx.view.IManagerGui;
-import projet.data.Categorie;
+import projet.data.Club;
 import projet.report.EnumReport;
 import projet.report.ManagerReport;
 
@@ -27,7 +27,7 @@ public class ControllerEtatPersonnesParCategorie2 {
 	// Composants de la vue
 
 	@FXML
-	private ListView<Categorie>	listView;
+	private ListView<Club>	listView;
 	@FXML
 	private Button				buttonEtat;
 
@@ -71,7 +71,7 @@ public class ControllerEtatPersonnesParCategorie2 {
 	private void doEtat() {
 		Map<String, Object> params = new HashMap<>();
 		List<Integer> liste = new ArrayList<>();
-		for ( Categorie c : listView.getSelectionModel().getSelectedItems() ) {
+		for ( Club c : listView.getSelectionModel().getSelectedItems() ) {
 			liste.add( c.getId() );
 		}
 		params.put( "idCategories", liste );

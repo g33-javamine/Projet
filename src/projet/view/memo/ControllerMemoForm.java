@@ -29,8 +29,8 @@ import jfox.javafx.util.ConverterStringInteger;
 import jfox.javafx.util.ConverterStringLocalDate;
 import jfox.javafx.util.UtilFX;
 import jfox.javafx.view.IManagerGui;
-import projet.data.Categorie;
-import projet.data.Memo;
+import projet.data.Club;
+import projet.data.Participant;
 import projet.data.Personne;
 import projet.view.EnumView;
 
@@ -59,7 +59,7 @@ public class ControllerMemoForm {
 	private DatePicker		datePicherEcheance;
 	
 	@FXML
-	private ComboBox<Categorie>	comboBoxCategorie;
+	private ComboBox<Club>	comboBoxCategorie;
 	@FXML
 	private ListView<Personne>	listViewPersonnes;
 	
@@ -88,7 +88,7 @@ public class ControllerMemoForm {
 
 		// Data binding
 		
-		Memo courant = modelMemo.getCourant();
+		Participant courant = modelMemo.getCourant();
 		
 		// id
 		textFieldId.textProperty().bindBidirectional( courant.idProperty(), new ConverterStringInteger()  );
@@ -237,7 +237,7 @@ public class ControllerMemoForm {
 	
 	
 	private void verifierValiditeSaisie() {
-		Memo courant = modelMemo.getCourant();
+		Participant courant = modelMemo.getCourant();
 		UtilFX.checkParseError( textFieldEffectif, courant.effectifProperty() );
 		UtilFX.checkParseError( textFieldBudget, courant.budgetProperty() );
 		UtilFX.checkParseError( datePicherEcheance.getEditor(), courant.echeanceProperty() );

@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import jfox.dao.jdbc.UtilJdbc;
-import projet.data.Compte;
+import projet.data.Utilisateur;
 
 
 public class DaoCompte {
@@ -28,7 +28,7 @@ public class DaoCompte {
 	
 	// Actions
 
-	public int inserer( Compte compte )  {
+	public int inserer( Utilisateur compte )  {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -65,7 +65,7 @@ public class DaoCompte {
 	}
 	
 
-	public void modifier( Compte compte )  {
+	public void modifier( Utilisateur compte )  {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -122,7 +122,7 @@ public class DaoCompte {
 	}
 	
 
-	public Compte retrouver( int idCompte )  {
+	public Utilisateur retrouver( int idCompte )  {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -150,7 +150,7 @@ public class DaoCompte {
 	}
 	
 
-	public List<Compte> listerTout()   {
+	public List<Utilisateur> listerTout()   {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -164,7 +164,7 @@ public class DaoCompte {
 			stmt = cn.prepareStatement( sql );
 			rs = stmt.executeQuery();
 
-			List<Compte> comptes = new ArrayList<>();
+			List<Utilisateur> comptes = new ArrayList<>();
 			while ( rs.next() ) {
 				comptes.add( construireCompte(rs) );
 			}
@@ -178,7 +178,7 @@ public class DaoCompte {
 	}
 
 
-	public Compte validerAuthentification( String pseudo, String motDePasse )  {
+	public Utilisateur validerAuthentification( String pseudo, String motDePasse )  {
 		
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -239,8 +239,8 @@ public class DaoCompte {
 	
 	// Méthodes auxiliaires
 	
-	private Compte construireCompte( ResultSet rs ) throws SQLException {
-		Compte compte = new Compte();
+	private Utilisateur construireCompte( ResultSet rs ) throws SQLException {
+		Utilisateur compte = new Utilisateur();
 		compte.setId( rs.getObject( "idcompte", Integer.class ) );
 		compte.setPseudo( rs.getObject( "pseudo", String.class ) );
 		compte.setMotDePasse( rs.getObject( "motdepasse", String.class ) );

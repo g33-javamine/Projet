@@ -9,7 +9,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import jfox.javafx.util.UtilFX;
 import jfox.javafx.view.IManagerGui;
-import projet.data.Memo;
+import projet.data.Participant;
 import projet.view.EnumView;
 
 
@@ -19,7 +19,7 @@ public class ControllerMemoListe {
 	// Composants de la vue
 
 	@FXML
-	private ListView<Memo>		listView;
+	private ListView<Participant>		listView;
 	@FXML
 	private Button				buttonModifier;
 	@FXML
@@ -70,7 +70,7 @@ public class ControllerMemoListe {
 
 	@FXML
 	private void doModifier() {
-		Memo item = listView.getSelectionModel().getSelectedItem();
+		Participant item = listView.getSelectionModel().getSelectedItem();
 		if ( item == null ) {
 			managerGui.showDialogError( "Aucun élément n'est sélectionné dans la liste.");
 		} else {
@@ -81,7 +81,7 @@ public class ControllerMemoListe {
 
 	@FXML
 	private void doSupprimer() {
-		Memo item = listView.getSelectionModel().getSelectedItem();
+		Participant item = listView.getSelectionModel().getSelectedItem();
 		if ( item == null ) {
 			managerGui.showDialogError( "Aucun élément n'est sélectionné dans la liste.");
 		} else {

@@ -8,58 +8,61 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
-public class Categorie  {
+public class Club  {
 	
 
 	// Données observables
 	
 	private final Property<Integer>	id		= new SimpleObjectProperty<>();
-	private final StringProperty	libelle	= new SimpleStringProperty();
+	private final StringProperty	nom	= new SimpleStringProperty();
 	
 	
 	// Constructeurs
 	
-	public Categorie() {
+	public Club() {
 	}
 
-	public Categorie( final int id, final String libelle ) {
+	public Club( final int id, final String nom ) {
 		setId(id);
-		setLibelle(libelle);
+		setNom(nom);
 	}
 	
 	
 	// Getters et Setters
-
 	public final Property<Integer> idProperty() {
 		return this.id;
 	}
+	
 
 	public final Integer getId() {
 		return this.idProperty().getValue();
 	}
+	
 
 	public final void setId(final Integer id) {
 		this.idProperty().setValue(id);
 	}
+	
 
-	public final StringProperty libelleProperty() {
-		return this.libelle;
+	public final StringProperty nomProperty() {
+		return this.nom;
 	}
+	
 
-	public final String getLibelle() {
-		return this.libelleProperty().getValue();
+	public final String getNom() {
+		return this.nomProperty().get();
 	}
+	
 
-	public final void setLibelle(final String libelle) {
-		this.libelleProperty().setValue(libelle);
+	public final void setNom(final String nom) {
+		this.nomProperty().set(nom);
 	}
-
 	
 	// toString()
 	
 	@Override
 	public String toString() {
-		return getLibelle();
+		return getNom();
 	}
 	
 	
@@ -78,9 +81,12 @@ public class Categorie  {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categorie other = (Categorie) obj;
+		Club other = (Club) obj;
 		return Objects.equals(id.getValue(), other.id.getValue() );
 	}
+
+	
+	
 	
 }
 

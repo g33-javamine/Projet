@@ -9,7 +9,7 @@ import javafx.util.converter.IntegerStringConverter;
 import jfox.javafx.util.ConverterStringInteger;
 import jfox.javafx.util.ListenerFocusValidation;
 import jfox.javafx.view.IManagerGui;
-import projet.data.Service;
+import projet.data.Benevole;
 import projet.view.EnumView;
 
 
@@ -43,7 +43,7 @@ public class ControllerServiceForm {
 
 		// Data binding
 		
-		Service courant = modelService.getCourant();
+		Benevole courant = modelService.getCourant();
 
 		textFieldId.textProperty().bindBidirectional( courant.idProperty(), new IntegerStringConverter()  );
 

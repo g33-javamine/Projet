@@ -10,28 +10,25 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 
-public class Compte  {
+public class Utilisateur  {
 
 	
 	// Données observables
 	
 	private final Property<Integer>	id			= new SimpleObjectProperty<>();
-	private final StringProperty	pseudo		= new SimpleStringProperty();
-	private final StringProperty	motDePasse	= new SimpleStringProperty();
-	private final StringProperty	email 		= new SimpleStringProperty();
-	private final ObservableList<String> roles = FXCollections.observableArrayList();
-	
-	
+	private final StringProperty	login		= new SimpleStringProperty();
+	private final StringProperty	password	= new SimpleStringProperty();
+
 	// Constructeurs
 	
-	public Compte() {
+	public Utilisateur() {
 	}
 
-	public Compte( int id, String pseudo, String motDePasse, String email ) {
+	public Utilisateur( int id, String login, String password) {
 		setId(id);
-		setPseudo(pseudo);
-		setMotDePasse(motDePasse);
-		setEmail(email);
+		setLogin(login);
+		setPassword(password);
+		
 	}
 	
 	
@@ -49,65 +46,39 @@ public class Compte  {
 		this.idProperty().setValue(id);
 	}
 
-	public final StringProperty pseudoProperty() {
-		return this.pseudo;
+	public final StringProperty loginProperty() {
+		return this.login;
 	}
 
-	public final String getPseudo() {
-		return this.pseudoProperty().getValue();
+	public final String getLogin() {
+		return this.loginProperty().getValue();
 	}
 
-	public final void setPseudo(final String pseudo) {
-		this.pseudoProperty().setValue(pseudo);
+	public final void setLogin(final String login) {
+		this.loginProperty().setValue(login);
 	}
 
-	public final StringProperty motDePasseProperty() {
-		return this.motDePasse;
+	public final StringProperty passwordProperty() {
+		return this.password;
 	}
 
-	public final String getMotDePasse() {
-		return this.motDePasseProperty().getValue();
+	public final String getPassword() {
+		return this.passwordProperty().getValue();
 	}
 
-	public final void setMotDePasse(final String motDePasse) {
-		this.motDePasseProperty().setValue(motDePasse);
-	}
-
-	public final StringProperty emailProperty() {
-		return this.email;
-	}
-
-	public final String getEmail() {
-		return this.emailProperty().getValue();
-	}
-
-	public final void setEmail(final String email) {
-		this.emailProperty().setValue(email);
-	}
-
-	public final ObservableList<String> getRoles() {
-		return this.roles;
+	public final void setPassword(final String password) {
+		this.passwordProperty().setValue(password);
 	}
 
 	
-	public boolean isInRole( String role ) {
-		
-		if ( role != null ) {
-			for ( String r : roles ) {
-				if ( role.equals( r ) ) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+	
 
 	
 	// toString()
 	
 	@Override
 	public String toString() {
-		return getPseudo();
+		return getLogin();
 	}
 	
 	
@@ -115,7 +86,7 @@ public class Compte  {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id.getValue() );
+		return Objects.hash(login.getValue() );
 	}
 
 	@Override
@@ -126,8 +97,8 @@ public class Compte  {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Compte other = (Compte) obj;
-		return Objects.equals(id.getValue(), other.id.getValue() );
+		Utilisateur other = (Utilisateur) obj;
+		return Objects.equals(login.getValue(), other.login.getValue() );
 	}
 	
 }

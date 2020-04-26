@@ -10,7 +10,7 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import jfox.commun.exception.ExceptionValidation;
 import projet.dao.DaoCompte2;
-import projet.data.Compte;
+import projet.data.Utilisateur;
 
 
 public class ModelConnexion {
@@ -22,10 +22,10 @@ public class ModelConnexion {
 	// Données observables 
 	
 	// Vue connexion
-	private final Compte			courant = new Compte();
+	private final Utilisateur			courant = new Utilisateur();
 
 	// Compte connecté
-	private final Property<Compte>	compteActif = new SimpleObjectProperty<>();
+	private final Property<Utilisateur>	compteActif = new SimpleObjectProperty<>();
 
 	
 	// Autres champs
@@ -35,15 +35,15 @@ public class ModelConnexion {
 
 	// Getters 
 	
-	public Compte getCourant() {
+	public Utilisateur getCourant() {
 		return courant;
 	}
 	
-	public Property<Compte> compteActifProperty() {
+	public Property<Utilisateur> compteActifProperty() {
 		return compteActif;
 	}
 	
-	public Compte getCompteActif() {
+	public Utilisateur getCompteActif() {
 		return compteActif.getValue();
 	}
 	
@@ -62,7 +62,7 @@ public class ModelConnexion {
 
 	public void ouvrirSessionUtilisateur() {
 
-		Compte compte = daoCompte.validerAuthentification(
+		Utilisateur compte = daoCompte.validerAuthentification(
 					courant.pseudoProperty().getValue(), courant.motDePasseProperty().getValue() );
 		
 		if( compte == null ) {

@@ -19,8 +19,8 @@ import jfox.javafx.util.UtilFX;
 import projet.commun.IMapper;
 import projet.dao.DaoMemo;
 import projet.dao.DaoPersonne;
-import projet.data.Categorie;
-import projet.data.Memo;
+import projet.data.Club;
+import projet.data.Participant;
 import projet.data.Personne;
 import projet.view.personne.ModelCategorie;
 import projet.view.systeme.ModelConfig;
@@ -31,9 +31,9 @@ public class ModelMemo  {
 	
 	// Données observables 
 	
-	private final ObservableList<Memo> liste = FXCollections.observableArrayList(); 
+	private final ObservableList<Participant> liste = FXCollections.observableArrayList(); 
 	
-	private final Memo	courant = new Memo();
+	private final Participant	courant = new Participant();
 	
 	private final ObservableList<Personne> personnesPourDialogAjout = FXCollections.observableArrayList();
 	
@@ -65,15 +65,15 @@ public class ModelMemo  {
 	
 	// Getters 
 	
-	public ObservableList<Memo> getListe() {
+	public ObservableList<Participant> getListe() {
 		return liste;
 	}
 	
-	public Memo getCourant() {
+	public Participant getCourant() {
 		return courant;
 	}
 	
-	public ObservableList<Categorie> getCategories() {
+	public ObservableList<Club> getCategories() {
 		return modelCategorie.getListe();
 	}
 	
@@ -102,12 +102,12 @@ public class ModelMemo  {
 	
 	public void preparerAjouter() {
 		modelCategorie.actualiserListe();
-		mapper.update( courant, new Memo() );
+		mapper.update( courant, new Participant() );
 		schema.setValue(null);
 		flagModifSchema = false;
 	}
 	
-	public void preparerModifier( Memo item ) {
+	public void preparerModifier( Participant item ) {
 		modelCategorie.actualiserListe();
 		mapper.update( courant, daoMemo.retrouver( item.getId() ) );
 		File fichier = getFichierSchemaCourant();
@@ -184,7 +184,7 @@ public class ModelMemo  {
 	}
 	
 	
-	public void supprimer( Memo item ) {
+	public void supprimer( Participant item ) {
 		
 		daoMemo.supprimer( item.getId() );
 		mapper.update( courant, UtilFX.findNext( liste, item ) );

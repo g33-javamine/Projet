@@ -10,9 +10,9 @@ import javafx.scene.control.TextField;
 import jfox.javafx.control.EditingCell;
 import jfox.javafx.util.ConverterStringInteger;
 import jfox.javafx.view.IManagerGui;
-import projet.data.Categorie;
+import projet.data.Club;
 import projet.data.Personne;
-import projet.data.Telephone;
+import projet.data.Administrateurs;
 import projet.view.EnumView;
 
 
@@ -28,15 +28,15 @@ public class ControllerPersonneForm  {
 	@FXML	
 	private TextField			textFieldPrenom;
     @FXML
-    private ComboBox<Categorie>	comboBoxCategorie;
+    private ComboBox<Club>	comboBoxCategorie;
 	@FXML
-	private TableView<Telephone>	tableViewTelphones;
+	private TableView<Administrateurs>	tableViewTelphones;
 	@FXML
-	private TableColumn<Telephone, Integer> columnId;
+	private TableColumn<Administrateurs, Integer> columnId;
 	@FXML
-	private TableColumn<Telephone, String> columnLibelle;
+	private TableColumn<Administrateurs, String> columnLibelle;
 	@FXML
-	private TableColumn<Telephone, String> columnNumero;
+	private TableColumn<Administrateurs, String> columnNumero;
 
 	
 	// Autres champs
@@ -101,7 +101,7 @@ public class ControllerPersonneForm  {
 	
 	@FXML
 	private void doiSupprimerTelephone() {
-		Telephone telephone = tableViewTelphones.getSelectionModel().getSelectedItem();
+		Administrateurs telephone = tableViewTelphones.getSelectionModel().getSelectedItem();
 		modelPersonne.supprimerTelephone(telephone);
 	}
     

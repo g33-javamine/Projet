@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import jfox.dao.jdbc.UtilJdbc;
-import projet.data.Memo;
+import projet.data.Participant;
 import projet.data.Personne;
 
 
@@ -32,7 +32,7 @@ public class DaoMemo {
 	
 	// Actions
 
-	public int inserer( Memo memo ) {
+	public int inserer( Participant memo ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -74,7 +74,7 @@ public class DaoMemo {
 	}
 
 
-	public void modifier( Memo memo ) {
+	public void modifier( Participant memo ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -133,7 +133,7 @@ public class DaoMemo {
 	}
 
 	
-	public Memo retrouver( int idMemo ) {
+	public Participant retrouver( int idMemo ) {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt	= null;
@@ -160,7 +160,7 @@ public class DaoMemo {
 	}
 
 
-	public List<Memo> listerTout() {
+	public List<Participant> listerTout() {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt 	= null;
@@ -173,7 +173,7 @@ public class DaoMemo {
 			stmt = cn.prepareStatement( sql );
 			rs = stmt.executeQuery();
 
-			List<Memo> memos = new LinkedList<>();
+			List<Participant> memos = new LinkedList<>();
 			while (rs.next()) {
 				memos.add( construireMemo( rs, false ) );
 			}
@@ -213,8 +213,8 @@ public class DaoMemo {
 	
 	// Méthodes auxiliaires
 	
-	private Memo construireMemo( ResultSet rs, boolean flagComplet ) throws SQLException {
-		Memo memo = new Memo();
+	private Participant construireMemo( ResultSet rs, boolean flagComplet ) throws SQLException {
+		Participant memo = new Participant();
 		memo.setId( rs.getObject( "idmemo", Integer.class ) );
 		memo.setTitre( rs.getObject( "titre", String.class ) );
 		memo.setDescription( rs.getObject( "description", String.class ) );
@@ -257,7 +257,7 @@ public class DaoMemo {
 	}
 
 	
-	private void insererConcerner( Memo memo ) {
+	private void insererConcerner( Participant memo ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
