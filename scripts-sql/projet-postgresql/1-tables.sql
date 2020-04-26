@@ -21,7 +21,11 @@ CREATE TABLE Personne(
 	id              SERIAL NOT NULL ,
 	Nom             VARCHAR (50) NOT NULL ,
 	Prenom          VARCHAR (50) NOT NULL ,
+<<<<<<< HEAD
 	DateNaissance   DATE  NOT NULL CHECK (DateNaissance > DATE '30-06-1919' ),
+=======
+	DateNaissance   DATE  NOT NULL CHECK (DateNaissance > DATE '1919-06-30' ),
+>>>>>>> refs/remotes/origin/master
 	Tel             VARCHAR (10) NOT NULL CHECK (Tel SIMILAR TO '(0|1|2|3|4|5|6|7|8|9){10}') ,
 	Mail            VARCHAR (50) NOT NULL CHECK ( Mail LIKE '%@%.%') , 
 	Adresse         VARCHAR (50) NOT NULL ,

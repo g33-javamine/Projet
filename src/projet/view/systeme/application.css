@@ -1,0 +1,18 @@
+
+.titre-vue {
+    -fx-font-size: 20;
+    -fx-font-family: Arial;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e46e8;
+}
+
+
+.accueil {
+    -fx-background-color: #0C3563;
+    -fx-padding: 0;
+    -fx-border-color: gray; 
+    -fx-border-width: 1;
+    -fx-font-size: 16;
+    -fx-font-color: #104E17;
+}
+
