@@ -1,14 +1,12 @@
 package projet.data;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Objects;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 
 public class PermisDeConduire {
@@ -16,8 +14,8 @@ public class PermisDeConduire {
 	
 	// Champs
 	
-	private final Property<Integer>		id			= new SimpleObjectProperty<>();
-	//private final Property<Boolean>		dateDeliv	= new SimpleObjectProperty<>( false );
+	private final Property<Integer>	id			= new SimpleObjectProperty<>();
+	private final Property<Date>	dateDeliv	= new SimpleObjectProperty<>();
 	private final StringProperty	prefectureDeliv	= new SimpleStringProperty();
 	private final StringProperty    numero = new SimpleStringProperty();
 	
@@ -79,6 +77,24 @@ public class PermisDeConduire {
 		this.numeroProperty().set(numero);
 	}
 	
+	public final Property<Date> dateDelivProperty() {
+		return this.dateDeliv;
+	}
+	
+
+
+
+	public final Date getDateDeliv() {
+		return this.dateDelivProperty().getValue();
+	}
+	
+
+
+
+	public final void setDateDeliv(final Date dateDeliv) {
+		this.dateDelivProperty().setValue(dateDeliv);
+	}
+	
 	// hashCode() & equals()
 
 	@Override
@@ -97,6 +113,7 @@ public class PermisDeConduire {
 		PermisDeConduire other = (PermisDeConduire) obj;
 		return Objects.equals( id.getValue(), other.id.getValue() );
 	}
+	
 
 
 

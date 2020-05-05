@@ -6,8 +6,7 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import projet.commun.Roles;
 
 
 public class Utilisateur  {
@@ -15,7 +14,7 @@ public class Utilisateur  {
 	
 	// Données observables
 	
-	private final Property<Integer>	id			= new SimpleObjectProperty<>();
+	private final Property<Personne>utilisateur	= new SimpleObjectProperty<>();
 	private final StringProperty	login		= new SimpleStringProperty();
 	private final StringProperty	password	= new SimpleStringProperty();
 
@@ -25,7 +24,7 @@ public class Utilisateur  {
 	}
 
 	public Utilisateur( int id, String login, String password) {
-		setId(id);
+		setUtilisateur(id);
 		setLogin(login);
 		setPassword(password);
 		
@@ -33,17 +32,22 @@ public class Utilisateur  {
 	
 	
 	// Getters et Setters
-
-	public final Property<Integer> idProperty() {
-		return this.id;
+	public final Property<Personne> utilisateurProperty() {
+		return this.utilisateur;
 	}
+	
 
-	public final Integer getId() {
-		return this.idProperty().getValue();
+	public final Personne getUtilisateur() {
+		return this.utilisateurProperty().getValue();
 	}
+	
 
-	public final void setId(final Integer id) {
-		this.idProperty().setValue(id);
+	public final void setUtilisateur(final Personne utilisateur) {
+		this.utilisateurProperty().setValue(utilisateur);
+	}
+	
+	public final void setUtilisateur(int  idUtilisateur) {
+		//
 	}
 
 	public final StringProperty loginProperty() {
@@ -101,4 +105,14 @@ public class Utilisateur  {
 		return Objects.equals(login.getValue(), other.login.getValue() );
 	}
 	
+	public String getRole()
+	{
+		if(utilisateur instanceof Administrateurs)
+			return Roles.ADMINISTRATEUR;
+		else if(utilisateur instanceof Benevole)
+			return Roles.BENEVOLE;
+		else//(utilisateur instanceof Participant)
+			return Roles.PARTICIPANT;
+	}
+
 }

@@ -1,46 +1,23 @@
 package projet.data;
 
-import java.time.LocalDate;
-import java.util.Objects;
+
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 
-public class Participant {
+public class Participant extends Personne{
 	
 	
 	// Champs
 	
-	private final Property<Integer>		id			= new SimpleObjectProperty<>();
-	private final Property<Boolean>		autoMedicale	= new SimpleObjectProperty<>( false );
-	private final Property<Boolean>		autoParentale	= new SimpleObjectProperty<>( false );
-	private final ObservableList<Equipe> idEquipe = FXCollections.observableArrayList();
-	private final ObservableList<Club> idClub = FXCollections.observableArrayList();
+	protected final Property<Boolean>		autoMedicale	= new SimpleObjectProperty<>( false );
+	protected final Property<Boolean>		autoParentale	= new SimpleObjectProperty<>( false );
+	protected final Property<Equipe> idEquipe = new SimpleObjectProperty<>();
+	protected final Property<Club> idClub = new SimpleObjectProperty<>();
 
 	
 	// Getters & setters
-	
-	public final Property<Integer> idProperty() {
-		return this.id;
-	}
-	
-
-
-	public final Integer getId() {
-		return this.idProperty().getValue();
-	}
-	
-
-
-	public final void setId(final Integer id) {
-		this.idProperty().setValue(id);
-	}
-	
 
 
 	public final Property<Boolean> autoMedicaleProperty() {
@@ -76,32 +53,46 @@ public class Participant {
 	public final void setAutoParentale(final Boolean autoParentale) {
 		this.autoParentaleProperty().setValue(autoParentale);
 	}
-	
-	public ObservableList<Equipe> getEquipe() {
-		return idEquipe;
-	}
-	public ObservableList<Club> getClub() {
-		return idClub;
+
+	public final Property<Equipe> idEquipeProperty() {
+		return this.idEquipe;
 	}
 	
-	// hashCode() & equals()
 
-	@Override
-	public int hashCode() {
-		return Objects.hash( id.getValue() );
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Participant other = (Participant) obj;
-		return Objects.equals( id.getValue(), other.id.getValue() );
+
+	public final Equipe getIdEquipe() {
+		return this.idEquipeProperty().getValue();
 	}
+	
+
+
+
+	public final void setIdEquipe(final Equipe idEquipe) {
+		this.idEquipeProperty().setValue(idEquipe);
+	}
+	
+
+
+
+	public final Property<Club> idClubProperty() {
+		return this.idClub;
+	}
+	
+
+
+
+	public final Club getIdClub() {
+		return this.idClubProperty().getValue();
+	}
+	
+
+
+
+	public final void setIdClub(final Club idClub) {
+		this.idClubProperty().setValue(idClub);
+	}
+	
 
 
 	

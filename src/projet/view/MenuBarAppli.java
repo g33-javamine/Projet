@@ -171,11 +171,15 @@ public class MenuBarAppli extends MenuBar {
 		
 		if( compteActif != null ) {
 			itemDeconnecter.setDisable(false);
-			if( compteActif.isInRole( Roles.UTILISATEUR) ) {
+			if( compteActif.getRole() == Roles.PARTICIPANT ) {
 				menuDonnees.setVisible(true);
 				menuEtats.setVisible(true);
 			}
-			if( compteActif.isInRole( Roles.ADMINISTRATEUR ) ) {
+			if( compteActif.getRole() == Roles.BENEVOLE ) {
+				menuDonnees.setVisible(true);
+				menuEtats.setVisible(true);
+			}
+			if( compteActif.getRole() == Roles.ADMINISTRATEUR ) {
 				menuDonnees.setVisible(true);
 				itemCategories.setVisible(true);
 				itemComptes.setVisible(true);

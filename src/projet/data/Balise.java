@@ -4,10 +4,9 @@ import java.util.Objects;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class Balise {
+	
 	private final Property<Integer> id   = new SimpleObjectProperty<>();
 	private final Property<Double> longitude   = new SimpleObjectProperty<>();
 	private final Property<Double> latitude = new SimpleObjectProperty<>();

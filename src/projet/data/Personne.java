@@ -3,26 +3,23 @@ package projet.data;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import javafx.beans.Observable;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-public class Personne {
+public abstract class Personne {
 
 
 	// Données observables
 	
-	private final Property<Integer>		id			= new SimpleObjectProperty<>();
-	private final StringProperty		nom	 		= new SimpleStringProperty();
-	private final StringProperty		prenom		= new SimpleStringProperty();
-	private final Property<LocalDate>	dateNaissance	= new SimpleObjectProperty<>();
-	private final StringProperty		tel		= new SimpleStringProperty();
-	private final StringProperty		mail	 		= new SimpleStringProperty();
-	private final StringProperty		adresse		= new SimpleStringProperty();
+	protected final Property<Integer>		id			= new SimpleObjectProperty<>();
+	protected final StringProperty		nom	 		= new SimpleStringProperty();
+	protected final StringProperty		prenom		= new SimpleStringProperty();
+	protected final Property<LocalDate>	dateNaissance	= new SimpleObjectProperty<>();
+	protected final StringProperty		tel		= new SimpleStringProperty();
+	protected final StringProperty		mail	 		= new SimpleStringProperty();
+	protected final StringProperty		adresse		= new SimpleStringProperty();
 	
 
 	

@@ -1,23 +1,19 @@
 package projet.data;
 
-import java.util.Objects;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class Equipe {
 	private final Property<Integer> id   = new SimpleObjectProperty<>();
 	private final Property<Boolean> paiement  = new SimpleObjectProperty<>( false );
 	private final Property<Integer> nbrRepas = new SimpleObjectProperty<>();
 	private final StringProperty	categorie	= new SimpleStringProperty();
-	
-//	private final ObservableList<Parcours> idParcours = FXCollections.observableArrayList();
-//	private final ObservableList<Capitaine> idCapitaine = FXCollections.observableArrayList();
-//	private final ObservableList<Equipier> idEquipier = FXCollections.observableArrayList();
+	private final Property<Parcours> idParcours = new SimpleObjectProperty<>();
+	private final Property<Participant> idCapitaine = new SimpleObjectProperty<>();
+	private final Property<Participant> idEquipier = new SimpleObjectProperty<>();
 	
 	
 	
@@ -76,23 +72,59 @@ public class Equipe {
 		this.categorieProperty().set(categorie);
 	}
 
-	// hashCode() & equals()
 
-		@Override
-		public int hashCode() {
-			return Objects.hash(id.getValue() );
-		}
+	public final Property<Parcours> idParcoursProperty() {
+		return this.idParcours;
+	}
+	
 
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Equipe other = (Equipe) obj;
-			return Objects.equals(id.getValue(), other.id.getValue() );
-		}
+
+	public final Parcours getIdParcours() {
+		return this.idParcoursProperty().getValue();
+	}
+	
+
+
+	public final void setIdParcours(final Parcours idParcours) {
+		this.idParcoursProperty().setValue(idParcours);
+	}
+	
+
+
+	public final Property<Participant> idCapitaineProperty() {
+		return this.idCapitaine;
+	}
+	
+
+
+	public final Participant getIdCapitaine() {
+		return this.idCapitaineProperty().getValue();
+	}
+	
+
+
+	public final void setIdCapitaine(final Participant idCapitaine) {
+		this.idCapitaineProperty().setValue(idCapitaine);
+	}
+	
+
+
+	public final Property<Participant> idEquipierProperty() {
+		return this.idEquipier;
+	}
+	
+
+
+	public final Participant getIdEquipier() {
+		return this.idEquipierProperty().getValue();
+	}
+	
+
+
+	public final void setIdEquipier(final Participant idEquipier) {
+		this.idEquipierProperty().setValue(idEquipier);
+	}
+	
+
 
 }

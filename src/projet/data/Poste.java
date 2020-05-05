@@ -1,15 +1,10 @@
 package projet.data;
 
-import java.util.Objects;
+import java.sql.Timestamp;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 
 public class Poste {
@@ -20,8 +15,8 @@ public class Poste {
 	private final StringProperty		nomPoste			= new SimpleStringProperty();
 	private final StringProperty		typeBenevole			= new SimpleStringProperty();
 	private final SimpleObjectProperty<Integer> nbrBenevole = new SimpleObjectProperty<>();
-	//private final      ...      debutIntervention =  ... ;
-	//private final      ...     finIntervention =  ... ;
+	private final SimpleObjectProperty<Timestamp> debutIntervention =  new SimpleObjectProperty<>() ;
+	private final SimpleObjectProperty<Timestamp> finIntervention = new SimpleObjectProperty<>();
 	
 	
 	
@@ -62,6 +57,36 @@ public class Poste {
 	public final void setNbrBenevole(final Integer nbrBenevole) {
 		this.nbrBenevoleProperty().set(nbrBenevole);
 	}
+
+	public final SimpleObjectProperty<Timestamp> debutInterventionProperty() {
+		return this.debutIntervention;
+	}
+	
+
+	public final Timestamp getDebutIntervention() {
+		return this.debutInterventionProperty().get();
+	}
+	
+
+	public final void setDebutIntervention(final Timestamp debutIntervention) {
+		this.debutInterventionProperty().set(debutIntervention);
+	}
+	
+
+	public final SimpleObjectProperty<Timestamp> finInterventionProperty() {
+		return this.finIntervention;
+	}
+	
+
+	public final Timestamp getFinIntervention() {
+		return this.finInterventionProperty().get();
+	}
+	
+
+	public final void setFinIntervention(final Timestamp finIntervention) {
+		this.finInterventionProperty().set(finIntervention);
+	}
+	
 
 
 	

@@ -10,17 +10,20 @@ public final class Roles {
 	// Champs statiques
 	
 	public static final String ADMINISTRATEUR	= "ADMINISTRATEUR";
-	public static final String UTILISATEUR		= "UTILISATEUR";
+	public static final String PARTICIPANT		= "PARTICIPANT";
+	public static final String BENEVOLE		= "BENEVOLE";
 	
 	
 	private static final List<String>	roles = Collections.unmodifiableList( Arrays.asList( 
 			ADMINISTRATEUR,			
-			UTILISATEUR
+			PARTICIPANT,
+			BENEVOLE
 	) );
 
 	private static final String[]	 	libellés = new String[] {
 			"Administrateur",
-			"Utilisateur",
+			"Participant",
+			"Benevole"
 	};
 	
 	
