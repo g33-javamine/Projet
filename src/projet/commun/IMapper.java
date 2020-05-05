@@ -18,11 +18,7 @@ public interface IMapper {
 	
 	Club update( @MappingTarget Club target, Club source );
 
-	@Mapping( target="categorie", expression="java( source.getCategorie() )" )
-	Personne update( @MappingTarget Personne target, Personne source );
 
-	@Mapping( target="categorie", expression="java( source.getCategorie() )" )
-	Participant update( @MappingTarget Participant target, Participant source );
 
 	Benevole update( @MappingTarget Benevole target, Benevole source );
 	
