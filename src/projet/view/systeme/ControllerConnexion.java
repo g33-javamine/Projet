@@ -39,8 +39,8 @@ public class ControllerConnexion {
 		
 		// Data binding
 		Utilisateur courant = modelConnexion.getCourant();
-		fieldPseudo.textProperty().bindBidirectional( courant.pseudoProperty() );
-		fieldMotDePasse.textProperty().bindBidirectional( courant.motDePasseProperty() );
+		fieldPseudo.textProperty().bindBidirectional( courant.loginProperty() );
+		fieldMotDePasse.textProperty().bindBidirectional( courant.passwordProperty() );
 
 	}
 	
