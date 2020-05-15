@@ -1,4 +1,4 @@
-package projet.view.service;
+package projet.view.benevole;
 
 import javax.inject.Inject;
 

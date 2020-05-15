@@ -1,4 +1,4 @@
-package projet.view.compte;
+package projet.view.participant;
 
 
 import javax.inject.Inject;

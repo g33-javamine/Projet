@@ -1,4 +1,4 @@
-package projet.view.memo;
+package projet.view.admin;
 
 import java.awt.Desktop;
 import java.io.File;

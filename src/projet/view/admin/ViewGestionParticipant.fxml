@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="paneRoot" prefHeight="402.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" styleClass="titre-vue" text="Gestion de participant" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
+      <VBox alignment="CENTER" fillWidth="false" layoutX="14.0" layoutY="60.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <GridPane prefHeight="250.0" prefWidth="399.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="200.0" />
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="199.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="250.0" minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Equipes" />
+                        <ListView prefHeight="228.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="208.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label text="Personnes" />
+                        <ListView prefHeight="74.0" prefWidth="199.0" />
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#doValider" prefHeight="25.0" prefWidth="84.0" text="Voir validités">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="11.0" layoutY="342.0" prefHeight="60.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="-11.0" />
+   </children>
+</AnchorPane>
