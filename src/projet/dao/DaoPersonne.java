@@ -1,17 +1,20 @@
 package projet.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import jfox.dao.jdbc.UtilJdbc;
+import projet.data.Administrateurs;
+import projet.data.Benevole;
+import projet.data.Equipe;
+import projet.data.Participant;
 import projet.data.Personne;
 
 
@@ -23,9 +26,11 @@ public class DaoPersonne {
 	@Inject
 	private DataSource		dataSource;
 	@Inject
-	private DaoTelephone	daoTelephone;
+	private DaoBenevole	daoBenevole;
 	@Inject
-	private DaoCategorie	daoCategorie;
+	private DaoAdministrateurs	daoAdministrateurs;
+	@Inject
+	private DaoParticipant	daoParticipant;
 
 	
 	// Actions
@@ -41,26 +46,39 @@ public class DaoPersonne {
 			cn = dataSource.getConnection();
 
 			// Insère le personne
-			sql = "INSERT INTO personne ( idcategorie, nom, prenom ) VALUES ( ?, ?, ? )";
+			sql = "INSERT INTO Personne (Nom,Prenom,DateNaissance,Tel,Mail,Adresse) VALUES (?,?,?,?,?,?)";
 			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS  );
-			stmt.setInt(	1, personne.getCategorie().getId() );
-			stmt.setString(	2, personne.getNom() );
-			stmt.setString(	3, personne.getPrenom() );
+			stmt.setObject(	1, personne.getNom() );
+			stmt.setObject(	2, personne.getPrenom() );
+			stmt.setObject(	3, personne.getDateNaissance() );
+			stmt.setObject(	4, personne.getTel() );
+			stmt.setObject(	5, personne.getMail() );
+			stmt.setObject(	6, personne.getAdresse() );
 			stmt.executeUpdate();
 
 			// Récupère l'identifiant généré par le SGBD
 			rs = stmt.getGeneratedKeys();
 			rs.next();
 			personne.setId( rs.getObject( 1, Integer.class ) );
-	
+			
+			if(personne instanceof Administrateurs)
+			{
+				daoAdministrateurs.inserer((Administrateurs) personne);
+			}
+			else if(personne instanceof Benevole)
+			{
+				daoBenevole.inserer((Benevole) personne);
+			}
+			else if(personne instanceof Participant)
+			{
+				daoParticipant.inserer((Participant) personne);
+			}
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
 			UtilJdbc.close( stmt, cn );
 		}
-
-		// Insère les telephones
-		daoTelephone.insererPourPersonne( personne );
 		
 		// Retourne l'identifiant
 		return personne.getId();
@@ -77,13 +95,29 @@ public class DaoPersonne {
 			cn = dataSource.getConnection();
 
 			// Modifie le personne
-			sql = "UPDATE personne SET idcategorie = ?, nom = ?, prenom = ? WHERE idpersonne =  ?";
+			sql = "UPDATE Personne SET Nom =  ?,Prenom =  ?,DateNaissance =  ?,Tel =  ?,Mail =  ?,Adresse =  ? WHERE id =  ?";
 			stmt = cn.prepareStatement( sql );
-			stmt.setObject( 1, personne.getCategorie().getId() );
-			stmt.setObject( 2, personne.getNom() );
-			stmt.setObject( 3, personne.getPrenom() );
-			stmt.setObject( 4, personne.getId() );
+			stmt.setObject( 1, personne.getNom() );
+			stmt.setObject( 2, personne.getPrenom() );
+			stmt.setObject( 3, personne.getDateNaissance() );
+			stmt.setObject( 4, personne.getTel() );
+			stmt.setObject( 5, personne.getMail() );
+			stmt.setObject( 6, personne.getAdresse() );
+			stmt.setObject( 7, personne.getId() );
 			stmt.executeUpdate();
+			
+			if(personne instanceof Administrateurs)
+			{
+				daoAdministrateurs.modifier((Administrateurs) personne);
+			}
+			else if(personne instanceof Benevole)
+			{
+				daoBenevole.modifier((Benevole) personne);
+			}
+			else if(personne instanceof Participant)
+			{
+				daoParticipant.modifier((Participant) personne);
+			}
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -91,8 +125,7 @@ public class DaoPersonne {
 			UtilJdbc.close( stmt, cn );
 		}
 
-		// Modifie les telephones
-		daoTelephone.modifierPourPersonne( personne );
+
 	}
 
 	
@@ -102,18 +135,35 @@ public class DaoPersonne {
 		PreparedStatement	stmt	= null;
 		String 				sql;
 
-		// Supprime les telephones
-		daoTelephone.supprimerPourPersonne( idPersonne );
 
 		try {
 			cn = dataSource.getConnection();
 
 			// Supprime le personne
-			sql = "DELETE FROM personne WHERE idpersonne = ? ";
+			sql = "DELETE FROM Personne WHERE id = ? ";
 			stmt = cn.prepareStatement(sql);
 			stmt.setObject( 1, idPersonne );
 			stmt.executeUpdate();
-
+			stmt.close();
+			
+			sql = "DELETE FROM Participant WHERE id = ? ";
+			stmt = cn.prepareStatement(sql);
+			stmt.setObject( 1, idPersonne );
+			stmt.executeUpdate();
+			stmt.close();
+			
+			sql = "DELETE FROM Benevole WHERE id = ? ";
+			stmt = cn.prepareStatement(sql);
+			stmt.setObject( 1, idPersonne );
+			stmt.executeUpdate();
+			stmt.close();
+			
+			sql = "DELETE FROM Administrateurs WHERE id = ? ";
+			stmt = cn.prepareStatement(sql);
+			stmt.setObject( 1, idPersonne );
+			stmt.executeUpdate();
+			stmt.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -126,7 +176,7 @@ public class DaoPersonne {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
-		ResultSet 			rs 		= null;
+		ResultSet 			rs 		= null, rsSub = null;
 		String				sql;
 
 		try {
@@ -136,10 +186,87 @@ public class DaoPersonne {
             stmt = cn.prepareStatement(sql);
             stmt.setObject( 1, idPersonne);
             rs = stmt.executeQuery();
+            stmt.close();
+            
 
-            if ( rs.next() ) {
-                return construirePersonne(rs, true );
-            } else {
+            if ( rs.next() ) 
+            {
+            	Personne personne = null;
+            	sql = "SELECT * FROM Participant WHERE idpersonne = ?";
+                stmt = cn.prepareStatement(sql);
+                stmt.setObject( 1, idPersonne);
+                rsSub = stmt.executeQuery();
+                stmt.close();
+                if(rsSub.next())
+                {
+                	personne = daoParticipant.retrouver(idPersonne);
+                }
+                sql = "SELECT * FROM Benevole WHERE idpersonne = ?";
+                stmt = cn.prepareStatement(sql);
+                stmt.setObject( 1, idPersonne);
+                rsSub = stmt.executeQuery();
+                stmt.close();
+                if(rsSub.next())
+                {
+                	personne = daoBenevole.retrouver(idPersonne);
+                }
+                sql = "SELECT * FROM Administrateurs WHERE idpersonne = ?";
+                stmt = cn.prepareStatement(sql);
+                stmt.setObject( 1, idPersonne);
+                rsSub = stmt.executeQuery();
+                stmt.close();
+                if(rsSub.next())
+                {
+                	personne = daoAdministrateurs.retrouver(idPersonne);
+                }
+                
+                completerPersonne(rs, personne );
+                return personne;
+            }
+            else {
+            	return null;
+            }
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			UtilJdbc.close( rs, stmt, cn );
+		}
+	}
+	
+	public Personne retrouver(int idPersonne,Equipe equipe)  {
+
+		Connection			cn		= null;
+		PreparedStatement	stmt	= null;
+		ResultSet 			rs 		= null, rsSub = null;
+		String				sql;
+
+		try {
+			cn = dataSource.getConnection();
+
+			sql = "SELECT * FROM personne WHERE idpersonne = ?";
+            stmt = cn.prepareStatement(sql);
+            stmt.setObject( 1, idPersonne);
+            rs = stmt.executeQuery();
+            stmt.close();
+            
+
+            if ( rs.next() ) 
+            {
+            	Personne personne = null;
+            	sql = "SELECT * FROM Participant WHERE idpersonne = ?";
+                stmt = cn.prepareStatement(sql);
+                stmt.setObject( 1, idPersonne);
+                rsSub = stmt.executeQuery();
+                stmt.close();
+                if(rsSub.next())
+                {
+                	personne = daoParticipant.retrouver(idPersonne,equipe);
+                }
+                
+                completerPersonne(rs, personne );
+                return personne;
+            }
+            else {
             	return null;
             }
 		} catch (SQLException e) {
@@ -149,106 +276,18 @@ public class DaoPersonne {
 		}
 	}
 
-	
-	public List<Personne> listerTout()   {
-
-		Connection			cn		= null;
-		PreparedStatement	stmt	= null;
-		ResultSet 			rs 		= null;
-		String				sql;
-
-		try {
-			cn = dataSource.getConnection();
-
-			sql = "SELECT * FROM personne ORDER BY nom, prenom";
-			stmt = cn.prepareStatement(sql);
-			rs = stmt.executeQuery();
-			
-			List<Personne> personnes = new ArrayList<>();
-			while (rs.next()) {
-				personnes.add( construirePersonne(rs, false) );
-			}
-			return personnes;
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			UtilJdbc.close( rs, stmt, cn );
-		}
-	}
-
-	
-	public List<Personne> listerPourMemo( int idMemo )   {
-
-		Connection			cn		= null;
-		PreparedStatement	stmt	= null;
-		ResultSet 			rs 		= null;
-		String				sql;
-
-		try {
-			cn = dataSource.getConnection();
-
-			sql = "SELECT p.* FROM personne p" 
-				+ " INNER JOIN concerner c ON p.idpersonne = c.idpersonne" 
-				+ " WHERE c.idmemo = ?" 
-				+ " ORDER BY nom, prenom";
-			stmt = cn.prepareStatement(sql);
-			stmt.setObject( 1, idMemo ); 
-			rs = stmt.executeQuery();
-			
-			List<Personne> personnes = new ArrayList<>();
-			while (rs.next()) {
-				personnes.add( construirePersonne(rs, false) );
-			}
-			return personnes;
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			UtilJdbc.close( rs, stmt, cn );
-		}
-	}
-
-    
-    public int compterPourCategorie(int idCategorie) {
-    	
-		Connection			cn		= null;
-		PreparedStatement	stmt 	= null;
-		ResultSet 			rs		= null;
-
-		try {
-			cn = dataSource.getConnection();
-            String sql = "SELECT COUNT(*) FROM personne WHERE idcategorie = ?";
-            stmt = cn.prepareStatement( sql );
-            stmt.setObject( 1, idCategorie );
-            rs = stmt.executeQuery();
-
-            rs.next();
-            return rs.getInt( 1 );
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			UtilJdbc.close( rs, stmt, cn );
-		}
-    }
-	
-	
 	// Méthodes auxiliaires
 	
-	private Personne construirePersonne( ResultSet rs, boolean flagComplet ) throws SQLException {
-
-		Personne personne = new Personne();
-		personne.setId(rs.getObject( "idpersonne", Integer.class ));
-		personne.setNom(rs.getObject( "nom", String.class ));
-		personne.setPrenom(rs.getObject( "prenom", String.class ));
-
-		if ( flagComplet ) {
-			personne.setCategorie( daoCategorie.retrouver( rs.getObject("idcategorie", Integer.class) ) );
-			personne.getTelephones().addAll( daoTelephone.listerPourPersonne( personne ) );
-		}
+	private void completerPersonne( ResultSet rs, Personne personne ) throws SQLException {
 		
-		return personne;
+		personne.setId(rs.getObject( "id", Integer.class ));
+		personne.setAdresse(rs.getObject( "Adresse", String.class ));
+		personne.setDateNaissance(rs.getObject( "DateNaissance", Date.class ));
+		personne.setMail(rs.getObject( "Mail", String.class ));
+		personne.setNom(rs.getObject( "Nom", String.class ));
+		personne.setPrenom(rs.getObject( "Prenom", String.class ));
+		personne.setTel(rs.getObject( "Tel", String.class ));
+
 	}
 	
 }

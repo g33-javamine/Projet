@@ -15,7 +15,7 @@ import jfox.dao.jdbc.UtilJdbc;
 import projet.data.Utilisateur;
 
 
-public class DaoCompte {
+public class DaoUtilisateur {
 
 	
 	// Champs
@@ -23,45 +23,33 @@ public class DaoCompte {
 	@Inject
 	private DataSource		dataSource;
 	@Inject
-	private DaoRole			daoRole;
+	private DaoPersonne	    daoPersonne;
 
 	
 	// Actions
 
-	public int inserer( Utilisateur compte )  {
+	public void inserer( Utilisateur compte )  {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
-		ResultSet 			rs 		= null;
 		String				sql;
-
 		try {
+			daoPersonne.inserer(compte.getUtilisateur());
 			cn = dataSource.getConnection();
 
 			// Insère le compte
-			sql = "INSERT INTO compte ( pseudo, motdepasse, email ) VALUES ( ?, ?, ? )";
+			sql = "INSERT INTO compte ( login, password, id ) VALUES ( ?, ?, ? )";
 			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS ); 
-			stmt.setObject( 1, compte.getPseudo() );
-			stmt.setObject( 2, compte.getMotDePasse() );
-			stmt.setObject( 3, compte.getEmail() );
+			stmt.setObject( 1, compte.getLogin() );
+			stmt.setObject( 2, compte.getPassword() );
+			stmt.setObject( 3, compte.getUtilisateur().getId());
 			stmt.executeUpdate();
-
-			// Récupère l'identifiant généré par le SGBD
-			rs = stmt.getGeneratedKeys();
-			rs.next();
-			compte.setId( rs.getObject( 1, Integer.class) );
 	
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
 			UtilJdbc.close( stmt, cn );
 		}
-
-		// Insère les rôles
-		daoRole.insererPourCompte( compte );
-		
-		// Retourne l'identifiant
-		return compte.getId();
 	}
 	
 
@@ -72,15 +60,15 @@ public class DaoCompte {
 		String 				sql;
 
 		try {
+			daoPersonne.modifier(compte.getUtilisateur());
 			cn = dataSource.getConnection();
 
 			// Modifie le compte
-			sql = "UPDATE compte SET pseudo = ?, motdepasse = ?, email = ? WHERE idcompte =  ?";
+			sql = "UPDATE compte SET password = ?, id = ? WHERE login = ?";
 			stmt = cn.prepareStatement( sql );
-			stmt.setObject( 1, compte.getPseudo() );
-			stmt.setObject( 2, compte.getMotDePasse() );
-			stmt.setObject( 3, compte.getEmail() );
-			stmt.setObject( 4, compte.getId() );
+			stmt.setObject( 1, compte.getPassword() );
+			stmt.setObject( 2, compte.getUtilisateur().getId() );
+			stmt.setObject( 3, compte.getLogin() );
 			stmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -88,30 +76,24 @@ public class DaoCompte {
 		} finally {
 			UtilJdbc.close( stmt, cn );
 		}
-
-		// Modifie les rôles
-		daoRole.supprimerPourCompte( compte.getId() );
-		daoRole.insererPourCompte( compte );
-
 	}
 	
 
-	public void supprimer( int idCompte )  {
+	public void supprimer( String login )  {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
 		String 				sql;
 
 		// Supprime les rôles
-		daoRole.supprimerPourCompte( idCompte );
 
 		try {
 			cn = dataSource.getConnection();
 
 			// Supprime le compte
-			sql = "DELETE FROM compte WHERE idcompte = ? ";
+			sql = "DELETE FROM compte WHERE login = ? ";
 			stmt = cn.prepareStatement( sql );
-			stmt.setObject( 1, idCompte );
+			stmt.setObject( 1, login );
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -122,26 +104,28 @@ public class DaoCompte {
 	}
 	
 
-	public Utilisateur retrouver( int idCompte )  {
+public Utilisateur retrouver( String login )  {
+	
+	Connection			cn		= null;
+	PreparedStatement	stmt	= null;
+	ResultSet 			rs 		= null;
+	String				sql;
 
-		Connection			cn		= null;
-		PreparedStatement	stmt	= null;
-		ResultSet 			rs 		= null;
-		String				sql;
+	try {
+		cn = dataSource.getConnection();
+		sql = "SELECT * FROM compte WHERE login = ?";
+		stmt = cn.prepareStatement( sql );
+        stmt.setObject( 1, login );
+        rs = stmt.executeQuery();
 
-		try {
-			cn = dataSource.getConnection();
-
-			sql = "SELECT * FROM compte WHERE idcompte = ?";
-            stmt = cn.prepareStatement( sql );
-            stmt.setObject( 1, idCompte );
-            rs = stmt.executeQuery();
-
-            if ( rs.next() ) {
-                return construireCompte( rs );
-            } else {
-            	return null;
-            }
+        if ( rs.next() ) 
+        {
+        	return construireCompte( rs );
+        } 
+        else 
+        {
+        	return null;
+        }
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -150,7 +134,7 @@ public class DaoCompte {
 	}
 	
 
-	public List<Utilisateur> listerTout()   {
+public List<Utilisateur> listerTout()   {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -178,8 +162,8 @@ public class DaoCompte {
 	}
 
 
-	public Utilisateur validerAuthentification( String pseudo, String motDePasse )  {
-		
+	public Utilisateur validerAuthentification( String pseudo, String motDePasse ) 
+	{	
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
 		ResultSet 			rs 		= null;
@@ -205,47 +189,15 @@ public class DaoCompte {
 			UtilJdbc.close( rs, stmt, cn );
 		}
 	}
-
-
-	public boolean verifierUnicitePseudo( String pseudo, Integer idCompte )   {
-
-		Connection			cn		= null;
-		PreparedStatement	stmt	= null;
-		ResultSet 			rs 		= null;
-		String				sql;
-
-		if ( idCompte == null ) idCompte = 0;
-		
-		try {
-			cn = dataSource.getConnection();
-
-			sql = "SELECT COUNT(*) = 0 AS unicite"
-					+ " FROM compte WHERE pseudo = ? AND idcompte <> ?";
-			stmt = cn.prepareStatement( sql );
-			stmt.setObject(	1, pseudo );
-			stmt.setObject(	2, idCompte );
-			rs = stmt.executeQuery();
-			
-			rs.next();
-			return rs.getBoolean( "unicite" );
-	
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			UtilJdbc.close( rs, stmt, cn );
-		}
-	}
 	
 	
 	// Méthodes auxiliaires
 	
 	private Utilisateur construireCompte( ResultSet rs ) throws SQLException {
 		Utilisateur compte = new Utilisateur();
-		compte.setId( rs.getObject( "idcompte", Integer.class ) );
-		compte.setPseudo( rs.getObject( "pseudo", String.class ) );
-		compte.setMotDePasse( rs.getObject( "motdepasse", String.class ) );
-		compte.setEmail( rs.getObject( "email", String.class ) );
-		compte.getRoles().setAll( daoRole.listerPourCompte( compte ) );
+		compte.setLogin( rs.getObject( "login", String.class ) );
+		compte.setPassword( rs.getObject( "password", String.class ) );
+		compte.setUtilisateur(daoPersonne.retrouver(rs.getObject("id",Integer.class)));
 		return compte;
 	}
 	

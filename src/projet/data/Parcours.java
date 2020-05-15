@@ -1,22 +1,20 @@
 package projet.data;
 
 import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.Collection;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Parcours {
 	private final Property<Integer> id   = new SimpleObjectProperty<>();
-	private final SimpleObjectProperty<Timestamp> finIntervention = new SimpleObjectProperty<>();
+	private final SimpleObjectProperty<Timestamp> dateDepart = new SimpleObjectProperty<>();
 	private final ObservableList<Balise> balises = FXCollections.emptyObservableList();
 	
 	
-	Parcours(){
+	public Parcours(){
 		
 	}
 
@@ -35,22 +33,32 @@ public class Parcours {
 		this.idProperty().setValue(id);
 	}
 
-	public final SimpleObjectProperty<Timestamp> finInterventionProperty() {
-		return this.finIntervention;
+	public final SimpleObjectProperty<Timestamp> dateDepartProperty() {
+		return this.dateDepart;
 	}
 	
 
-	public final Timestamp getFinIntervention() {
-		return this.finInterventionProperty().get();
+	public final Timestamp getDateDepart() {
+		return this.dateDepartProperty().get();
 	}
 	
 
-	public final void setFinIntervention(final Timestamp finIntervention) {
-		this.finInterventionProperty().set(finIntervention);
+	public final void setDateDepart(final Timestamp finIntervention) {
+		this.dateDepartProperty().set(finIntervention);
+	}
+
+	public ObservableList<Balise> getBalises() {
+		return balises;
 	}
 	
-
-
+	public void setBalises(Collection<Balise> listBalises) {
+		balises.clear();
+		balises.addAll(listBalises);
+	}
 	
+	public void addBalise(Balise balise)
+	{
+		balises.add(balise);
+	}
 
 }

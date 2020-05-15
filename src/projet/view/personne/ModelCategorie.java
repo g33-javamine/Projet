@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import jfox.commun.exception.ExceptionValidation;
 import jfox.javafx.util.UtilFX;
 import projet.commun.IMapper;
-import projet.dao.DaoCategorie;
+import projet.dao.DaoBalise;
 import projet.dao.DaoMemo;
 import projet.dao.DaoPersonne;
 import projet.data.Club;
@@ -27,7 +27,7 @@ public class ModelCategorie  {
     @Inject
 	private IMapper			mapper;
     @Inject
-	private DaoCategorie	daoCategorie;
+	private DaoBalise	daoCategorie;
     @Inject
     private DaoPersonne		daoPersonne;
     @Inject

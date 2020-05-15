@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,10 +13,10 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import jfox.dao.jdbc.UtilJdbc;
-import projet.data.Benevole;
+import projet.data.Poste;
 
 
-public class DaoService {
+public class DaoPoste {
 
 	
 	// Champs
@@ -26,27 +27,29 @@ public class DaoService {
 	
 	// Actions
 
-	public int inserer( Benevole service ) {
+	public int inserer( Poste poste ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
 		ResultSet 			rs		= null;
 		String				sql;
-		
+
 		try {
 			cn = dataSource.getConnection();
-			sql = "INSERT INTO service ( nom, anneecreation, flagSiege ) VALUES( ?, ?, ? ) ";
+			sql = "INSERT INTO Poste(nom_poste,Types_benevoles,nombre_benevole,debut_intervention,fin_intervention) VALUES (?,?,?,?,?);";
 			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS );
-			stmt.setObject( 1, service.getNom() );
-			stmt.setObject( 2, service.getAnneeCreation() );
-			stmt.setObject( 3, service.getFlagSiege() );
+			stmt.setObject( 1, poste.getNomPoste());
+			stmt.setObject( 2, poste.getTypeBenevole());
+			stmt.setObject( 3, poste.getNbrBenevole());
+			stmt.setObject( 4, poste.getDebutIntervention());
+			stmt.setObject( 5, poste.getFinIntervention());
 			stmt.executeUpdate();
 
 			// Récupère l'identifiant généré par le SGBD
 			rs = stmt.getGeneratedKeys();
 			rs.next();
-			service.setId( rs.getObject( 1, Integer.class) );
-			return service.getId();
+			poste.setId( rs.getObject( 1, Integer.class) );
+			return poste.getId();
 	
 		} catch ( SQLException e ) {
 			throw new RuntimeException(e);
@@ -56,7 +59,7 @@ public class DaoService {
 	}
 
 
-	public void modifier( Benevole service ) {
+	public void modifier( Poste poste ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -64,12 +67,14 @@ public class DaoService {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "UPDATE service SET nom = ?, anneecreation = ?, flagsiege = ? WHERE idservice =  ?";
+			sql = "UPDATE Poste SET nom_poste = ?,Types_benevoles = ?,nombre_benevole = ?,debut_intervention = ?,fin_intervention = ? WHERE Id =  ?";
 			stmt = cn.prepareStatement( sql );
-			stmt.setObject( 1, service.getNom() );
-			stmt.setObject( 2, service.getAnneeCreation() );
-			stmt.setObject( 3, service.getFlagSiege() );
-			stmt.setObject( 4, service.getId() );
+			stmt.setObject( 1, poste.getNomPoste() );
+			stmt.setObject( 2, poste.getTypeBenevole() );
+			stmt.setObject( 3, poste.getNbrBenevole() );
+			stmt.setObject( 4, poste.getDebutIntervention() );
+			stmt.setObject( 5, poste.getFinIntervention() );
+			stmt.setObject( 6, poste.getId() );
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -80,7 +85,7 @@ public class DaoService {
 	}
 
 
-	public void supprimer( int idService ) {
+	public void supprimer( int idPoste ) {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt 	= null;
@@ -88,9 +93,9 @@ public class DaoService {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "DELETE FROM service WHERE idservice = ? ";
+			sql = "DELETE FROM Poste WHERE Id = ? ";
 			stmt = cn.prepareStatement( sql );
-			stmt.setInt( 1, idService );
+			stmt.setObject( 1, idPoste );
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -101,7 +106,7 @@ public class DaoService {
 	}
 
 	
-	public Benevole retrouver( int idService ) {
+	public Poste retrouver( int idPoste ) {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt	= null;
@@ -110,13 +115,13 @@ public class DaoService {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "SELECT * FROM service WHERE idservice = ?";
+			sql = "SELECT * FROM Poste WHERE Id = ?";
 			stmt = cn.prepareStatement( sql );
-			stmt.setInt(1, idService);
+			stmt.setObject(1, idPoste);
 			rs = stmt.executeQuery();
 
 			if ( rs.next() ) {
-				return construireService( rs );
+				return construirePoste( rs );
 			} else {
 				return null;
 			}
@@ -128,7 +133,7 @@ public class DaoService {
 	}
 
 
-	public List<Benevole> listerTout() {
+	public List<Poste> listerTout() {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt 	= null;
@@ -137,15 +142,15 @@ public class DaoService {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "SELECT * FROM service ORDER BY nom";
+			sql = "SELECT * FROM Poste ORDER BY Id";
 			stmt = cn.prepareStatement( sql );
 			rs = stmt.executeQuery();
 
-			List<Benevole> services = new LinkedList<>();
+			List<Poste> postes = new LinkedList<>();
 			while (rs.next()) {
-				services.add( construireService( rs ) );
+				postes.add( construirePoste( rs ) );
 			}
-			return services;
+			return postes;
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -157,13 +162,15 @@ public class DaoService {
 	
 	// Méthodes auxiliaires
 	
-	private Benevole construireService( ResultSet rs ) throws SQLException {
-		Benevole service = new Benevole();
-		service.setId( rs.getObject( "idservice", Integer.class ) );
-		service.setNom( rs.getObject( "nom", String.class ) );
-		service.setAnneeCreation( rs.getObject( "anneeCreation", Integer.class ) );
-		service.setFlagSiege( rs.getObject( "flagsiege", Boolean.class ) );
-		return service;
+	private Poste construirePoste( ResultSet rs ) throws SQLException {
+		Poste poste = new Poste();
+		poste.setId( rs.getObject( "Id", Integer.class ) );
+		poste.setNomPoste(rs.getObject( "nom_poste", String.class ));
+		poste.setTypeBenevole(rs.getObject( "Types_benevoles", String.class ));
+		poste.setNbrBenevole(rs.getObject( "nombre_benevole", Integer.class ));
+		poste.setDebutIntervention(rs.getObject( "debut_intervention", Timestamp.class ));
+		poste.setFinIntervention(rs.getObject( "fin_intervention", Timestamp.class ));
+		return poste;
 	}
 
 }

@@ -23,10 +23,10 @@ public class Utilisateur  {
 	public Utilisateur() {
 	}
 
-	public Utilisateur( int id, String login, String password) {
-		setUtilisateur(id);
+	public Utilisateur( Personne utilisateur, String login, String password) {
 		setLogin(login);
 		setPassword(password);
+		setUtilisateur(utilisateur);
 		
 	}
 	
@@ -42,14 +42,10 @@ public class Utilisateur  {
 	}
 	
 
-	public final void setUtilisateur(final Personne utilisateur) {
+	public final void setUtilisateur(Personne utilisateur) {
 		this.utilisateurProperty().setValue(utilisateur);
 	}
 	
-	public final void setUtilisateur(int  idUtilisateur) {
-		//
-	}
-
 	public final StringProperty loginProperty() {
 		return this.login;
 	}
@@ -107,11 +103,11 @@ public class Utilisateur  {
 	
 	public String getRole()
 	{
-		if(utilisateur instanceof Administrateurs)
+		if(utilisateur.getValue() instanceof Administrateurs)
 			return Roles.ADMINISTRATEUR;
-		else if(utilisateur instanceof Benevole)
+		else if(utilisateur.getValue() instanceof Benevole)
 			return Roles.BENEVOLE;
-		else//(utilisateur instanceof Participant)
+		else//(utilisateur.getValue() instanceof Participant)
 			return Roles.PARTICIPANT;
 	}
 

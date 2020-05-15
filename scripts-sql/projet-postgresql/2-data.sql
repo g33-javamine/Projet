@@ -112,7 +112,7 @@ INSERT INTO Balise VALUES
 -- Table: Poste
 ------------------------------------------------------------
 
-INSERT INTO Poste VALUES
+INSERT INTO Poste(nom_poste,Types_benevoles,nombre_benevole,debut_intervention,fin_intervention) VALUES
 ('Signaleur','ME',37,TIMESTAMP '2020-06-30 08:30:00',TIMESTAMP '2020-06-30 13:30:00');
 
 ------------------------------------------------------------
@@ -128,8 +128,8 @@ INSERT INTO est_composee VALUES
 ------------------------------------------------------------
 
 INSERT INTO a_poste VALUES 
-('Signaleur',3),
-('Signaleur',5);
+(1,3),
+(1,5);
 
 ------------------------------------------------------------
 -- Table: est assignée

@@ -11,7 +11,7 @@ public class Balise {
 	private final Property<Double> longitude   = new SimpleObjectProperty<>();
 	private final Property<Double> latitude = new SimpleObjectProperty<>();
 	
-	Balise(){
+	public Balise(){
 		
 	}
 

@@ -1,6 +1,6 @@
 package projet.data;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.Objects;
 
 import javafx.beans.property.Property;
@@ -13,22 +13,23 @@ public abstract class Personne {
 
 	// Données observables
 	
-	protected final Property<Integer>		id			= new SimpleObjectProperty<>();
-	protected final StringProperty		nom	 		= new SimpleStringProperty();
-	protected final StringProperty		prenom		= new SimpleStringProperty();
-	protected final Property<LocalDate>	dateNaissance	= new SimpleObjectProperty<>();
-	protected final StringProperty		tel		= new SimpleStringProperty();
+	protected final Property<Integer>	id				= new SimpleObjectProperty<>();
+	protected final StringProperty		nom	 			= new SimpleStringProperty();
+	protected final StringProperty		prenom			= new SimpleStringProperty();
+	protected final Property<Date>	dateNaissance	= new SimpleObjectProperty<>();
+	protected final StringProperty		tel				= new SimpleStringProperty();
 	protected final StringProperty		mail	 		= new SimpleStringProperty();
-	protected final StringProperty		adresse		= new SimpleStringProperty();
+	protected final StringProperty		adresse			= new SimpleStringProperty();
 	
-
 	
 	// Constructeurs
 	
-	public Personne() {
+	public Personne() 
+	{
+		
 	}
 	
-	public Personne( int id, String nom, String prenom, LocalDate dateNaissance, String tel, String mail, String adresse ) {
+	public Personne( int id, String nom, String prenom, Date dateNaissance, String tel, String mail, String adresse ) {
 		setId(id);
 		setNom(nom);
 		setPrenom(prenom);
@@ -87,17 +88,17 @@ public abstract class Personne {
 	}
 	
 
-	public final Property<LocalDate> dateNaissanceProperty() {
+	public final Property<Date> dateNaissanceProperty() {
 		return this.dateNaissance;
 	}
 	
 
-	public final LocalDate getDateNaissance() {
+	public final Date getDateNaissance() {
 		return this.dateNaissanceProperty().getValue();
 	}
 	
 
-	public final void setDateNaissance(final LocalDate dateNaissance) {
+	public final void setDateNaissance(final Date dateNaissance) {
 		this.dateNaissanceProperty().setValue(dateNaissance);
 	}
 	

@@ -18,7 +18,7 @@ public class Equipe {
 	
 	
 	
-	Equipe(){
+	public Equipe(){
 	}
 	
 

@@ -142,13 +142,14 @@ CREATE TABLE Permis_de_Conduire(
 -- Table: Poste
 ------------------------------------------------------------
 CREATE TABLE Poste(
+	Id					 SERIAL NOT NULL
 	nom_poste            VARCHAR (50) NOT NULL ,
 	Types_benevoles      VARCHAR (2) NOT NULL CHECK (Types_benevoles SIMILAR TO '(M|N)(E|N)'),
 	nombre_benevole      INT  NOT NULL ,
 	debut_intervention   TIMESTAMP  NOT NULL ,
 	fin_intervention     TIMESTAMP  NOT NULL,
 	CONSTRAINT check_tmp_intervention_positif CHECK(debut_intervention<fin_intervention),
-	CONSTRAINT Poste_PK PRIMARY KEY (nom_poste)
+	CONSTRAINT Poste_PK PRIMARY KEY (Id)
 )WITHOUT OIDS;
 
 
@@ -168,7 +169,7 @@ CREATE TABLE est_composee(
 -- Table: a poste
 ------------------------------------------------------------
 CREATE TABLE a_poste(
-	nom_poste   VARCHAR (50) NOT NULL ,
+	id_poste   VARCHAR (50) NOT NULL ,
 	id          INT  NOT NULL  ,
 	CONSTRAINT a_poste_PK PRIMARY KEY (nom_poste,id),
 	CONSTRAINT a_poste_Poste_FK FOREIGN KEY (nom_poste) REFERENCES Poste(nom_poste),
