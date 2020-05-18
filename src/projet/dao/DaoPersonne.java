@@ -175,50 +175,51 @@ public class DaoPersonne {
 	public Personne retrouver(int idPersonne)  {
 
 		Connection			cn		= null;
-		PreparedStatement	stmt	= null;
+		PreparedStatement	stmt	= null, stmtSub = null;
 		ResultSet 			rs 		= null, rsSub = null;
 		String				sql;
 
 		try {
 			cn = dataSource.getConnection();
 
-			sql = "SELECT * FROM personne WHERE idpersonne = ?";
+			sql = "SELECT * FROM personne WHERE id = ?";
             stmt = cn.prepareStatement(sql);
             stmt.setObject( 1, idPersonne);
             rs = stmt.executeQuery();
-            stmt.close();
             
 
             if ( rs.next() ) 
             {
             	Personne personne = null;
-            	sql = "SELECT * FROM Participant WHERE idpersonne = ?";
-                stmt = cn.prepareStatement(sql);
-                stmt.setObject( 1, idPersonne);
-                rsSub = stmt.executeQuery();
-                stmt.close();
+            	sql = "SELECT * FROM Participant WHERE id = ?";
+            	stmtSub = cn.prepareStatement(sql);
+            	stmtSub.setObject( 1, idPersonne);
+                rsSub = stmtSub.executeQuery();
                 if(rsSub.next())
                 {
                 	personne = daoParticipant.retrouver(idPersonne);
                 }
-                sql = "SELECT * FROM Benevole WHERE idpersonne = ?";
-                stmt = cn.prepareStatement(sql);
-                stmt.setObject( 1, idPersonne);
-                rsSub = stmt.executeQuery();
-                stmt.close();
+                stmtSub.close();
+                
+                sql = "SELECT * FROM Benevole WHERE id = ?";
+                stmtSub = cn.prepareStatement(sql);
+                stmtSub.setObject( 1, idPersonne);
+                rsSub = stmtSub.executeQuery();
                 if(rsSub.next())
                 {
                 	personne = daoBenevole.retrouver(idPersonne);
                 }
-                sql = "SELECT * FROM Administrateurs WHERE idpersonne = ?";
-                stmt = cn.prepareStatement(sql);
-                stmt.setObject( 1, idPersonne);
-                rsSub = stmt.executeQuery();
-                stmt.close();
+                stmtSub.close();
+                
+                sql = "SELECT * FROM Administrateurs WHERE id = ?";
+                stmtSub = cn.prepareStatement(sql);
+                stmtSub.setObject( 1, idPersonne);
+                rsSub = stmtSub.executeQuery();
                 if(rsSub.next())
                 {
                 	personne = daoAdministrateurs.retrouver(idPersonne);
                 }
+                stmtSub.close();
                 
                 completerPersonne(rs, personne );
                 return personne;
@@ -236,33 +237,31 @@ public class DaoPersonne {
 	public Personne retrouver(int idPersonne,Equipe equipe)  {
 
 		Connection			cn		= null;
-		PreparedStatement	stmt	= null;
+		PreparedStatement	stmt	= null, stmtSub = null;
 		ResultSet 			rs 		= null, rsSub = null;
 		String				sql;
 
 		try {
 			cn = dataSource.getConnection();
 
-			sql = "SELECT * FROM personne WHERE idpersonne = ?";
+			sql = "SELECT * FROM personne WHERE id = ?";
             stmt = cn.prepareStatement(sql);
             stmt.setObject( 1, idPersonne);
             rs = stmt.executeQuery();
-            stmt.close();
             
 
             if ( rs.next() ) 
             {
             	Personne personne = null;
-            	sql = "SELECT * FROM Participant WHERE idpersonne = ?";
-                stmt = cn.prepareStatement(sql);
-                stmt.setObject( 1, idPersonne);
-                rsSub = stmt.executeQuery();
-                stmt.close();
+            	sql = "SELECT * FROM Participant WHERE id = ?";
+            	stmtSub = cn.prepareStatement(sql);
+            	stmtSub.setObject( 1, idPersonne);
+                rsSub = stmtSub.executeQuery();
                 if(rsSub.next())
                 {
                 	personne = daoParticipant.retrouver(idPersonne,equipe);
                 }
-                
+                stmtSub.close();
                 completerPersonne(rs, personne );
                 return personne;
             }
