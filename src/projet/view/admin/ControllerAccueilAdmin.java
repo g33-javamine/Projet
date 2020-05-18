@@ -35,7 +35,7 @@ import projet.data.Personne;
 import projet.view.EnumView;
 
 
-public class ControllerMemoForm {
+public class ControllerAccueilAdmin {
 
 	
 	// Composants de la vue
