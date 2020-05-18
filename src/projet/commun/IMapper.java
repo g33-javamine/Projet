@@ -14,12 +14,7 @@ import projet.data.Benevole;
 @Mapper
 public interface IMapper {  
 	
-	Utilisateur update( @MappingTarget Utilisateur target, Utilisateur source  );
-	
-	Club update( @MappingTarget Club target, Club source );
-
-
-
 	Benevole update( @MappingTarget Benevole target, Benevole source );
+	Participant update (@MappingTarget Participant target, Participant source);
 	
 }

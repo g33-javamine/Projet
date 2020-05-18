@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="paneRoot" prefHeight="402.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="paneRoot" prefHeight="402.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.view.participant.ControllerCompteParticipant">
    <children>
       <Label alignment="CENTER" styleClass="titre-vue" text="Compte" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
       <VBox alignment="CENTER" fillWidth="false" layoutX="3.0" layoutY="53.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="53.0">
@@ -53,7 +54,6 @@
                   <Label text="Coéquipier :" GridPane.rowIndex="6" />
                   <TextField fx:id="textFieldEmail1" prefHeight="25.0" prefWidth="294.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="textFieldEmail2" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="textFieldEmail3" prefHeight="25.0" prefWidth="302.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="textFieldEmail4" prefHeight="25.0" prefWidth="297.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <Label text="Autorisation médicale :" GridPane.rowIndex="7" />
                   <Label text="Autorisation parentale :" GridPane.rowIndex="8" />
@@ -67,23 +67,24 @@
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </CheckBox>
-                  <Button defaultButton="true" mnemonicParsing="false" onAction="#doValider" prefHeight="25.0" prefWidth="56.0" text="Ajouter" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#doAjouterMedicale" prefHeight="25.0" prefWidth="178.0" text="Ajouter Attestation Médicale" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button defaultButton="true" mnemonicParsing="false" onAction="#doValider" prefHeight="25.0" prefWidth="56.0" text="Ajouter" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#doAjouterParentale" prefHeight="25.0" prefWidth="178.0" text="Ajouter Attestation Parentale" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
                   </Button>
+                  <DatePicker prefHeight="25.0" prefWidth="216.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children>
       </VBox>
       <HBox alignment="CENTER" layoutY="342.0" prefHeight="60.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#doValider" prefHeight="25.0" prefWidth="84.0" text="Sauvegarder" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#doSauvegarder" prefHeight="25.0" prefWidth="84.0" text="Sauvegarder" />
          </children>
       </HBox>
    </children>

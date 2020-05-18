@@ -17,6 +17,10 @@ public class Participant extends Personne{
 	protected final Property<Club> idClub = new SimpleObjectProperty<>();
 
 	
+	
+	
+	
+	
 	// Getters & setters
 
 

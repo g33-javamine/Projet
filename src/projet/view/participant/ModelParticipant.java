@@ -8,58 +8,58 @@ import javafx.collections.ObservableList;
 import jfox.commun.exception.ExceptionValidation;
 import jfox.javafx.util.UtilFX;
 import projet.commun.IMapper;
-import projet.dao.DaoCompte2;
+import projet.dao.DaoParticipant;
+import projet.dao.DaoPersonne;
+import projet.data.Participant;
 import projet.data.Utilisateur;
 
 
-public class ModelCompte {
+public class ModelParticipant {
 	
 	
 	// Données observables 
+	 
 	
-	private final ObservableList<Utilisateur> liste = FXCollections.observableArrayList(); 
-	
-	private final Utilisateur	courant = new Utilisateur();
+	private final Participant	courant = new Participant();
 	
 	
 	// Autres champs
     @Inject
 	private IMapper			mapper;
     @Inject
-	private DaoCompte2		daoCompte;
-	
+	private DaoParticipant		daoParticipant;
+    @Inject
+	private DaoPersonne		daoPersonne;
 	
 	// Getters
 	
-	public ObservableList<Utilisateur> getListe() {
-		return liste;
-	}
 
-	public Utilisateur getCourant() {
+
+	public Participant getCourant() {
 		return courant;
 	}
 	
 	
 	// Actualisations
 	
-	public void actualiserListe() {
+	/*public void actualiserListe() {
 		liste.setAll( daoCompte.listerTout() );
- 	}
+ 	}*/
 	
 	
 	// Actions
 	
 	public void preparerAjouter() {
-		mapper.update( courant, new Utilisateur() );
+		mapper.update( courant, new Participant() );
 	}
 
 	
-	public void preparerModifier( Utilisateur item ) {
-		mapper.update( courant, daoCompte.retrouver( item.getId() ) );
+	public void preparerModifier( Participant item ) {
+		mapper.update( courant, daoParticipant.retrouver( item.getId() ) );
 	}
 	
 	
-	public void validerMiseAJour() {
+	/*public void validerMiseAJour() {
 
 		// Vérifie la validité des données
 		
@@ -98,17 +98,16 @@ public class ModelCompte {
 		
 		if ( courant.getId() == null ) {
 			// Insertion
-			courant.setId( daoCompte.inserer( courant ) );
+			courant.setId( daoParticipant.inserer( courant ) );
 		} else {
 			// modficiation
 			daoCompte.modifier( courant );
 		}
-	}
+	}*/
 	
 	
-	public void supprimer( Utilisateur item ) {
-		daoCompte.supprimer( item.getId() );
-		mapper.update( courant, UtilFX.findNext( liste, item ) );
+	public void supprimer( Participant item ) {
+		daoPersonne.supprimer( item.getId() );
 	}
 
 }
