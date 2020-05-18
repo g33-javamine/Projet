@@ -12,7 +12,6 @@ public class Poste {
 	
 	// Champs
 	
-	private final SimpleObjectProperty<Integer> Id = new SimpleObjectProperty<>();
 	private final StringProperty		nomPoste			= new SimpleStringProperty();
 	private final StringProperty		typeBenevole			= new SimpleStringProperty();
 	private final SimpleObjectProperty<Integer> nbrBenevole = new SimpleObjectProperty<>();
@@ -88,19 +87,6 @@ public class Poste {
 		this.finInterventionProperty().set(finIntervention);
 	}
 
-	public final SimpleObjectProperty<Integer> IdProperty() {
-		return this.Id;
-	}
-	
-
-	public final Integer getId() {
-		return this.IdProperty().get();
-	}
-	
-
-	public final void setId(final Integer Id) {
-		this.IdProperty().set(Id);
-	}
 	
 	
 

@@ -11,7 +11,7 @@ import javafx.collections.ObservableList;
 public class Parcours {
 	private final Property<Integer> id   = new SimpleObjectProperty<>();
 	private final SimpleObjectProperty<Timestamp> dateDepart = new SimpleObjectProperty<>();
-	private final ObservableList<Balise> balises = FXCollections.emptyObservableList();
+	private final ObservableList<Balise> balises = FXCollections.observableArrayList();
 	
 	
 	public Parcours(){

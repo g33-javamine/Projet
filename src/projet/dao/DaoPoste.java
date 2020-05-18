@@ -27,7 +27,7 @@ public class DaoPoste {
 	
 	// Actions
 
-	public int inserer( Poste poste ) {
+	public void inserer( Poste poste ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -45,11 +45,7 @@ public class DaoPoste {
 			stmt.setObject( 5, poste.getFinIntervention());
 			stmt.executeUpdate();
 
-			// Récupère l'identifiant généré par le SGBD
-			rs = stmt.getGeneratedKeys();
-			rs.next();
-			poste.setId( rs.getObject( 1, Integer.class) );
-			return poste.getId();
+
 	
 		} catch ( SQLException e ) {
 			throw new RuntimeException(e);
@@ -67,14 +63,14 @@ public class DaoPoste {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "UPDATE Poste SET nom_poste = ?,Types_benevoles = ?,nombre_benevole = ?,debut_intervention = ?,fin_intervention = ? WHERE Id =  ?";
+			sql = "UPDATE Poste SET nom_poste = ?,Types_benevoles = ?,nombre_benevole = ?,debut_intervention = ?,fin_intervention = ? WHERE nom_poste =  ?";
 			stmt = cn.prepareStatement( sql );
 			stmt.setObject( 1, poste.getNomPoste() );
 			stmt.setObject( 2, poste.getTypeBenevole() );
 			stmt.setObject( 3, poste.getNbrBenevole() );
 			stmt.setObject( 4, poste.getDebutIntervention() );
 			stmt.setObject( 5, poste.getFinIntervention() );
-			stmt.setObject( 6, poste.getId() );
+			stmt.setObject( 6, poste.getNomPoste() );
 			stmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -85,7 +81,7 @@ public class DaoPoste {
 	}
 
 
-	public void supprimer( int idPoste ) {
+	public void supprimer( String nom_poste ) {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt 	= null;
@@ -93,11 +89,17 @@ public class DaoPoste {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "DELETE FROM Poste WHERE Id = ? ";
+			sql = "DELETE FROM Poste WHERE nom_poste = ? ";
 			stmt = cn.prepareStatement( sql );
-			stmt.setObject( 1, idPoste );
+			stmt.setObject( 1, nom_poste );
 			stmt.executeUpdate();
-
+			stmt.close();
+			
+			sql = "DELETE FROM a_poste WHERE id_poste = ? ";
+			stmt = cn.prepareStatement( sql );
+			stmt.setObject( 1, nom_poste );
+			stmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -106,7 +108,7 @@ public class DaoPoste {
 	}
 
 	
-	public Poste retrouver( int idPoste ) {
+	public Poste retrouver( String nom_poste ) {
 
 		Connection			cn 		= null;
 		PreparedStatement	stmt	= null;
@@ -115,9 +117,9 @@ public class DaoPoste {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "SELECT * FROM Poste WHERE Id = ?";
+			sql = "SELECT * FROM Poste WHERE nom_poste = ?";
 			stmt = cn.prepareStatement( sql );
-			stmt.setObject(1, idPoste);
+			stmt.setObject(1, nom_poste);
 			rs = stmt.executeQuery();
 
 			if ( rs.next() ) {
@@ -164,7 +166,6 @@ public class DaoPoste {
 	
 	private Poste construirePoste( ResultSet rs ) throws SQLException {
 		Poste poste = new Poste();
-		poste.setId( rs.getObject( "Id", Integer.class ) );
 		poste.setNomPoste(rs.getObject( "nom_poste", String.class ));
 		poste.setTypeBenevole(rs.getObject( "Types_benevoles", String.class ));
 		poste.setNbrBenevole(rs.getObject( "nombre_benevole", Integer.class ));

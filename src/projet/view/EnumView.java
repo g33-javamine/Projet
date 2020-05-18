@@ -9,7 +9,31 @@ public enum EnumView implements IEnumView {
 	
 	// Valeurs
 	
+<<<<<<< HEAD
 	CompteParticipant("partcipant/ViewCompteParticipant.fxml"),
+=======
+	AccueilParticipant 	("participant/ViewAccueilParticipant.fxml"),
+	AccueilBenevole 	("benevole/ViewAccueilBenevole.fxml"),
+	AccueilAdmin 		("admin/ViewAccueilAdmin.fxml"),
+	Info				( "systeme/ViewInfo.fxml" ),
+	Connexion			( "systeme/ViewConnexion.fxml" ),
+	CompteListe			( "compte/ViewCompteListe.fxml" ),
+	CompteForm			( "compte/ViewCompteForm.fxml" ),
+	CategorieListe		( "personne/ViewCategorieListe.fxml" ),
+	CategorieForm		( "personne/ViewCategorieForm.fxml" ),
+	PersonneListe		( "personne/ViewPersonneListe.fxml" ),
+	PersonneForm		( "personne/ViewPersonneForm.fxml" ),
+	MemoListe			( "memo/ViewMemoListe.fxml" ),
+	MemoForm			( "memo/ViewMemoForm.fxml" ),
+	MemoAjoutPersonnes	( "memo/ViewMemoAjoutPersonnes.fxml" ),
+	ServiceListe		( "service/ViewServiceListe.fxml" ),
+	ServiceForm			( "service/ViewServiceForm.fxml" ),
+	TestDaoCategorie	( "test/ViewTestDaoCategorie.fxml" ),
+	TestDaoMemo			( "test/ViewTestDaoMemo.fxml" ),
+	TestDaoService		( "test/ViewTestDaoService.fxml" ),
+	EtatPersonnesParCateogire1	( "personne/ViewEtatPersonnesParCategorie1.fxml" ),
+	EtatPersonnesParCateogire2	( "personne/ViewEtatPersonnesParCategorie2.fxml" ),
+>>>>>>> refs/remotes/origin/master
 	;
 
 	

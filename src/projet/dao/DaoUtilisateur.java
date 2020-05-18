@@ -28,21 +28,21 @@ public class DaoUtilisateur {
 	
 	// Actions
 
-	public void inserer( Utilisateur compte )  {
+	public void inserer( Utilisateur utilisateur )  {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
 		String				sql;
 		try {
-			daoPersonne.inserer(compte.getUtilisateur());
+			daoPersonne.inserer(utilisateur.getUtilisateur());
 			cn = dataSource.getConnection();
 
-			// Insère le compte
-			sql = "INSERT INTO compte ( login, password, id ) VALUES ( ?, ?, ? )";
+			// Insère le utilisateur
+			sql = "INSERT INTO Utilisateur ( login, password, id ) VALUES ( ?, ?, ? )";
 			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS ); 
-			stmt.setObject( 1, compte.getLogin() );
-			stmt.setObject( 2, compte.getPassword() );
-			stmt.setObject( 3, compte.getUtilisateur().getId());
+			stmt.setObject( 1, utilisateur.getLogin() );
+			stmt.setObject( 2, utilisateur.getPassword() );
+			stmt.setObject( 3, utilisateur.getUtilisateur().getId());
 			stmt.executeUpdate();
 	
 		} catch (SQLException e) {
@@ -53,22 +53,22 @@ public class DaoUtilisateur {
 	}
 	
 
-	public void modifier( Utilisateur compte )  {
+	public void modifier( Utilisateur utilisateur )  {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
 		String 				sql;
 
 		try {
-			daoPersonne.modifier(compte.getUtilisateur());
+			daoPersonne.modifier(utilisateur.getUtilisateur());
 			cn = dataSource.getConnection();
 
-			// Modifie le compte
-			sql = "UPDATE compte SET password = ?, id = ? WHERE login = ?";
+			// Modifie le utilisateur
+			sql = "UPDATE Utilisateur SET password = ?, id = ? WHERE login = ?";
 			stmt = cn.prepareStatement( sql );
-			stmt.setObject( 1, compte.getPassword() );
-			stmt.setObject( 2, compte.getUtilisateur().getId() );
-			stmt.setObject( 3, compte.getLogin() );
+			stmt.setObject( 1, utilisateur.getPassword() );
+			stmt.setObject( 2, utilisateur.getUtilisateur().getId() );
+			stmt.setObject( 3, utilisateur.getLogin() );
 			stmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -90,8 +90,8 @@ public class DaoUtilisateur {
 		try {
 			cn = dataSource.getConnection();
 
-			// Supprime le compte
-			sql = "DELETE FROM compte WHERE login = ? ";
+			// Supprime le utilisateur
+			sql = "DELETE FROM Utilisateur WHERE login = ? ";
 			stmt = cn.prepareStatement( sql );
 			stmt.setObject( 1, login );
 			stmt.executeUpdate();
@@ -113,7 +113,7 @@ public Utilisateur retrouver( String login )  {
 
 	try {
 		cn = dataSource.getConnection();
-		sql = "SELECT * FROM compte WHERE login = ?";
+		sql = "SELECT * FROM Utilisateur WHERE login = ?";
 		stmt = cn.prepareStatement( sql );
         stmt.setObject( 1, login );
         rs = stmt.executeQuery();
@@ -144,15 +144,15 @@ public List<Utilisateur> listerTout()   {
 		try {
 			cn = dataSource.getConnection();
 
-			sql = "SELECT * FROM compte ORDER BY pseudo";
+			sql = "SELECT * FROM Utilisateur ORDER BY pseudo";
 			stmt = cn.prepareStatement( sql );
 			rs = stmt.executeQuery();
 
-			List<Utilisateur> comptes = new ArrayList<>();
+			List<Utilisateur> utilisateurs = new ArrayList<>();
 			while ( rs.next() ) {
-				comptes.add( construireCompte(rs) );
+				utilisateurs.add( construireCompte(rs) );
 			}
-			return comptes;
+			return utilisateurs;
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -172,7 +172,7 @@ public List<Utilisateur> listerTout()   {
 		try {
 			cn = dataSource.getConnection();
 
-			sql = "SELECT * FROM compte WHERE pseudo = ? AND motdepasse = ?";
+			sql = "SELECT * FROM Utilisateur WHERE login = ? AND password = ?";
 			stmt = cn.prepareStatement( sql );
 			stmt.setObject( 1, pseudo );
 			stmt.setObject( 2, motDePasse );
@@ -194,11 +194,11 @@ public List<Utilisateur> listerTout()   {
 	// Méthodes auxiliaires
 	
 	private Utilisateur construireCompte( ResultSet rs ) throws SQLException {
-		Utilisateur compte = new Utilisateur();
-		compte.setLogin( rs.getObject( "login", String.class ) );
-		compte.setPassword( rs.getObject( "password", String.class ) );
-		compte.setUtilisateur(daoPersonne.retrouver(rs.getObject("id",Integer.class)));
-		return compte;
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setLogin( rs.getObject( "login", String.class ) );
+		utilisateur.setPassword( rs.getObject( "password", String.class ) );
+		utilisateur.setUtilisateur(daoPersonne.retrouver(rs.getObject("id",Integer.class)));
+		return utilisateur;
 	}
 	
 }

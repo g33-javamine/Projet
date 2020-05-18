@@ -9,7 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import jfox.commun.exception.ExceptionValidation;
-import projet.dao.DaoCompte2;
+import projet.dao.DaoUtilisateur;
 import projet.data.Utilisateur;
 
 
@@ -24,13 +24,13 @@ public class ModelConnexion {
 	// Vue connexion
 	private final Utilisateur			courant = new Utilisateur();
 
-	// Compte connecté
+	// Utilisateur connecté
 	private final Property<Utilisateur>	compteActif = new SimpleObjectProperty<>();
 
 	
 	// Autres champs
 	@Inject
-	private DaoCompte2	daoCompte;
+	private DaoUtilisateur	daoUtilisateur;
 	
 
 	// Getters 
@@ -39,11 +39,16 @@ public class ModelConnexion {
 		return courant;
 	}
 	
+	public Utilisateur getCompteActif()
+	{
+		return compteActif.getValue();
+	}
+	
 	public Property<Utilisateur> compteActifProperty() {
 		return compteActif;
 	}
 	
-	public Utilisateur getCompteActif() {
+	public Utilisateur getUtilisateurActif() {
 		return compteActif.getValue();
 	}
 	
@@ -52,8 +57,8 @@ public class ModelConnexion {
 	
 	@PostConstruct
 	public void init() {
-		courant.setLogin( "geek" );
-		courant.setPassword( "geek" );
+		courant.setLogin( "machin" );
+		courant.setPassword( "lol" );
 	}
 	
 	
@@ -62,7 +67,7 @@ public class ModelConnexion {
 
 	public void ouvrirSessionUtilisateur() {
 
-		Utilisateur compte = daoCompte.validerAuthentification(
+		Utilisateur compte = daoUtilisateur.validerAuthentification(
 					courant.loginProperty().getValue(), courant.passwordProperty().getValue() );
 		
 		if( compte == null ) {

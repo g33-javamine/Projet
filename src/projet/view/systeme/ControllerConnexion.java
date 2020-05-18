@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import jfox.javafx.view.IManagerGui;
+import projet.commun.Roles;
 import projet.data.Utilisateur;
 import projet.view.EnumView;
 
@@ -62,7 +63,18 @@ public class ControllerConnexion {
 			Platform.runLater( () -> {
          			modelInfo.titreProperty().setValue( "Bienvenue" );
         			modelInfo.messageProperty().setValue( "Connexion réussie" );
-        			managerGui.showView(EnumView.Info);
+        			switch(modelConnexion.getCompteActif().getRole())
+        			{
+        			case Roles.ADMINISTRATEUR : managerGui.showView(EnumView.AccueilAdmin);
+        				System.out.println("Administrateur");
+        				break;
+        			case Roles.BENEVOLE : managerGui.showView(EnumView.AccueilBenevole);
+        				System.out.println("Benevole");
+    					break;
+        			case Roles.PARTICIPANT : managerGui.showView(EnumView.AccueilParticipant);
+        				System.out.println("Participant");
+    					break;
+        			}
             }) ;
 		} );
 	}

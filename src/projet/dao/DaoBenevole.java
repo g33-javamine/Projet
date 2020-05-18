@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -185,32 +186,32 @@ public class DaoBenevole {
             stmt = cn.prepareStatement(sql);
             stmt.setObject( 1, idBenevole);
             rs = stmt.executeQuery();
-            stmt.close();
             if ( rs.next() ) {
             	Benevole benevole = construireBenevole(rs);
+            	stmt.close();
             	
             	sql = "SELECT id_poste FROM a_poste WHERE id = ?";
     			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS );
-    			stmt.setObject( 1, idBenevole);
-    			stmt.executeUpdate();
+    			stmt.setObject( 1, benevole.getId());
     			rs = stmt.executeQuery();
-    			stmt.close();
     			if(rs.next())
     			{
-    				benevole.setPosteAssignee(daoPoste.retrouver(rs.getObject("id_poste",Integer.class)));
+    				benevole.setPosteAssignee(daoPoste.retrouver(rs.getObject("id_poste",String.class)));
     			}
+    			stmt.close();
     			
     			sql = "SELECT Id_Balise FROM est_assignee WHERE id =?";
     			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS );
     			stmt.setObject( 1, benevole.getId());
-    			stmt.executeUpdate();
     			rs = stmt.executeQuery();
-    			stmt.close();
     			
+    			ArrayList<Balise> listBalises = new ArrayList<Balise>();
     			while(rs.next())
     			{
-    				benevole.addBalise(daoBalise.retrouver(rs.getInt("Id_Balise")));
+    				listBalises.add(daoBalise.retrouver(rs.getInt("Id_Balise")));
     			}
+    			benevole.setBalises(listBalises);
+    			stmt.close();
     			
                 return benevole;
             } else {
