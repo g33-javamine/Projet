@@ -1,6 +1,34 @@
 ------------------------------------------------------------
 --        Script Postgre 
 ------------------------------------------------------------
+DROP TABLE IF EXISTS est_assignee;
+DROP TABLE IF EXISTS est_composee;
+DROP TABLE IF EXISTS Balise;
+DROP TABLE IF EXISTS a_poste;
+DROP TABLE IF EXISTS Poste;
+DROP TABLE IF EXISTS Permis_de_Conduire;
+DROP TABLE IF EXISTS Utilisateur;
+DROP TABLE IF EXISTS Equipe;
+DROP TABLE IF EXISTS Administrateurs;
+DROP TABLE IF EXISTS Participant;
+DROP TABLE IF EXISTS Benevole;
+DROP TABLE IF EXISTS club;
+DROP TABLE IF EXISTS Personne;
+DROP TABLE IF EXISTS Parcours;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 SET search_path TO projet;
 
@@ -21,11 +49,7 @@ CREATE TABLE Personne(
 	id              SERIAL NOT NULL ,
 	Nom             VARCHAR (50) NOT NULL ,
 	Prenom          VARCHAR (50) NOT NULL ,
-<<<<<<< HEAD
-	DateNaissance   DATE  NOT NULL CHECK (DateNaissance > DATE '30-06-1919' ),
-=======
 	DateNaissance   DATE  NOT NULL CHECK (DateNaissance > DATE '1919-06-30' ),
->>>>>>> refs/remotes/origin/master
 	Tel             VARCHAR (10) NOT NULL CHECK (Tel SIMILAR TO '(0|1|2|3|4|5|6|7|8|9){10}') ,
 	Mail            VARCHAR (50) NOT NULL CHECK ( Mail LIKE '%@%.%') , 
 	Adresse         VARCHAR (50) NOT NULL ,
@@ -142,14 +166,13 @@ CREATE TABLE Permis_de_Conduire(
 -- Table: Poste
 ------------------------------------------------------------
 CREATE TABLE Poste(
-	Id					 SERIAL NOT NULL
 	nom_poste            VARCHAR (50) NOT NULL ,
 	Types_benevoles      VARCHAR (2) NOT NULL CHECK (Types_benevoles SIMILAR TO '(M|N)(E|N)'),
 	nombre_benevole      INT  NOT NULL ,
 	debut_intervention   TIMESTAMP  NOT NULL ,
 	fin_intervention     TIMESTAMP  NOT NULL,
 	CONSTRAINT check_tmp_intervention_positif CHECK(debut_intervention<fin_intervention),
-	CONSTRAINT Poste_PK PRIMARY KEY (Id)
+	CONSTRAINT Poste_PK PRIMARY KEY (nom_poste)
 )WITHOUT OIDS;
 
 
@@ -171,8 +194,8 @@ CREATE TABLE est_composee(
 CREATE TABLE a_poste(
 	id_poste   VARCHAR (50) NOT NULL ,
 	id          INT  NOT NULL  ,
-	CONSTRAINT a_poste_PK PRIMARY KEY (nom_poste,id),
-	CONSTRAINT a_poste_Poste_FK FOREIGN KEY (nom_poste) REFERENCES Poste(nom_poste),
+	CONSTRAINT a_poste_PK PRIMARY KEY (id_poste,id),
+	CONSTRAINT a_poste_Poste_FK FOREIGN KEY (id_poste) REFERENCES Poste(nom_poste),
 	CONSTRAINT a_poste_Benevole0_FK FOREIGN KEY (id) REFERENCES Benevole(id)
 )WITHOUT OIDS;
 
