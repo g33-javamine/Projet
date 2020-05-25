@@ -17,70 +17,73 @@ import javafx.scene.image.Image;
 import jfox.commun.exception.ExceptionValidation;
 import jfox.javafx.util.UtilFX;
 import projet.commun.IMapper;
-import projet.dao.DaoMemo;
+import projet.dao.DaoAdministrateurs;
+import projet.dao.DaoEquipe;
 import projet.dao.DaoPersonne;
 import projet.data.Club;
+import projet.data.Equipe;
 import projet.data.Participant;
 import projet.data.Personne;
 import projet.view.personne.ModelCategorie;
 import projet.view.systeme.ModelConfig;
 
 
-public class ModelMemo  {
+public class ModelGestionBenevole  {
 	
 	
 	// Données observables 
 	
-	private final ObservableList<Participant> liste = FXCollections.observableArrayList(); 
+	private final ObservableList<Participant> participantList = FXCollections.observableArrayList(); 
 	
-	private final Participant	courant = new Participant();
+	private final Equipe		equipeCourant = new Equipe();
+	private final Participant	participantCourant = new Participant();
 	
-	private final ObservableList<Personne> personnesPourDialogAjout = FXCollections.observableArrayList();
+	private final ObservableList<Equipe> equipeList = FXCollections.observableArrayList();
 	
 	private final Property<Image>	schema = new SimpleObjectProperty<>();
 	
-	private boolean		flagModifSchema;
 
 	
 	// Autres champs
     @Inject
 	private IMapper			mapper;
     @Inject
-	private DaoMemo			daoMemo;
+	private DaoPersonne	daoPersonne;
     @Inject
-    private ModelCategorie	modelCategorie;
-    @Inject
-	private DaoPersonne		daoPersonne;
-    @Inject
-    private ModelConfig		modelConfig;
+	private DaoEquipe	daoEquipe;
 	
     
 	// Initialisations
 	
 	@PostConstruct
-	public void init() {
-		schema.addListener( obs -> flagModifSchema = true );
+	public void init() 
+	{
+		
 	}
 	
 	
 	// Getters 
 	
-	public ObservableList<Participant> getListe() {
-		return liste;
+	public ObservableList<Participant> getParticipantList() {
+		return participantList;
 	}
-	
-	public Participant getCourant() {
-		return courant;
+
+
+	public Equipe getEquipeCourant() {
+		return equipeCourant;
 	}
-	
-	public ObservableList<Club> getCategories() {
-		return modelCategorie.getListe();
+
+
+	public Participant getParticipantCourant() {
+		return participantCourant;
 	}
-	
-	public ObservableList<Personne> getPersonnesPourDialogAjout() {
-		return personnesPourDialogAjout;
-	} 
-	
+
+
+	public ObservableList<Equipe> getEquipeList() {
+		return equipeList;
+	}
+
+
 	public Property<Image> schemaProperty() {
 		return schema;
 	}
@@ -89,7 +92,7 @@ public class ModelMemo  {
 	// Actualisations
 	
 	public void actualiserListe() {
-		liste.setAll( daoMemo.listerTout() );
+		liste.setAll( daoAdmin.listerTout() );
  	}
 	
 	public void actualiserListePersonnesPourDialogAjout() {
@@ -109,7 +112,7 @@ public class ModelMemo  {
 	
 	public void preparerModifier( Participant item ) {
 		modelCategorie.actualiserListe();
-		mapper.update( courant, daoMemo.retrouver( item.getId() ) );
+		mapper.update( courant, daoAdmin.retrouver( item.getId() ) );
 		File fichier = getFichierSchemaCourant();
 		if ( fichier.exists() ) {
 			schema.setValue( new Image( fichier.toURI().toString() ) );
@@ -163,10 +166,10 @@ public class ModelMemo  {
 		
 		if ( courant.getId() == null ) {
 			// Insertion
-			courant.setId( daoMemo.inserer( courant ) );
+			courant.setId( daoAdmin.inserer( courant ) );
 		} else {
 			// modficiation
-			daoMemo.modifier( courant );
+			daoAdmin.modifier( courant );
 		}
 
 		if ( flagModifSchema ) {
@@ -186,7 +189,7 @@ public class ModelMemo  {
 	
 	public void supprimer( Participant item ) {
 		
-		daoMemo.supprimer( item.getId() );
+		daoAdmin.supprimer( item.getId() );
 		mapper.update( courant, UtilFX.findNext( liste, item ) );
 		
 		getFichierSchemaCourant().delete();

@@ -8,8 +8,10 @@ public enum EnumView implements IEnumView {
 
 	
 	// Valeurs
-	
-
+	Parcours			(""),
+	Gestion 			("admin/ViewGestion.fxml"),
+	GestionBenevole		("admin/ViewGestionBenevole.fxml"),
+	GestionParticipant	("admin/ViewGestionParticipant.fxml"),
 	AccueilParticipant 	("participant/ViewAccueilParticipant.fxml"),
 	AccueilBenevole 	("benevole/ViewAccueilBenevole.fxml"),
 	AccueilAdmin 		("admin/ViewAccueilAdmin.fxml"),

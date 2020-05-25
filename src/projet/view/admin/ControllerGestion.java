@@ -1,57 +1,47 @@
 package projet.view.admin;
 
-
-
 import javax.inject.Inject;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import jfox.javafx.view.IManagerGui;
 import projet.view.EnumView;
 
 
-public class ControllerAccueilAdmin {
-
+public class ControllerGestion {
+	
 	
 	// Composants de la vue
-	
+
 	@FXML
-	private Button			buttonGestion;
+	private Button				buttonModifier;
 	@FXML
-	private Button			buttonParcours;
-	
+	private Button				buttonSupprimer;
+
 
 	// Autres champs
 	
 	@Inject
-	private IManagerGui		managerGui;
-
+	private IManagerGui			managerGui;
 	
 	
-
 	// Initialisation du Controller
 
 	@FXML
 	private void initialize() 
 	{
-		
-	}
-	
-	
 
-	
-	
-	// Actions
-	
-	@FXML
-	private void doGestion() 
-	{
-		managerGui.showView(EnumView.Gestion);
 	}
 	
 	@FXML
-	private void doParcours() 
+	private void doGestionParticipant() 
 	{
-		managerGui.showView(EnumView.Parcours);
+		managerGui.showView(EnumView.GestionParticipant);
 	}
-
+	
+	@FXML
+	private void doGestionBenevole() 
+	{
+		managerGui.showView(EnumView.GestionBenevole);
+	}
 }

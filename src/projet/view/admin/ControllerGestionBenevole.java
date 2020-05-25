@@ -13,14 +13,13 @@ import projet.data.Participant;
 import projet.view.EnumView;
 
 
-public class ControllerMemoListe {
+public class ControllerGestionBenevole {
 	
 	
 	// Composants de la vue
 
 	@FXML
 	private ListView<Participant>		listView;
-	@FXML
 	private Button				buttonModifier;
 	@FXML
 	private Button				buttonSupprimer;
@@ -31,31 +30,21 @@ public class ControllerMemoListe {
 	@Inject
 	private IManagerGui			managerGui;
 	@Inject
-	private ModelMemo			modelMemo;
+	private ModelGestionBenevole			modelGestionBenevole;
 	
 	
 	// Initialisation du Controller
 
 	@FXML
-	private void initialize() {
+	private void initialize() 
+	{
 
-		// Data binding
-		listView.setItems( modelMemo.getListe() );
-		
-		listView.setCellFactory(  UtilFX.cellFactory( item -> item.getTitre() ));
-		
-		// Configuraiton des boutons
-		listView.getSelectionModel().selectedItemProperty().addListener(
-				(obs, oldVal, newVal) -> {
-					configurerBoutons();
-		});
-		configurerBoutons();
 
 	}
 	
 	public void refresh() {
-		modelMemo.actualiserListe();
-		UtilFX.selectInListView( listView, modelMemo.getCourant() );
+		modelGestionBenevole.actualiserListe();
+		UtilFX.selectInListView( listView, modelGestionBenevole.getCourant() );
 		listView.requestFocus();
 	}
 
@@ -64,8 +53,8 @@ public class ControllerMemoListe {
 	
 	@FXML
 	private void doAjouter() {
-		modelMemo.preparerAjouter();;
-		managerGui.showView( EnumView.MemoForm );
+		modelGestionBenevole.preparerAjouter();;
+		managerGui.showView( EnumView.GestionBenevoleForm );
 	}
 
 	@FXML
@@ -74,8 +63,8 @@ public class ControllerMemoListe {
 		if ( item == null ) {
 			managerGui.showDialogError( "Aucun élément n'est sélectionné dans la liste.");
 		} else {
-			modelMemo.preparerModifier(item);
-			managerGui.showView( EnumView.MemoForm );
+			modelGestionBenevole.preparerModifier(item);
+			managerGui.showView( EnumView.GestionBenevoleForm );
 		}
 	}
 
@@ -87,7 +76,7 @@ public class ControllerMemoListe {
 		} else {
 			boolean reponse = managerGui.showDialogConfirm( "Confirmez-vous la suppresion ?" );
 			if ( reponse ) {
-				modelMemo.supprimer( item );
+				modelGestionBenevole.supprimer( item );
 				refresh();
 			}
 		}

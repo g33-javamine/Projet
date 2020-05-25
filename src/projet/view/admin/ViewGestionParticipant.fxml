@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="paneRoot" prefHeight="402.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="paneRoot" prefHeight="402.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.view.admin.ControllerGestionParticipant">
    <children>
       <Label alignment="CENTER" styleClass="titre-vue" text="Gestion de participant" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
       <VBox alignment="CENTER" fillWidth="false" layoutX="14.0" layoutY="60.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="60.0">
@@ -35,7 +35,7 @@
                      <children>
                         <Label text="Personnes" />
                         <ListView prefHeight="74.0" prefWidth="199.0" />
-                        <Button defaultButton="true" mnemonicParsing="false" onAction="#doValider" prefHeight="25.0" prefWidth="84.0" text="Voir validités">
+                        <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Voir validités">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
