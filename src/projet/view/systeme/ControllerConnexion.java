@@ -66,13 +66,10 @@ public class ControllerConnexion {
         			switch(modelConnexion.getCompteActif().getRole())
         			{
         			case Roles.ADMINISTRATEUR : managerGui.showView(EnumView.AccueilAdmin);
-        				System.out.println("Administrateur");
         				break;
         			case Roles.BENEVOLE : managerGui.showView(EnumView.AccueilBenevole);
-        				System.out.println("Benevole");
     					break;
         			case Roles.PARTICIPANT : managerGui.showView(EnumView.AccueilParticipant);
-        				System.out.println("Participant");
     					break;
         			}
             }) ;
