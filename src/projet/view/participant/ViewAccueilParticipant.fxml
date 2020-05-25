@@ -11,7 +11,7 @@
       <Label alignment="CENTER" styleClass="titre-vue" text="Bienvenue Participant" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0" />
       <HBox alignment="CENTER" layoutY="75.0" prefHeight="200.0" prefWidth="405.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Button mnemonicParsing="false" text="Compte" />
+            <Button fx:id="buttonCompte" mnemonicParsing="false" text="Compte" />
             <Button mnemonicParsing="false" text="Parcours">
                <HBox.margin>
                   <Insets left="100.0" />

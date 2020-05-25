@@ -9,9 +9,7 @@ public enum EnumView implements IEnumView {
 	
 	// Valeurs
 	
-<<<<<<< HEAD
-	CompteParticipant("partcipant/ViewCompteParticipant.fxml"),
-=======
+
 	AccueilParticipant 	("participant/ViewAccueilParticipant.fxml"),
 	AccueilBenevole 	("benevole/ViewAccueilBenevole.fxml"),
 	AccueilAdmin 		("admin/ViewAccueilAdmin.fxml"),
@@ -33,7 +31,8 @@ public enum EnumView implements IEnumView {
 	TestDaoService		( "test/ViewTestDaoService.fxml" ),
 	EtatPersonnesParCateogire1	( "personne/ViewEtatPersonnesParCategorie1.fxml" ),
 	EtatPersonnesParCateogire2	( "personne/ViewEtatPersonnesParCategorie2.fxml" ),
->>>>>>> refs/remotes/origin/master
+	CompteParticipant ("participant/ViewCompteParticipant.fxml"), 
+	CompteBenevole("benevole/ViewCompteBenevole.fxml"),
 	;
 
 	

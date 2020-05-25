@@ -58,7 +58,6 @@ public class ModelParticipant {
 		mapper.update( courant, daoParticipant.retrouver( item.getId() ) );
 	}
 	
-	
 	/*public void validerMiseAJour() {
 
 		// Vérifie la validité des données
