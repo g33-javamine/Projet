@@ -2,6 +2,7 @@ package projet.view.admin;
 
 import javax.inject.Inject;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -40,16 +41,11 @@ public class ControllerGestionParticipant {
 	private void initialize() 
 	{
 		modelGestionParticipant.actualiserListePersonnes();
-		listViewEquipe.setItems(modelGestionParticipant.getEquipeList());
+		ObservableList<Equipe> test = modelGestionParticipant.getEquipeList();
+		System.out.println(test);
+		listViewEquipe.setItems(test);
 		listViewEquipe.setCellFactory(  UtilFX.cellFactory( item -> ""+item.getId() ));
 		listViewParticipant.setCellFactory(  UtilFX.cellFactory( item -> item.getPrenom()+" "+item.getNom()));
-		// Configuraiton des boutons
-		listViewEquipe.getSelectionModel().selectedItemProperty().addListener(
-				(obs, oldVal, newVal) -> {
-					configurerBoutons();
-				});
-		configurerBoutons();
-
 	}
 	
 	public void refreshEquipe() {
@@ -78,27 +74,13 @@ public class ControllerGestionParticipant {
 	// Clic sur la liste
 	@FXML
 	private void gererClicSurListe( MouseEvent event ) {
-		if (event.getButton().equals(MouseButton.PRIMARY)) {
-			if (event.getClickCount() == 2) {
-				if ( listViewEquipe.getSelectionModel().getSelectedIndex() == -1 ) {
-					managerGui.showDialogError( "Aucun élément n'est sélectionné dans la liste.");
-				} else {
-					refreshParticipant();
-				}
+		if (event.getButton().equals(MouseButton.PRIMARY)) 
+		{
+			if ( listViewEquipe.getSelectionModel().getSelectedIndex() == -1 ) {
+				managerGui.showDialogError( "Aucun élément n'est sélectionné dans la liste.");
+			} else {
+				refreshParticipant();
 			}
 		}
 	}
-
-	
-	// Méthodes auxiliaires
-	
-	private void configurerBoutons() {
-		
-    	if( listViewEquipe.getSelectionModel().getSelectedItems().isEmpty() ) {
-    		buttonValidites.setDisable(true);
-		} else {
-			buttonValidites.setDisable(false);
-		}
-	}
-
 }

@@ -28,14 +28,14 @@
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Equipes" />
-                        <ListView prefHeight="228.0" prefWidth="200.0" />
+                        <ListView fx:id="listViewEquipe" onMouseClicked="#gererClicSurListe" prefHeight="228.0" prefWidth="200.0" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="208.0" GridPane.columnIndex="1">
                      <children>
                         <Label text="Personnes" />
-                        <ListView prefHeight="74.0" prefWidth="199.0" />
-                        <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Voir validités">
+                        <ListView fx:id="listViewParticipant" prefHeight="74.0" prefWidth="199.0" />
+                        <Button fx:id="buttonValidites" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Voir validités">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

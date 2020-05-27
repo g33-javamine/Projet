@@ -188,20 +188,19 @@ public class DaoEquipe {
 		CallableStatement	stmt	= null;
 		ResultSet 			rs 		= null;
 		String				sql;
-
+		List<Equipe> equipes = new ArrayList<>();
+		
 		try {
 			cn = dataSource.getConnection();
 
 			sql = "SELECT * FROM Equipe ORDER BY Id ";
 			stmt = cn.prepareCall( sql );
 			rs = stmt.executeQuery();
-
-			List<Equipe> equipes = new ArrayList<>();
+			
 			while ( rs.next() ) {
 				equipes.add( construireEquipe(rs) );
 			}
 			return equipes;
-
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {
