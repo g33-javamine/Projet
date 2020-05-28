@@ -3,10 +3,6 @@ package projet.view.participant;
 
 import javax.inject.Inject;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import jfox.commun.exception.ExceptionValidation;
-import jfox.javafx.util.UtilFX;
 import projet.commun.IMapper;
 import projet.dao.DaoParticipant;
 import projet.dao.DaoPersonne;
@@ -20,7 +16,7 @@ public class ModelParticipant {
 	// Données observables 
 	 
 	
-	private final Participant	courant = new Participant();
+	private final Participant	courant = (Participant)Utilisateur.getCourant().getUtilisateur();
 	
 	
 	// Autres champs

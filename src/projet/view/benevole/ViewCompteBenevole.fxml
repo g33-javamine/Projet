@@ -34,12 +34,12 @@
               </rowConstraints>
                <children>
                   <Label text="Nom :" />
-                  <TextField fx:id="textFieldId" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="textFieldNom" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" />
                   <Label text="Prénom :" GridPane.rowIndex="1" />
-                  <TextField fx:id="textFieldPseudo" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="textFieldPrenom" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Date de naissance :" GridPane.rowIndex="5" />
                   <Label text="Tél :" GridPane.rowIndex="2" />
-                  <TextField fx:id="textFieldEmail" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="textFieldTel" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <VBox GridPane.rowIndex="3">
                      <children>
                         <Label text="Mail : " />
@@ -49,27 +49,27 @@
                      </padding>
                   </VBox>
                   <Label text="Adresse :" GridPane.rowIndex="4" />
-                  <TextField fx:id="textFieldEmail1" prefHeight="25.0" prefWidth="294.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="textFieldEmail2" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="textFieldMail" prefHeight="25.0" prefWidth="294.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="textFieldAdresse" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label text="Permis de conduire :" GridPane.rowIndex="6" />
-                  <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <CheckBox fx:id="checkBoxPermis" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </CheckBox>
-                  <Button defaultButton="true" mnemonicParsing="false" onAction="#doValider" prefHeight="25.0" prefWidth="56.0" text="Ajouter" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <Button fx:id="boutonAjouter" defaultButton="true" mnemonicParsing="false" onAction="#doAjouter" prefHeight="25.0" prefWidth="56.0" text="Ajouter" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets left="50.0" />
                      </GridPane.margin>
                   </Button>
-                  <DatePicker prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <DatePicker fx:id="datePickerDateNaissance" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children>
       </VBox>
       <HBox alignment="CENTER" layoutY="342.0" prefHeight="60.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#doValider" prefHeight="25.0" prefWidth="84.0" text="Sauvegarder" />
+            <Button fx:id="boutonSauvegarder" defaultButton="true" mnemonicParsing="false" onAction="#doSauvegarder" prefHeight="25.0" prefWidth="84.0" text="Sauvegarder" />
          </children>
       </HBox>
    </children>

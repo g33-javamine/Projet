@@ -17,19 +17,6 @@ DROP TABLE IF EXISTS Personne;
 DROP TABLE IF EXISTS Parcours;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 SET search_path TO projet;
 
 ------------------------------------------------------------

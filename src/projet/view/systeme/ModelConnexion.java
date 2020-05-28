@@ -73,6 +73,7 @@ public class ModelConnexion {
 		if( compte == null ) {
 			throw new ExceptionValidation( "Pseudo ou mot de passe invalide." );
 		} else {
+			Utilisateur.setCourant(compte);
 			Platform.runLater( () -> compteActif.setValue( compte ) );
 		}
 	}

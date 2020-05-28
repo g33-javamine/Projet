@@ -7,9 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.util.converter.IntegerStringConverter;
-import jfox.javafx.util.ConverterStringInteger;
-import jfox.javafx.util.ConverterStringLocalDate;
 import jfox.javafx.util.ListenerFocusValidation;
 import jfox.javafx.view.IManagerGui;
 import projet.data.Benevole;
@@ -54,10 +51,10 @@ public class ControllerCompteBenevole {
 
 		Benevole courant = modelBenevole.getCourant();
 		textFieldNom.textProperty().bindBidirectional(courant.nomProperty());
-		textFieldPrenom.textProperty().bindBidirectional(courant.nomProperty());
-		textFieldTel.textProperty().bindBidirectional(courant.nomProperty());
-		textFieldMail.textProperty().bindBidirectional(courant.nomProperty());
-		textFieldAdresse.textProperty().bindBidirectional(courant.nomProperty());
+		textFieldPrenom.textProperty().bindBidirectional(courant.prenomProperty());
+		textFieldTel.textProperty().bindBidirectional(courant.telProperty());
+		textFieldMail.textProperty().bindBidirectional(courant.mailProperty());
+		textFieldAdresse.textProperty().bindBidirectional(courant.adresseProperty());
 		// datePickerDateNaissance.getEditor().textProperty().bindBidirectional(courant.dateNaissanceProperty(),
 		// new ConverterStringLocalDate());
 		datePickerDateNaissance.getEditor().focusedProperty()

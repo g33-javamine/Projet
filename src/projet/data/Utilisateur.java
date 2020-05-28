@@ -14,10 +14,10 @@ public class Utilisateur  {
 	
 	// Données observables
 	
-	private final Property<Personne>utilisateur	= new SimpleObjectProperty<>();
-	private final StringProperty	login		= new SimpleStringProperty();
-	private final StringProperty	password	= new SimpleStringProperty();
-
+	private final Property<Personne>	utilisateur	= new SimpleObjectProperty<>();
+	private final StringProperty		login		= new SimpleStringProperty();
+	private final StringProperty		password	= new SimpleStringProperty();
+	private static Property<Utilisateur>courant		= new SimpleObjectProperty<>();
 	// Constructeurs
 	
 	public Utilisateur() {
@@ -32,11 +32,12 @@ public class Utilisateur  {
 	
 	
 	// Getters et Setters
+	
+	
 	public final Property<Personne> utilisateurProperty() {
 		return this.utilisateur;
 	}
 	
-
 	public final Personne getUtilisateur() {
 		return this.utilisateurProperty().getValue();
 	}
@@ -110,5 +111,20 @@ public class Utilisateur  {
 		else//(utilisateur.getValue() instanceof Participant)
 			return Roles.PARTICIPANT;
 	}
+
+	public static final Property<Utilisateur> courantProperty() {
+		return courant;
+	}
+	
+
+	public static final Utilisateur getCourant() {
+		return courantProperty().getValue();
+	}
+	
+
+	public static final void setCourant(final Utilisateur courant) {
+		courantProperty().setValue(courant);
+	}
+	
 
 }

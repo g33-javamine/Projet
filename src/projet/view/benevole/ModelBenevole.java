@@ -4,11 +4,11 @@ import javax.inject.Inject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import jfox.commun.exception.ExceptionValidation;
 import jfox.javafx.util.UtilFX;
 import projet.commun.IMapper;
 import projet.dao.DaoBenevole;
 import projet.data.Benevole;
+import projet.data.Utilisateur;
 
 public class ModelBenevole {
 
@@ -16,7 +16,7 @@ public class ModelBenevole {
 
 	private final ObservableList<Benevole> liste = FXCollections.observableArrayList();
 
-	private final Benevole courant = new Benevole();
+	private final Benevole courant = (Benevole)Utilisateur.getCourant().getUtilisateur();
 
 	// Autres champs
 	@Inject

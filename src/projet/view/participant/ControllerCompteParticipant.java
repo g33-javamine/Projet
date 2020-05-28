@@ -1,31 +1,16 @@
 package projet.view.participant;
 
-import java.util.Collections;
-import java.util.Comparator;
 
 import javax.inject.Inject;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.util.StringConverter;
-import jfox.javafx.util.ConverterStringInteger;
-import jfox.javafx.util.ConverterStringLocalDate;
 import jfox.javafx.util.ListenerFocusValidation;
 import jfox.javafx.view.IManagerGui;
-import projet.commun.Roles;
 import projet.data.Participant;
-import projet.data.Personne;
-import projet.data.Utilisateur;
 import projet.view.EnumView;
 
 public class ControllerCompteParticipant {
