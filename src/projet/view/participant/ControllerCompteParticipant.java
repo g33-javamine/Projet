@@ -8,9 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import jfox.javafx.util.ConverterStringLocalDate;
 import jfox.javafx.util.ListenerFocusValidation;
 import jfox.javafx.view.IManagerGui;
 import projet.data.Participant;
+import projet.util.ConverterStringDate;
 import projet.view.EnumView;
 
 public class ControllerCompteParticipant {
@@ -59,14 +61,13 @@ public class ControllerCompteParticipant {
 		textFieldTel.textProperty().bindBidirectional(courant.telProperty());
 		textFieldMail.textProperty().bindBidirectional(courant.mailProperty());
 		textFieldAdresse.textProperty().bindBidirectional(courant.adresseProperty());
-		//datePickerDateNaissance.getEditor().textProperty().bindBidirectional(courant.dateNaissanceProperty(), new ConverterStringLocalDate());
-		datePickerDateNaissance.getEditor().focusedProperty()
-				.addListener(new ListenerFocusValidation(courant.dateNaissanceProperty()));
+		datePickerDateNaissance.getEditor().textProperty().bindBidirectional(courant.dateNaissanceProperty(), new ConverterStringDate());
+		datePickerDateNaissance.getEditor().focusedProperty().addListener(new ListenerFocusValidation(courant.dateNaissanceProperty()));
+		datePickerDateNaissance.setConverter(new ConverterStringLocalDate("uuuu-mm-dd"));
 		//textFieldCoequipier.textProperty().bindBidirectional(courant.);
 		checkBoxMedicale.selectedProperty().bindBidirectional(courant.autoMedicaleProperty());
 		checkBoxParentale.selectedProperty().bindBidirectional(courant.autoParentaleProperty());
-		// Configuration de l'objet ListView
-
+		// Configuration de l'objet ListViews
 	}
 
 	// Actions
