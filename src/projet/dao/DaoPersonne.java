@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -16,6 +18,7 @@ import projet.data.Benevole;
 import projet.data.Equipe;
 import projet.data.Participant;
 import projet.data.Personne;
+import projet.data.Poste;
 
 
 public class DaoPersonne {
@@ -182,7 +185,7 @@ public class DaoPersonne {
 		try {
 			cn = dataSource.getConnection();
 
-			sql = "SELECT * FROM personne WHERE id = ?";
+			sql = "SELECT * FROM Personne WHERE id = ?";
             stmt = cn.prepareStatement(sql);
             stmt.setObject( 1, idPersonne);
             rs = stmt.executeQuery();
@@ -244,7 +247,7 @@ public class DaoPersonne {
 		try {
 			cn = dataSource.getConnection();
 
-			sql = "SELECT * FROM personne WHERE id = ?";
+			sql = "SELECT * FROM Personne WHERE id = ?";
             stmt = cn.prepareStatement(sql);
             stmt.setObject( 1, idPersonne);
             rs = stmt.executeQuery();
@@ -274,12 +277,41 @@ public class DaoPersonne {
 			UtilJdbc.close( rs, stmt, cn );
 		}
 	}
+	
+	
+	public List<Benevole> listerBenevolesPoste(Poste poste) {
+
+		Connection			cn 		= null;
+		PreparedStatement	stmt 	= null;
+		ResultSet 			rs		= null;
+		String				sql;
+
+		try {
+			cn = dataSource.getConnection();
+			sql = "SELECT Personne.id as id,* FROM Personne INNER JOIN a_poste ON a_poste.id = Personne.id WHERE a_poste.id_poste LIKE ? ORDER BY Personne.id";
+			stmt = cn.prepareStatement( sql );
+			stmt.setObject(1, poste.getNomPoste());
+			rs = stmt.executeQuery();
+
+			List<Benevole> Benevoles = new LinkedList<>();
+			while (rs.next()) {
+				Benevole benevole = daoBenevole.retrouver(rs.getObject( "id", Integer.class ),poste);
+				completerPersonne( rs,benevole);
+				Benevoles.add( benevole);
+			}
+			return Benevoles;
+ 
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			UtilJdbc.close( rs, stmt, cn );
+		}
+	}
 
 	// Méthodes auxiliaires
 	
 	private void completerPersonne( ResultSet rs, Personne personne ) throws SQLException {
 		
-		personne.setId(rs.getObject( "id", Integer.class ));
 		personne.setAdresse(rs.getObject( "Adresse", String.class ));
 		personne.setDateNaissance(rs.getObject( "DateNaissance", Date.class ));
 		personne.setMail(rs.getObject( "Mail", String.class ));

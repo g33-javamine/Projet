@@ -27,13 +27,13 @@
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Postes" />
-                        <ListView prefHeight="248.0" prefWidth="200.0" />
+                        <ListView fx:id="listViewPoste" onMouseClicked="#gererClicSurListe" prefHeight="248.0" prefWidth="200.0" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="208.0" GridPane.columnIndex="1">
                      <children>
                         <Label text="Personnes" />
-                        <ListView prefHeight="236.0" prefWidth="199.0" />
+                        <ListView fx:id="listViewBenevole" prefHeight="236.0" prefWidth="199.0" />
                      </children>
                   </VBox>
                </children>
@@ -42,8 +42,8 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="11.0" layoutY="342.0" prefHeight="60.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="-11.0">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Modifier" />
-            <Button defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Assimiler" />
+            <Button fx:id="buttonModifier" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Modifier" />
+            <Button fx:id="buttonAssimiler" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Assimiler" />
          </children></HBox>
    </children>
 </AnchorPane>

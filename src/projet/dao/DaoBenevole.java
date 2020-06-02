@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import jfox.dao.jdbc.UtilJdbc;
 import projet.data.Balise;
 import projet.data.Benevole;
+import projet.data.Poste;
 
 
 public class DaoBenevole {
@@ -224,7 +225,50 @@ public class DaoBenevole {
 		}
 	}
 	
-	
+	public Benevole retrouver(int idBenevole,Poste poste)  {
+
+		Connection			cn		= null;
+		PreparedStatement	stmt	= null;
+		ResultSet 			rs 		= null;
+		String				sql;
+
+		try {
+			cn = dataSource.getConnection();
+
+			sql = "SELECT * FROM benevole WHERE id = ?";
+            stmt = cn.prepareStatement(sql);
+            stmt.setObject( 1, idBenevole);
+            rs = stmt.executeQuery();
+            if ( rs.next() ) {
+            	Benevole benevole = construireBenevole(rs);
+            	stmt.close();
+            	
+    			benevole.setPosteAssignee(poste);
+    			
+    			sql = "SELECT Id_Balise FROM est_assignee WHERE id =?";
+    			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS );
+    			stmt.setObject( 1, benevole.getId());
+    			rs = stmt.executeQuery();
+    			
+    			ArrayList<Balise> listBalises = new ArrayList<Balise>();
+    			while(rs.next())
+    			{
+    				listBalises.add(daoBalise.retrouver(rs.getInt("Id_Balise")));
+    			}
+    			benevole.setBalises(listBalises);
+    			stmt.close();
+    			
+                return benevole;
+            } else {
+            	return null;
+            }
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			UtilJdbc.close( rs, stmt, cn );
+		}
+	}
+
 	// Méthodes auxiliaires
 	
 	private Benevole construireBenevole( ResultSet rs) throws SQLException 

@@ -132,7 +132,10 @@ public class DaoEquipe {
             rs = stmt.executeQuery();
 
             if ( rs.next() ) {
-                return construireEquipe( rs );
+            	Equipe equipe = construireEquipe( rs );
+                equipe.setIdEquipier((Participant) daoPersonne.retrouver(rs.getObject( "Id_Equipier", Integer.class ),equipe));
+                equipe.setIdCapitaine((Participant) daoPersonne.retrouver(rs.getObject( "Id_Capitaine", Integer.class ),equipe));
+                return equipe;
             } else {
             	return null;
             }
@@ -198,7 +201,10 @@ public class DaoEquipe {
 			rs = stmt.executeQuery();
 			
 			while ( rs.next() ) {
-				equipes.add( construireEquipe(rs) );
+				Equipe equipe = construireEquipe( rs );
+                equipe.setIdEquipier((Participant) daoPersonne.retrouver(rs.getObject( "Id_Equipier", Integer.class ),equipe));
+                equipe.setIdCapitaine((Participant) daoPersonne.retrouver(rs.getObject( "Id_Capitaine", Integer.class ),equipe));
+				equipes.add( equipe);
 			}
 			return equipes;
 		} catch (SQLException e) {

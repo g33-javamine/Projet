@@ -1,10 +1,13 @@
 package projet.data;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 public class Poste {
@@ -17,13 +20,23 @@ public class Poste {
 	private final SimpleObjectProperty<Integer> nbrBenevole = new SimpleObjectProperty<>();
 	private final SimpleObjectProperty<Timestamp> debutIntervention =  new SimpleObjectProperty<>() ;
 	private final SimpleObjectProperty<Timestamp> finIntervention = new SimpleObjectProperty<>();
-	
+	private final ObservableList<Benevole> benevoles = FXCollections.observableArrayList();
 	
 	
 	
 	// Getters & setters
 	public final StringProperty nomPosteProperty() {
 		return this.nomPoste;
+	}
+	
+	public ObservableList<Benevole> getBenevoles() {
+		return benevoles;
+	}
+	
+
+	public void setBenevoles(Collection<Benevole> listBenevoles) {
+		benevoles.clear();
+		benevoles.addAll(listBenevoles);
 	}
 	
 	public final String getNomPoste() {

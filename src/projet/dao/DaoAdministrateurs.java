@@ -115,6 +115,7 @@ public class DaoAdministrateurs {
 	private Administrateurs construireAdministrateurs( ResultSet rs ) throws SQLException 
 	{	
 		Administrateurs administrateurs = new Administrateurs();
+		administrateurs.setId(rs.getObject( "id", Integer.class ));
 		return administrateurs;
 	}
 	

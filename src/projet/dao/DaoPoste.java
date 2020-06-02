@@ -23,6 +23,8 @@ public class DaoPoste {
 
 	@Inject
 	private DataSource		dataSource;
+	@Inject
+	private DaoPersonne     daoPersonne;
 
 	
 	// Actions
@@ -144,7 +146,7 @@ public class DaoPoste {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "SELECT * FROM Poste ORDER BY Id";
+			sql = "SELECT * FROM Poste ORDER BY nom_poste";
 			stmt = cn.prepareStatement( sql );
 			rs = stmt.executeQuery();
 
@@ -171,6 +173,7 @@ public class DaoPoste {
 		poste.setNbrBenevole(rs.getObject( "nombre_benevole", Integer.class ));
 		poste.setDebutIntervention(rs.getObject( "debut_intervention", Timestamp.class ));
 		poste.setFinIntervention(rs.getObject( "fin_intervention", Timestamp.class ));
+		poste.setBenevoles(daoPersonne.listerBenevolesPoste(poste));
 		return poste;
 	}
 
