@@ -36,7 +36,7 @@
               </rowConstraints>
                <children>
                   <Label text="Nom :" />
-                  <TextField fx:id="textFieldNom" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="textFieldNom" focusTraversable="false" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" />
                   <Label text="Prénom :" GridPane.rowIndex="1" />
                   <TextField fx:id="textFieldPrenom" prefHeight="25.0" prefWidth="293.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Date de naissance :" GridPane.rowIndex="5" />
