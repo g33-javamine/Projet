@@ -65,16 +65,17 @@ public class ControllerCompteParticipant {
 		datePickerDateNaissance.getEditor().focusedProperty().addListener(new ListenerFocusValidation(courant.dateNaissanceProperty()));
 		datePickerDateNaissance.setConverter(new ConverterStringLocalDate("uuuu-mm-dd"));
 		//textFieldCoequipier.textProperty().bindBidirectional(courant.);
+		textFieldCoequipier.setEditable(false);
 		checkBoxMedicale.selectedProperty().bindBidirectional(courant.autoMedicaleProperty());
+		//checkBoxMedicale.set
 		checkBoxParentale.selectedProperty().bindBidirectional(courant.autoParentaleProperty());
-		// Configuration de l'objet ListViews
 	}
 
 	// Actions
 
 	@FXML
 	private void doSauvegarder() {
-		//modelParticipant.validerMiseAJour();
+		modelParticipant.Sauvegarder();
 		managerGui.showView(EnumView.CompteParticipant);
 	}
 

@@ -43,7 +43,10 @@ public class ControllerAccueilBenevole {
 		managerGui.showView( EnumView.CompteBenevole);
 	}
 
-
+	@FXML
+	private void doParcours() {
+		managerGui.showView( EnumView.Parcours );
+	}
 
 	
 	

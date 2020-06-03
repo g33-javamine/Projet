@@ -31,7 +31,10 @@ public class ControllerAccueilParticipant  {
 	private void doCompte() {
 		managerGui.showView( EnumView.CompteParticipant );
 	}
-
+	@FXML
+	private void doParcours() {
+		managerGui.showView( EnumView.Parcours );
+	}
 
 
 

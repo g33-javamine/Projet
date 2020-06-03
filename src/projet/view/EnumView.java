@@ -8,7 +8,7 @@ public enum EnumView implements IEnumView {
 
 	
 	// Valeurs
-	Parcours			(""),
+	Parcours			("parcours/ViewParcours.fxml"),
 	Gestion 			("admin/ViewGestion.fxml"),
 	GestionBenevole		("admin/ViewGestionBenevole.fxml"),
 	GestionParticipant	("admin/ViewGestionParticipant.fxml"),
@@ -35,6 +35,7 @@ public enum EnumView implements IEnumView {
 	EtatPersonnesParCateogire2	( "personne/ViewEtatPersonnesParCategorie2.fxml" ),
 	CompteParticipant ("participant/ViewCompteParticipant.fxml"), 
 	CompteBenevole("benevole/ViewCompteBenevole.fxml"),
+			
 	;
 
 	
