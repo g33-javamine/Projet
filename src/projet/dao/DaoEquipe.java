@@ -146,7 +146,7 @@ public class DaoEquipe {
 		}
 	}
 	
-	public Equipe retrouver( Participant participant )  {
+	public Equipe retrouver( int idEquipe, Participant participant )  {
 
 		Connection			cn		= null;
 		CallableStatement	stmt	= null;
@@ -158,7 +158,7 @@ public class DaoEquipe {
 
 			sql = "SELECT * FROM Equipe WHERE Id = ?";
             stmt = cn.prepareCall( sql );
-            stmt.setObject( 1, participant.getIdEquipe() );
+            stmt.setObject( 1, idEquipe );
             rs = stmt.executeQuery();
             
             if ( rs.next() ) {

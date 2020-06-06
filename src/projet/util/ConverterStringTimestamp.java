@@ -12,9 +12,19 @@ public class ConverterStringTimestamp extends StringConverter<Timestamp> {
 	// Champs
 
 	private boolean hasParseError = false;
-	
+	private boolean full = true;
 	
 	// Constructeur
+	
+	public ConverterStringTimestamp()
+	{
+		
+	}
+	
+	public ConverterStringTimestamp(boolean full)
+	{
+		this.full = full;
+	}
 	
 	// getters
 	
@@ -31,7 +41,10 @@ public class ConverterStringTimestamp extends StringConverter<Timestamp> {
 			return null;
 		}
 		String moment = object.toString();
-		return moment.substring(0, moment.indexOf('.'));
+		if(full)
+			return moment.substring(0, moment.indexOf('.'));
+		else
+			return moment.substring(0, moment.indexOf(' '));
 	}
 
 	@Override
@@ -41,8 +54,10 @@ public class ConverterStringTimestamp extends StringConverter<Timestamp> {
 		}
 		try {
 			hasParseError = false;
-			string.replace('/', '-');
-			return Timestamp.valueOf( string ) ;
+			if(full)
+				return Timestamp.valueOf( string ) ;
+			else
+				return Timestamp.valueOf( string + " 00:00:00" );
 		} catch (Exception e) {
 			hasParseError = true;
 			return null;

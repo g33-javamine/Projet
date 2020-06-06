@@ -63,8 +63,8 @@ public class ControllerCompteParticipant {
 		textFieldAdresse.textProperty().bindBidirectional(courant.adresseProperty());
 		datePickerDateNaissance.getEditor().textProperty().bindBidirectional(courant.dateNaissanceProperty(), new ConverterStringDate());
 		datePickerDateNaissance.getEditor().focusedProperty().addListener(new ListenerFocusValidation(courant.dateNaissanceProperty()));
-		datePickerDateNaissance.setConverter(new ConverterStringLocalDate("uuuu-mm-dd"));
-		//textFieldCoequipier.textProperty().bindBidirectional(courant.);
+		datePickerDateNaissance.setConverter(new ConverterStringLocalDate("yyyy-MM-dd"));
+		textFieldCoequipier.textProperty().setValue(courant.getCoequipier().getPrenom() + " "+ courant.getCoequipier().getNom());
 		textFieldCoequipier.setEditable(false);
 		checkBoxMedicale.selectedProperty().bindBidirectional(courant.autoMedicaleProperty());
 		//checkBoxMedicale.set

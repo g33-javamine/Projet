@@ -1,7 +1,4 @@
 package projet.view.participant;
-
-import java.time.LocalDate;
-
 import javax.inject.Inject;
 
 import jfox.commun.exception.ExceptionValidation;

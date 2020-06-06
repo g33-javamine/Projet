@@ -43,13 +43,6 @@ public class ConverterStringDate extends StringConverter<Date> {
 		}
 		try {
 			hasParseError = false;
-			if ( string.charAt(1) == '/' ) {
-				string = '-' + string;
-			}
-			if ( string.charAt(4) == '/' ) {
-				string = string.substring( 0, 3) +  '0' + string.substring(3);
-			}
-			string.replace('/', '-');
 			return Date.valueOf( string ) ;
 		} catch (Exception e) {
 			hasParseError = true;

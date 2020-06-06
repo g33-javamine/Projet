@@ -8,11 +8,7 @@ public enum EnumView implements IEnumView {
 
 	
 	// Valeurs
-<<<<<<< HEAD
 	Parcours			("parcours/ViewParcours.fxml"),
-=======
-	Parcours			("parcours/"),
->>>>>>> stash
 	Gestion 			("admin/ViewGestion.fxml"),
 	GestionBenevole		("admin/ViewGestionBenevole.fxml"),
 	GestionParticipant	("admin/ViewGestionParticipant.fxml"),
@@ -20,8 +16,8 @@ public enum EnumView implements IEnumView {
 	AccueilBenevole 	("benevole/ViewAccueilBenevole.fxml"),
 	AccueilAdmin 		("admin/ViewAccueilAdmin.fxml"),
 	Connexion			( "systeme/ViewConnexion.fxml" ),
-	CompteParticipant ("participant/ViewCompteParticipant.fxml"), 
-	CompteBenevole("benevole/ViewCompteBenevole.fxml"),
+	CompteParticipant 	("participant/ViewCompteParticipant.fxml"), 
+	CompteBenevole		("benevole/ViewCompteBenevole.fxml"),
 			
 	;
 

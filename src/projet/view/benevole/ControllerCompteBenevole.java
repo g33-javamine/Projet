@@ -59,7 +59,7 @@ public class ControllerCompteBenevole {
 		textFieldAdresse.textProperty().bindBidirectional(courant.adresseProperty());
 		datePickerDateNaissance.getEditor().textProperty().bindBidirectional(courant.dateNaissanceProperty(), new ConverterStringDate());
 		datePickerDateNaissance.getEditor().focusedProperty().addListener(new ListenerFocusValidation(courant.dateNaissanceProperty()));
-		datePickerDateNaissance.setConverter(new ConverterStringLocalDate("uuuu-mm-dd"));
+		datePickerDateNaissance.setConverter(new ConverterStringLocalDate("uuuu-MM-dd"));
 		//checkBoxPermis.selectedProperty().bindBidirectional( courant.permisProperty());
 	}
 

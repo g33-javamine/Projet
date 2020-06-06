@@ -13,8 +13,8 @@ public class Participant extends Personne{
 	
 	protected final Property<Boolean>		autoMedicale	= new SimpleObjectProperty<>( false );
 	protected final Property<Boolean>		autoParentale	= new SimpleObjectProperty<>( false );
-	protected final Property<Equipe> idEquipe = new SimpleObjectProperty<>();
-	protected final Property<Club> idClub = new SimpleObjectProperty<>();
+	protected final Property<Equipe> 		idEquipe = new SimpleObjectProperty<>();
+	protected final Property<Club> 			idClub = new SimpleObjectProperty<>();
 
 	
 	
@@ -97,7 +97,32 @@ public class Participant extends Personne{
 		this.idClubProperty().setValue(idClub);
 	}
 	
-
+	public final Property<Participant> coequipierProperty()
+	{
+		if(idEquipe.getValue() != null )
+		{
+			Equipe equipe = idEquipe.getValue();
+			if(this == equipe.getIdCapitaine())
+			{
+				return equipe.idEquipierProperty();
+			}
+			else
+			{
+				return equipe.idCapitaineProperty();
+			}
+		}
+		return null;
+	}
+	
+	public final Participant getCoequipier()
+	{
+		Property<Participant> coequipier = coequipierProperty();
+		if(coequipier == null)
+		{
+			return null;
+		}
+		return coequipier.getValue();
+	}
 
 	
 

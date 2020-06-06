@@ -50,7 +50,7 @@ public class DaoParticipant {
 			}
 			else
 			{
-				stmt.setObject(	5, participant.getIdClub());
+				stmt.setObject(	4, participant.getIdClub().getId());
 			}
 			stmt.executeUpdate();
 
@@ -84,7 +84,7 @@ public class DaoParticipant {
 			}
 			else
 			{
-				stmt.setObject(	4, participant.getIdClub());
+				stmt.setObject(	4, participant.getIdClub().getId());
 			}
 			stmt.setObject(	5, participant.getId() );
 			stmt.executeUpdate();
@@ -116,7 +116,7 @@ public class DaoParticipant {
             rs = stmt.executeQuery();
             if ( rs.next() ) {
             	Participant participant = construireParticipant(rs );
-            	participant.setIdEquipe(daoEquipe.retrouver(participant));
+            	participant.setIdEquipe(daoEquipe.retrouver(rs.getObject("id_Equipe",Integer.class),participant));
                 return participant;
             } else {
             	return null;
