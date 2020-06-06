@@ -27,7 +27,7 @@
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Postes" />
-                        <ListView fx:id="listViewPoste" onMouseClicked="#gererClicSurListe" prefHeight="248.0" prefWidth="200.0" />
+                        <ListView fx:id="listViewPoste" onMouseClicked="#gererClicSurListe" prefHeight="248.0" prefWidth="210.0" />
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="208.0" GridPane.columnIndex="1">
@@ -40,10 +40,11 @@
             </GridPane>
          </children>
       </VBox>
-      <HBox alignment="CENTER" layoutX="11.0" layoutY="342.0" prefHeight="60.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="-11.0">
+      <HBox alignment="CENTER" layoutY="342.0" prefHeight="60.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button fx:id="buttonModifier" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Modifier" />
-            <Button fx:id="buttonAssimiler" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Assimiler" />
+            <Button fx:id="buttonSupprimerPoste" defaultButton="true" mnemonicParsing="false" onAction="#doSupprimer" prefHeight="26.0" prefWidth="120.0" text="Supprimer Poste" />
+            <Button fx:id="buttonModifierPoste" defaultButton="true" mnemonicParsing="false" onAction="#doModifier" prefHeight="26.0" prefWidth="120.0" text="Modifier Poste" />
+            <Button fx:id="buttonAjouterPoste" defaultButton="true" mnemonicParsing="false" onAction="#doAjouter" prefHeight="26.0" prefWidth="120.0" text="Ajouter Poste" />
          </children></HBox>
    </children>
 </AnchorPane>

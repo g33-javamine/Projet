@@ -29,8 +29,6 @@ public class ControllerConnexion {
 	private IManagerGui		managerGui;
 	@Inject
 	private ModelConnexion	modelConnexion;
-	@Inject
-	private ModelInfo		modelInfo;
 	
 	
 	// Initialisation du Controller
@@ -58,22 +56,22 @@ public class ControllerConnexion {
 	
 	@FXML
 	private void doConnexion() {
-		managerGui.execTask( () -> {
+		managerGui.execTask( () -> 
+		{
 			modelConnexion.ouvrirSessionUtilisateur();
-			Platform.runLater( () -> {
-         			modelInfo.titreProperty().setValue( "Bienvenue" );
-        			modelInfo.messageProperty().setValue( "Connexion réussie" );
-        			switch(modelConnexion.getCompteActif().getRole())
-        			{
+			Platform.runLater( () -> 
+			{
+        		switch(modelConnexion.getCompteActif().getRole())
+        		{
         			case Roles.ADMINISTRATEUR : managerGui.showView(EnumView.AccueilAdmin);
         				break;
         			case Roles.BENEVOLE : managerGui.showView(EnumView.AccueilBenevole);
     					break;
         			case Roles.PARTICIPANT : managerGui.showView(EnumView.AccueilParticipant);
     					break;
-        			}
-            }) ;
-		} );
+        		}
+            });
+		});
 	}
 	
 

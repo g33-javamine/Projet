@@ -23,9 +23,11 @@ public class ControllerGestionBenevole {
 	@FXML
 	private ListView<Benevole>	listViewBenevole;
 	@FXML
-	private Button				buttonModifier;
+	private Button				buttonAjouterPoste;
 	@FXML
-	private Button				buttonAssimiler;
+	private Button				buttonSupprimerPoste;
+	@FXML
+	private Button				buttonModifierPoste;
 
 
 	// Autres champs
@@ -62,13 +64,19 @@ public class ControllerGestionBenevole {
 	// Actions
 	
 	@FXML
-	private void doModifier() 
+	private void doAjouter() 
 	{
 
 	}
 	
 	@FXML
-	private void doAssimiler() 
+	private void doSupprimer() 
+	{
+
+	}
+	
+	@FXML
+	private void doModifier() 
 	{
 
 	}

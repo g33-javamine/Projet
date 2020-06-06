@@ -50,7 +50,7 @@ public class DaoParticipant {
 			}
 			else
 			{
-				stmt.setObject(	5, participant.getIdEquipe().getId());
+				stmt.setObject(	5, participant.getIdClub());
 			}
 			stmt.executeUpdate();
 
@@ -84,7 +84,7 @@ public class DaoParticipant {
 			}
 			else
 			{
-				stmt.setObject(	4, participant.getIdEquipe().getId());
+				stmt.setObject(	4, participant.getIdClub());
 			}
 			stmt.setObject(	5, participant.getId() );
 			stmt.executeUpdate();
