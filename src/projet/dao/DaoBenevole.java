@@ -102,12 +102,15 @@ public class DaoBenevole {
 			stmt.executeUpdate();
 			stmt.close();
 			
-			sql = "INSERT INTO a_poste(id,nom_poste VALUES (?,?)";
-			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS );
-			stmt.setObject( 1, benevole.getId());
-			stmt.setObject( 2, benevole.getPosteAssignee().getNomPoste());
-			stmt.executeUpdate();
-			stmt.close();
+			if(benevole.getPosteAssignee() != null)
+			{
+				sql = "INSERT INTO a_poste(id,nom_poste VALUES (?,?)";
+				stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS );
+				stmt.setObject( 1, benevole.getId());
+				stmt.setObject( 2, benevole.getPosteAssignee().getNomPoste());
+				stmt.executeUpdate();
+				stmt.close();
+			}
 			
 			sql = "DELETE FROM est_assignee WHERE id = ?";
 			stmt = cn.prepareStatement( sql, Statement.RETURN_GENERATED_KEYS );
@@ -123,7 +126,12 @@ public class DaoBenevole {
 				stmt.executeUpdate();
 				stmt.close();
 			}
-
+			
+			if(benevole.getPermis() != null)
+			{
+				daoPermisDeConduire.supprimer(benevole.getId());
+				daoPermisDeConduire.inserer(benevole.getPermis());
+			}
 			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

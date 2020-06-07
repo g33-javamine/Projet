@@ -63,7 +63,7 @@ public class ModelPoste
 			
 			StringBuilder message = new StringBuilder();
 			
-			if( newNom.getValue() == null || newNom.getValue().isEmpty() ) {
+			if( newNom.getValue() == null || newNom.getValue() == "" ) {
 				message.append( "\nLe nom du poste ne doit pas être vide." );
 			} else  if ( newNom.getValue().length()> 50 ) {
 				message.append( "\nLe nom du poste est trop long : 50 maxi." );

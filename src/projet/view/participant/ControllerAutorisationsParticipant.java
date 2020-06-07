@@ -39,7 +39,8 @@ public class ControllerAutorisationsParticipant {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choisissez un fichier image");
 		File fichier = fileChooser.showOpenDialog(managerGui.getStage());
-		if (fichier != null) {
+		if (fichier != null) 
+		{
 			imageViewAutoMedicale.setImage(new Image(fichier.toURI().toString()));
 		}
 	}
@@ -64,7 +65,8 @@ public class ControllerAutorisationsParticipant {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choisissez un fichier image");
 		File fichier = fileChooser.showOpenDialog(managerGui.getStage());
-		if (fichier != null) {
+		if (fichier != null) 
+		{
 			imageViewAutoParentale.setImage(new Image(fichier.toURI().toString()));
 		}
 	}
@@ -86,6 +88,9 @@ public class ControllerAutorisationsParticipant {
 	
 	@FXML
 	private void doSauvegarder(){
+		modelParticipant.getCourant().setAutoParentale(imageViewAutoParentale.getImage() != null);
+		modelParticipant.getCourant().setAutoMedicale(imageViewAutoMedicale.getImage() != null);
+		modelParticipant.Sauvegarder();
 		modelParticipant.sauvegarderImageAutorisations();
 		managerGui.showView(EnumView.CompteParticipant);
 	}

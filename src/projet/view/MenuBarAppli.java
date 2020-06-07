@@ -61,7 +61,7 @@ public class MenuBarAppli extends MenuBar {
 		menu.getItems().add( item );
 
 		
-		// Menu Données
+		// Menu Admin
 		
 		menu =  new Menu( "Admin" );
 		this.getMenus().add(menu);
@@ -80,7 +80,7 @@ public class MenuBarAppli extends MenuBar {
 		menu.getItems().add( item );
 
 		
-		// Menu Etats
+		// Menu Participant
 		
 		menu =  new Menu( "Participant" );
 		this.getMenus().add(menu);
@@ -95,7 +95,7 @@ public class MenuBarAppli extends MenuBar {
 		menu.getItems().add( item );
 
 		
-		// Manu Tests
+		// Manu Bénévole
 		
 		menu =  new Menu( "Bénévole" );
 		this.getMenus().add(menu);

@@ -67,8 +67,9 @@ public class ControllerCompteParticipant {
 		textFieldCoequipier.textProperty().setValue(courant.getCoequipier().getPrenom() + " "+ courant.getCoequipier().getNom());
 		textFieldCoequipier.setEditable(false);
 		checkBoxMedicale.selectedProperty().bindBidirectional(courant.autoMedicaleProperty());
-		//checkBoxMedicale.set
 		checkBoxParentale.selectedProperty().bindBidirectional(courant.autoParentaleProperty());
+		checkBoxMedicale.setDisable(true);
+		checkBoxParentale.setDisable(true);
 	}
 
 	// Actions

@@ -20,7 +20,7 @@ public class Poste {
 	private final StringProperty		typeBenevole			= new SimpleStringProperty("NN");
 	private final SimpleObjectProperty<Integer> nbrBenevole = new SimpleObjectProperty<>(0);
 	private final SimpleObjectProperty<Timestamp> debutIntervention =  new SimpleObjectProperty<>(Timestamp.from(Instant.now())) ;
-	private final SimpleObjectProperty<Timestamp> finIntervention = new SimpleObjectProperty<>(Timestamp.from(Instant.now()));
+	private final SimpleObjectProperty<Timestamp> finIntervention = new SimpleObjectProperty<>(Timestamp.from(Instant.EPOCH));
 	private final ObservableList<Benevole> benevoles = FXCollections.observableArrayList();
 	
 	

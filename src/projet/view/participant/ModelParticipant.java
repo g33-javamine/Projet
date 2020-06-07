@@ -111,7 +111,10 @@ public class ModelParticipant {
 			message.append("\nL'adresse e-mail ne doit pas être vide.");
 		} else if (courant.getMail().length() > 50) {
 			message.append("\nL'adresse e-mail est trop longue : 50 maxi.");
+		}else if (courant.getMail().indexOf("@") >= courant.getMail().lastIndexOf(".")) {
+			message.append("\nL'adresse e-mail rentrer n'est pas reconnue comme adresse mail");
 		}
+		
 		if (courant.getAdresse() == null || courant.getAdresse().isEmpty()) {
 			message.append("\nL'adresse ne doit pas être vide.");
 		} else if (courant.getAdresse().length() > 50) {

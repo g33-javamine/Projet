@@ -13,14 +13,12 @@ import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import jfox.commun.exception.ExceptionValidation;
-import jfox.javafx.util.UtilFX;
 import projet.commun.IMapper;
 import projet.dao.DaoBenevole;
+import projet.dao.DaoPermisDeConduire;
 import projet.dao.DaoPersonne;
 import projet.data.Benevole;
-import projet.data.Participant;
 import projet.data.Utilisateur;
-import projet.view.systeme.ModelConfig;
 import projet.view.systeme.ModelConfigPermis;
 
 public class ModelBenevole {
@@ -38,6 +36,8 @@ public class ModelBenevole {
 	private DaoBenevole daoBenevole;
 	@Inject
 	private DaoPersonne daoPersonne;
+	@Inject
+	private DaoPermisDeConduire daoPermis;
 	@Inject
 	private ModelConfigPermis modelConfigPermis;
 	// Getters
@@ -101,7 +101,10 @@ public class ModelBenevole {
 			message.append("\nL'adresse e-mail ne doit pas être vide.");
 		} else if (courant.getMail().length() > 50) {
 			message.append("\nL'adresse e-mail est trop longue : 50 maxi.");
+		}else if (courant.getMail().indexOf("@") > courant.getMail().lastIndexOf(".")) {
+			message.append("\nL'adresse e-mail rentrer n'est pas reconnue comme adresse mail");
 		}
+		
 		if (courant.getAdresse() == null || courant.getAdresse().isEmpty()) {
 			message.append("\nL'adresse ne doit pas être vide.");
 		} else if (courant.getAdresse().length() > 50) {
@@ -135,7 +138,13 @@ public class ModelBenevole {
 			}
 		}
 	}
-
+	
+	public void reinitialisationPermis()
+	{
+		daoPermis.supprimer(courant.getPermis().getId());
+		courant.setPermis(null);
+	}
+	
 	// Méthodes auxiliaires
 	public File getFichierSchemaCourantPermis() {
 		String nomFichier = String.format("%06d.jpg", courant.getId());

@@ -60,7 +60,8 @@ public class ControllerCompteBenevole {
 		datePickerDateNaissance.getEditor().textProperty().bindBidirectional(courant.dateNaissanceProperty(), new ConverterStringDate());
 		datePickerDateNaissance.getEditor().focusedProperty().addListener(new ListenerFocusValidation(courant.dateNaissanceProperty()));
 		datePickerDateNaissance.setConverter(new ConverterStringLocalDate("uuuu-MM-dd"));
-		//checkBoxPermis.selectedProperty().bindBidirectional( courant.permisProperty());
+		checkBoxPermis.setSelected( courant.getPermis() != null);
+		checkBoxPermis.setDisable(true);
 	}
 
 	// Actions
@@ -73,6 +74,10 @@ public class ControllerCompteBenevole {
 
 	@FXML
 	private void doAjouter() {
+		if(modelBenevole.getCourant().getPermis() != null)
+		{
+			modelBenevole.reinitialisationPermis();
+		}
 		managerGui.showView(EnumView.Permis);
 
 	}
