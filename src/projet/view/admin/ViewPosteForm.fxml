@@ -30,7 +30,7 @@
               </rowConstraints>
                <children>
                   <Label text="Poste :" />
-                  <TextField fx:id="textFieldNomPoste" editable="false" focusTraversable="false" prefHeight="25.0" prefWidth="45.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="textFieldNomPoste" focusTraversable="false" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1" />
                   <Label text="type de bénévoles :" GridPane.rowIndex="1" />
                   <Label text="nombre bénévoles nécessaires :" GridPane.rowIndex="2" />
                   <Spinner fx:id="spinnerNbrBenevoles" GridPane.columnIndex="1" GridPane.rowIndex="2" />

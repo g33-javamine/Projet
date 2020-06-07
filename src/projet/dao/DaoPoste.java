@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 import jfox.dao.jdbc.UtilJdbc;
+import projet.data.Benevole;
 import projet.data.Poste;
 
 
@@ -57,7 +58,7 @@ public class DaoPoste {
 	}
 
 
-	public void modifier( Poste poste ) {
+	public void modifier( Poste poste, String newNom ) {
 
 		Connection			cn		= null;
 		PreparedStatement	stmt	= null;
@@ -65,16 +66,35 @@ public class DaoPoste {
 
 		try {
 			cn = dataSource.getConnection();
-			sql = "UPDATE Poste SET nom_poste = ?,Types_benevoles = ?,nombre_benevole = ?,debut_intervention = ?,fin_intervention = ? WHERE nom_poste =  ?";
+			sql = "DELETE FROM a_poste WHERE id_poste = ? ";
 			stmt = cn.prepareStatement( sql );
 			stmt.setObject( 1, poste.getNomPoste() );
+			stmt.executeUpdate();
+			stmt.close();
+			
+			sql = "UPDATE Poste SET nom_poste = ?,Types_benevoles = ?,nombre_benevole = ?,debut_intervention = ?,fin_intervention = ? WHERE nom_poste =  ?";
+			stmt = cn.prepareStatement( sql );
+			stmt.setObject( 1, newNom );
 			stmt.setObject( 2, poste.getTypeBenevole() );
 			stmt.setObject( 3, poste.getNbrBenevole() );
 			stmt.setObject( 4, poste.getDebutIntervention() );
 			stmt.setObject( 5, poste.getFinIntervention() );
 			stmt.setObject( 6, poste.getNomPoste() );
 			stmt.executeUpdate();
-
+			stmt.close();
+			
+			poste.setNomPoste(newNom);
+			
+			for(Benevole benevole : poste.getBenevoles())
+			{
+				sql = "INSERT INTO a_poste(id,id_poste) VALUES (?,?)";
+				stmt = cn.prepareStatement( sql );
+				stmt.setObject( 1, benevole.getId() );
+				stmt.setObject( 2, poste.getNomPoste() );
+				stmt.executeUpdate();
+				stmt.close();
+			}
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {

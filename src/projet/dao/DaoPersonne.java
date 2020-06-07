@@ -307,11 +307,38 @@ public class DaoPersonne {
 			UtilJdbc.close( rs, stmt, cn );
 		}
 	}
+	
+	public List<Benevole> listerBenevolesSansPoste()
+	{
+		Connection			cn 		= null;
+		PreparedStatement	stmt 	= null;
+		ResultSet 			rs		= null;
+		String				sql;
 
+		try {
+			cn = dataSource.getConnection();
+			sql = "SELECT * FROM Personne WHERE id NOT IN (SELECT id FROM a_poste) AND id IN (SELECT id FROM benevole) ORDER BY id";
+			stmt = cn.prepareStatement( sql );
+			rs = stmt.executeQuery();
+
+			List<Benevole> Benevoles = new LinkedList<>();
+			while (rs.next()) {
+				Benevole benevole = daoBenevole.retrouver(rs.getObject( "id", Integer.class ));
+				completerPersonne( rs,benevole);
+				Benevoles.add( benevole);
+			}
+			return Benevoles;
+ 
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			UtilJdbc.close( rs, stmt, cn );
+		}
+	}
+	
 	// Méthodes auxiliaires
 	
 	private void completerPersonne( ResultSet rs, Personne personne ) throws SQLException {
-		
 		personne.setAdresse(rs.getObject( "Adresse", String.class ));
 		personne.setDateNaissance(rs.getObject( "DateNaissance", Date.class ));
 		personne.setMail(rs.getObject( "Mail", String.class ));

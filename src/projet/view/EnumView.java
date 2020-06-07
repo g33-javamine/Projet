@@ -11,6 +11,7 @@ public enum EnumView implements IEnumView {
 	Parcours			("parcours/ViewParcours.fxml"),
 	Gestion 			("admin/ViewGestion.fxml"),
 	GestionBenevole		("admin/ViewGestionBenevole.fxml"),
+	PosteForm			("admin/ViewPosteForm.fxml"),
 	GestionParticipant	("admin/ViewGestionParticipant.fxml"),
 	AccueilParticipant 	("participant/ViewAccueilParticipant.fxml"),
 	AccueilBenevole 	("benevole/ViewAccueilBenevole.fxml"),

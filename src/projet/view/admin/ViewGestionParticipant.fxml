@@ -34,8 +34,8 @@
                   <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="208.0" GridPane.columnIndex="1">
                      <children>
                         <Label text="Personnes" />
-                        <ListView fx:id="listViewParticipant" prefHeight="74.0" prefWidth="199.0" />
-                        <Button fx:id="buttonValidites" defaultButton="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Voir validités">
+                        <ListView fx:id="listViewParticipant" prefHeight="188.0" prefWidth="199.0" />
+                        <Button fx:id="buttonValidites" defaultButton="true" mnemonicParsing="false" onAction="#doValidites" prefHeight="25.0" prefWidth="84.0" text="Voir validités">
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>

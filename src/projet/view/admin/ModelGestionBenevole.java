@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+import projet.dao.DaoPersonne;
 import projet.dao.DaoPoste;
 import projet.data.Poste;
 import projet.data.Benevole;
@@ -32,6 +33,8 @@ public class ModelGestionBenevole  {
 		// Autres champs
 	    @Inject
 		private DaoPoste	daoPoste;
+	    @Inject
+		private DaoPersonne	daoPersonne;
 	    
 
 	    
@@ -93,6 +96,29 @@ public class ModelGestionBenevole  {
 		{
 			posteList.clear();
 			posteList.addAll(daoPoste.listerTout());
+			Poste vide = new Poste();
+			vide.setNomPoste("Sans poste");
+			vide.setNbrBenevole(0);
+			vide.setBenevoles(daoPersonne.listerBenevolesSansPoste());
+			posteList.add(vide);
 	 	}
-	
+		
+		public void actualiserDragAndDrop(Poste debut,Poste fin) 
+		{
+			if(debut.getNomPoste() != "Sans poste")
+			{
+				daoPoste.modifier(debut, debut.getNomPoste());
+			}
+			
+			if(fin.getNomPoste() != "Sans poste")
+			{
+				daoPoste.modifier(fin, fin.getNomPoste());
+			}
+	 	}
+		
+		public void supprimer()
+		{
+			daoPoste.supprimer(posteCourant.getNomPoste());
+			actualiserListePoste();
+		}
 }

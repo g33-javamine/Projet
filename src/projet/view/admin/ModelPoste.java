@@ -2,9 +2,8 @@ package projet.view.admin;
 
 import javax.inject.Inject;
 
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleObjectProperty;
-import jfox.javafx.util.UtilFX;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import projet.commun.IMapper;
 import projet.dao.DaoPoste;
 import projet.data.Poste;
@@ -14,7 +13,8 @@ public class ModelPoste
 	// Données observables 
 		
 		private final Poste	courant = new Poste();
-		
+		private final StringProperty newNom = new SimpleStringProperty();
+		private boolean creer;
 		
 		// Autres champs
 	    @Inject
@@ -29,14 +29,30 @@ public class ModelPoste
 			return courant;
 		}
 		
+		public final StringProperty newNomProperty() {
+			return this.newNom;
+		}
+
+		public final String getNewNom() {
+			return this.newNomProperty().get();
+		}
+
+		public final void setNewNom(final String newNom) {
+			this.newNomProperty().set(newNom);
+		}
+		
 		// Actions
 		
 		public void preparerAjouter() {
+			creer = true;
+			newNom.setValue("");
 			mapper.update( courant, new Poste() );
 		}
 
 		
 		public void preparerModifier( Poste item ) {
+			creer = false;
+			newNom.setValue(item.getNomPoste());
 			mapper.update( courant, daoPoste.retrouver( item.getNomPoste() ) );
 		}
 		
@@ -47,43 +63,34 @@ public class ModelPoste
 			
 			StringBuilder message = new StringBuilder();
 			
-			if( courant.getPseudo() == null || courant.getPseudo().isEmpty() ) {
-				message.append( "\nLe pseudo ne doit pas être vide." );
-			} else 	if ( courant.getPseudo().length() < 3 ) {
-				message.append( "\nLe pseudo est trop court : 3 mini." );
-			} else  if ( courant.getPseudo().length()> 25 ) {
-				message.append( "\nLe pseudo est trop long : 25 maxi." );
-			} else 	if ( ! daoCompte.verifierUnicitePseudo( courant.getPseudo(), courant.getId() ) ) {
-				message.append( "\nLe pseudo " + courant.getPseudo() + " est déjà utilisé." );
+			if( newNom.getValue() == null || newNom.getValue().isEmpty() ) {
+				message.append( "\nLe nom du poste ne doit pas être vide." );
+			} else  if ( newNom.getValue().length()> 50 ) {
+				message.append( "\nLe nom du poste est trop long : 50 maxi." );
 			}
 			
-			if( courant.getMotDePasse() == null || courant.getMotDePasse().isEmpty() ) {
-				message.append( "\nLe mot de passe ne doit pas être vide." );
-			} else  if ( courant.getMotDePasse().length()< 3 ) {
-				message.append( "\nLe mot de passe est trop court : 3 mini." );
-			} else  if ( courant.getMotDePasse().length()> 25 ) {
-				message.append( "\nLe mot de passe est trop long : 25 maxi." );
+			if( courant.getDebutIntervention() == null  ) {
+				message.append( "\nLa date de début d'intervention ne doit pas être vide." );
 			}
 			
-			if( courant.getEmail() == null || courant.getEmail().isEmpty() ) {
-				message.append( "\nL'adresse e-mail ne doit pas être vide." );
-			} else  if ( courant.getEmail().length()> 100 ) {
-				message.append( "\nL'adresse e-mail est trop longue : 100 maxi." );
+			if( courant.getFinIntervention() == null  ) {
+				message.append( "\nLa date de début d'intervention ne doit pas être vide." );
 			}
 			
-			if ( message.length() > 0 ) {
-				throw new ExceptionValidation( message.toString().substring(1) );
-			}
 			
 			
 			// Effectue la mise à jour
 			
-			if ( courant.getId() == null ) {
+			if ( creer) 
+			{
 				// Insertion
-				courant.setId( daoCompte.inserer( courant ) );
+				courant.setNomPoste(newNom.getValue());
+				daoPoste.inserer( courant );
+				creer = false;
 			} else {
 				// modficiation
-				daoCompte.modifier( courant );
+				daoPoste.modifier( courant,newNom.getValue());
 			}
 		}
+		
 }

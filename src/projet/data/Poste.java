@@ -1,6 +1,7 @@
 package projet.data;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Collection;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -16,10 +17,10 @@ public class Poste {
 	// Champs
 	
 	private final StringProperty		nomPoste			= new SimpleStringProperty();
-	private final StringProperty		typeBenevole			= new SimpleStringProperty();
-	private final SimpleObjectProperty<Integer> nbrBenevole = new SimpleObjectProperty<>();
-	private final SimpleObjectProperty<Timestamp> debutIntervention =  new SimpleObjectProperty<>() ;
-	private final SimpleObjectProperty<Timestamp> finIntervention = new SimpleObjectProperty<>();
+	private final StringProperty		typeBenevole			= new SimpleStringProperty("NN");
+	private final SimpleObjectProperty<Integer> nbrBenevole = new SimpleObjectProperty<>(0);
+	private final SimpleObjectProperty<Timestamp> debutIntervention =  new SimpleObjectProperty<>(Timestamp.from(Instant.now())) ;
+	private final SimpleObjectProperty<Timestamp> finIntervention = new SimpleObjectProperty<>(Timestamp.from(Instant.now()));
 	private final ObservableList<Benevole> benevoles = FXCollections.observableArrayList();
 	
 	
