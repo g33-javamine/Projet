@@ -135,19 +135,6 @@ public class ControllerGestionBenevole {
 	}
 	
 	//drag and drop
-
-	
-	@FXML
-	public void onDragDonePoste(DragEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@FXML
-	public void onDragDoneBenevole() {
-		modelGestionBenevole.setBenevoleCourant(null);
-		System.out.println("drag and drop");
-	}
 	
 	public class PosteListCell extends ListCell<Poste> { 
 		 
@@ -185,7 +172,7 @@ public class ControllerGestionBenevole {
 					item.getBenevoles().add(modelGestionBenevole.getBenevoleCourant());
 					modelGestionBenevole.actualiserDragAndDrop(modelGestionBenevole.getPosteCourant(), item);
 					dragEvent.setDropCompleted(true);
-					modelGestionBenevole.actualiserListeBenevole();
+					refreshBenevole();
 				}});
 			
 		}
