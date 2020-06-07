@@ -67,14 +67,13 @@ public class ControllerCompteBenevole {
 
 	@FXML
 	private void doSauvegarder() {
-		modelBenevole.validerMiseAJour();
+		modelBenevole.sauvegarder();
 		managerGui.showView(EnumView.CompteBenevole);
 	}
 
 	@FXML
 	private void doAjouter() {
-
-		managerGui.showView(EnumView.CompteBenevole);
+		managerGui.showView(EnumView.Permis);
 
 	}
 }

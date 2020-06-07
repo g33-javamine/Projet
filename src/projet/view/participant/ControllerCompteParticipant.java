@@ -82,12 +82,12 @@ public class ControllerCompteParticipant {
 	@FXML
 	private void doAjouterMedicale() {      // A Créer une méthode dans modèle pour ajouter autorisation
 		//modelParticipant.validerMiseAJour();
-		managerGui.showView(EnumView.CompteParticipant);
+		managerGui.showView(EnumView.Autorisations);
 	}
 	@FXML
 	private void doAjouterParentale() {
 		//modelParticipant.validerMiseAJour(); // A Créer une méthode dans modèle pour ajouter autorisation
-		managerGui.showView(EnumView.CompteParticipant);
+		managerGui.showView(EnumView.Autorisations);
 	}
 	
 

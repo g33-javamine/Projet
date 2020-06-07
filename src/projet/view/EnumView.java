@@ -19,7 +19,8 @@ public enum EnumView implements IEnumView {
 	Connexion			( "systeme/ViewConnexion.fxml" ),
 	CompteParticipant 	("participant/ViewCompteParticipant.fxml"), 
 	CompteBenevole		("benevole/ViewCompteBenevole.fxml"),
-			
+	Autorisations		("participant/ViewAutoParticipant.fxml"),	
+	Permis				("benevole/ViewPermisBenevole.fxml"),
 	;
 
 	
