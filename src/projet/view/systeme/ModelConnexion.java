@@ -57,8 +57,8 @@ public class ModelConnexion {
 	
 	@PostConstruct
 	public void init() {
-		courant.setLogin( "machin" );
-		courant.setPassword( "lol" );
+		courant.setLogin( "participant" );
+		courant.setPassword( "testP" );
 	}
 	
 	

@@ -108,7 +108,7 @@ CREATE TABLE Parcours(
 CREATE TABLE Equipe(
 	Id                   SERIAL NOT NULL ,
 	Paiement             BOOL  NOT NULL ,
-	Nbr_repas            INT  NOT NULL CHECK (nbr_repas > 0),
+	Nbr_repas            INT  NOT NULL CHECK (nbr_repas >= 0),
 	Categorie            VARCHAR (2) NOT NULL CHECK (Categorie SIMILAR TO '(H|F|M)(A|N)'  ),
 	Id_Parcours          INT  NOT NULL ,
 	Id_Capitaine         INT  NOT NULL UNIQUE,

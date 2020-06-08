@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import jfox.commun.exception.ExceptionValidation;
 import projet.commun.IMapper;
 import projet.dao.DaoPoste;
 import projet.data.Poste;
@@ -77,7 +78,9 @@ public class ModelPoste
 				message.append( "\nLa date de début d'intervention ne doit pas être vide." );
 			}
 			
-			
+			if (message.length() > 0) {
+				throw new ExceptionValidation(message.toString().substring(1));
+			}
 			
 			// Effectue la mise à jour
 			

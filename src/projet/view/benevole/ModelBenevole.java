@@ -101,7 +101,7 @@ public class ModelBenevole {
 			message.append("\nL'adresse e-mail ne doit pas être vide.");
 		} else if (courant.getMail().length() > 50) {
 			message.append("\nL'adresse e-mail est trop longue : 50 maxi.");
-		}else if (courant.getMail().indexOf("@") > courant.getMail().lastIndexOf(".")) {
+		}else if (courant.getMail().indexOf("@") != courant.getMail().lastIndexOf("@") || courant.getMail().indexOf("@") >= courant.getMail().lastIndexOf(".")) {
 			message.append("\nL'adresse e-mail rentrer n'est pas reconnue comme adresse mail");
 		}
 		

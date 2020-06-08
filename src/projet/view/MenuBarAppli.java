@@ -111,7 +111,7 @@ public class MenuBarAppli extends MenuBar {
 		
 		// Manu Tests
 		
-		menu =  new Menu( "Générale" );;
+		menu =  new Menu( "Général" );;
 		this.getMenus().add(menu);
 		menuGeneral = menu;
 				

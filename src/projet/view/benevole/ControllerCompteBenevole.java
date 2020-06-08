@@ -27,6 +27,8 @@ public class ControllerCompteBenevole {
 	@FXML
 	private TextField textFieldMail;
 	@FXML
+	private TextField textFieldPoste;
+	@FXML
 	private TextField textFieldAdresse;
 	@FXML
 	private DatePicker datePickerDateNaissance;
@@ -57,6 +59,11 @@ public class ControllerCompteBenevole {
 		textFieldTel.textProperty().bindBidirectional(courant.telProperty());
 		textFieldMail.textProperty().bindBidirectional(courant.mailProperty());
 		textFieldAdresse.textProperty().bindBidirectional(courant.adresseProperty());
+		if(courant.getPosteAssignee() != null)
+			textFieldPoste.textProperty().bindBidirectional(courant.getPosteAssignee().nomPosteProperty());
+		else
+			textFieldPoste.textProperty().set("aucun poste assigné");
+		textFieldPoste.setEditable(false);
 		datePickerDateNaissance.getEditor().textProperty().bindBidirectional(courant.dateNaissanceProperty(), new ConverterStringDate());
 		datePickerDateNaissance.getEditor().focusedProperty().addListener(new ListenerFocusValidation(courant.dateNaissanceProperty()));
 		datePickerDateNaissance.setConverter(new ConverterStringLocalDate("uuuu-MM-dd"));

@@ -165,7 +165,8 @@ public class DaoParticipant {
 		participant.setAutoMedicale(rs.getObject("Autorisation_medicale",Boolean.class));
 		participant.setAutoParentale(rs.getObject("Autorisation_parentale",Boolean.class));
 		participant.setId(rs.getObject("id",Integer.class));
-		participant.setIdClub(daoClub.retrouver(rs.getObject("Id_Club",Integer.class)));
+		if(rs.getObject("Id_Club",Integer.class) != null)
+			participant.setIdClub(daoClub.retrouver(rs.getObject("Id_Club",Integer.class)));
 		
 		return participant;
 	}

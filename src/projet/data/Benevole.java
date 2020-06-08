@@ -15,6 +15,8 @@ public class Benevole extends Personne
 		protected final Property<Poste> posteAssignee = new SimpleObjectProperty<>();
 		protected final ObservableList<Balise> baliseAssignee = FXCollections.observableArrayList();
 		
+		
+		
 		public final Property<PermisDeConduire> permisProperty() {
 			return this.permis;
 		}
